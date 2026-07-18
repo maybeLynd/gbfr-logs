@@ -85,6 +85,11 @@
   color: #e6e6e6;
 }
 
+.capped {
+  color: #ffb454;
+  font-weight: 600;
+}
+
 .table {
   table-layout: fixed;
   text-align: left;

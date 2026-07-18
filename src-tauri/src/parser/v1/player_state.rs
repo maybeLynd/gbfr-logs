@@ -18,11 +18,20 @@ pub struct PlayerState {
     pub sba: f64,
     pub total_stun_value: f64,
     pub stun_per_second: f64,
+    pub capped_hits: u32,
+    #[serde(default)]
+    pub cap_known_hits: u32,
+    #[serde(default)]
+    pub deaths: u32,
 }
 
 impl PlayerState {
     pub fn set_sba(&mut self, sba: f64) {
         self.sba = sba;
+    }
+
+    pub fn set_deaths(&mut self, deaths: u32) {
+        self.deaths = deaths;
     }
 
     pub fn update_dps(&mut self, now: i64, start_time: i64) {
@@ -70,6 +79,12 @@ impl PlayerState {
     }
 
     pub fn update_from_damage_event(&mut self, damage_instance: &AdjustedDamageInstance) {
+        if damage_instance.cap_known {
+            self.cap_known_hits += 1;
+        }
+        if damage_instance.is_capped {
+            self.capped_hits += 1;
+        }
         self.total_damage += damage_instance.event.damage as u64;
         self.total_stun_value += damage_instance.stun_damage;
 
@@ -135,6 +150,9 @@ mod tests {
             sba: 0.0,
             total_stun_value: 0.0,
             stun_per_second: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         player_state.update_dps(1000, 0);
@@ -154,6 +172,9 @@ mod tests {
             sba: 0.0,
             total_stun_value: 0.0,
             stun_per_second: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let damage_event = DamageEvent {
@@ -199,6 +220,9 @@ mod tests {
             sba: 0.0,
             total_stun_value: 0.0,
             stun_per_second: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let damage_event = DamageEvent {
@@ -252,6 +276,9 @@ mod tests {
             sba: 0.0,
             stun_per_second: 0.0,
             total_stun_value: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let skill_one = DamageEvent {
@@ -321,6 +348,9 @@ mod tests {
             sba: 0.0,
             stun_per_second: 0.0,
             total_stun_value: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let parent_skill = DamageEvent {
@@ -396,6 +426,9 @@ mod tests {
             sba: 0.0,
             total_stun_value: 0.0,
             stun_per_second: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let damage_event = DamageEvent {
@@ -436,6 +469,7 @@ mod tests {
                 critical_rate: 100.0,
                 total_power: 1000,
             }),
+            master_traits: Vec::new(),
         };
 
         player_state.update_from_damage_event(&AdjustedDamageInstance::from_damage_event(
@@ -458,6 +492,9 @@ mod tests {
             sba: 0.0,
             total_stun_value: 0.0,
             stun_per_second: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
+            deaths: 0,
         };
 
         let damage_event = DamageEvent {

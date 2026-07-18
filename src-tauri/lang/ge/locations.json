@@ -1,0 +1,402 @@
+{
+  "00000100": {
+    "key": "LOCATION_03",
+    "text": "Ainstedt-Archipel, die Hügel"
+  },
+  "00000101": {
+    "key": "LOCATION_04",
+    "text": "Goblin-Festung"
+  },
+  "00000102": {
+    "key": "LOCATION_05",
+    "text": "Minen von Tempera"
+  },
+  "00000103": {
+    "key": "LOCATION_06",
+    "text": "Edelwind-Altar"
+  },
+  "00000104": {
+    "key": "LOCATION_06",
+    "text": "Edelwind-Altar"
+  },
+  "00000150": {
+    "key": "LOCATION_32",
+    "text": "Skywyrm-Tal"
+  },
+  "00000200": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000201": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000202": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000203": {
+    "key": "LOCATION_31",
+    "text": "Hauptdeck, Schlachtschiff"
+  },
+  "00000300": {
+    "key": "LOCATION_07",
+    "text": "Insel Leautagne, Neigelith"
+  },
+  "00000310": {
+    "key": "TITLE_DATA_TREDAME",
+    "text": "Tredame-Tempel"
+  },
+  "00000400": {
+    "key": "LOCATION_13",
+    "text": "Dahli-Ruinengürtel"
+  },
+  "00000401": {
+    "key": "LOCATION_13",
+    "text": "Dahli-Ruinengürtel"
+  },
+  "00000402": {
+    "key": "LOCATION_13",
+    "text": "Dahli-Ruinengürtel"
+  },
+  "00000500": {
+    "key": "LOCATION_15",
+    "text": "Phondam-Inseln"
+  },
+  "00000501": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000502": {
+    "key": "LOCATION_15",
+    "text": "Phondam-Inseln"
+  },
+  "00000600": {
+    "key": "LOCATION_33",
+    "text": "Schloss Saatholm"
+  },
+  "00000601": {
+    "key": "LOCATION_33",
+    "text": "Schloss Saatholm"
+  },
+  "00000700": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "00000701": {
+    "key": "LOCATION_20",
+    "text": "Der vergessene Himmel"
+  },
+  "00000702": {
+    "key": "LOCATION_20",
+    "text": "Der vergessene Himmel"
+  },
+  "00000703": {
+    "key": "LOCATION_30",
+    "text": "Hauptdeck, Zathbas Luftschiff"
+  },
+  "00000704": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "00000710": {
+    "key": "LOCATION_20",
+    "text": "Der vergessene Himmel"
+  },
+  "00000720": {
+    "key": "LOCATION_20",
+    "text": "Der vergessene Himmel"
+  },
+  "00000800": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000801": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000802": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000803": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000900": {
+    "key": "LOCATION_01",
+    "text": "Sonnenfleckenhain"
+  },
+  "00000901": {
+    "key": "LOCATION_01",
+    "text": "Sonnenfleckenhain"
+  },
+  "00000c00": {
+    "key": "LOCATION_02",
+    "text": "Folca, die Grenzstadt"
+  },
+  "00000d00": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Saatholm"
+  },
+  "00000d01": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Saatholm"
+  },
+  "00000d02": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Saatholm"
+  },
+  "00000d03": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Saatholm"
+  },
+  "00000d04": {
+    "key": "TITLE_DATA_BACK_ALLEY",
+    "text": "Seitengasse in Saatholm"
+  },
+  "00000e10": {
+    "key": "LOCATION_29",
+    "text": "Hauptdeck, Rolans Luftschiff"
+  },
+  "00000e20": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e30": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e40": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e41": {
+    "key": "LOCATION_30",
+    "text": "Hauptdeck, Zathbas Luftschiff"
+  },
+  "00000e50": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e60": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e70": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e80": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e90": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000e91": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000ea0": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "00000f21": {
+    "key": "LOCATION_02",
+    "text": "Folca, die Grenzstadt"
+  },
+  "00000ff0": {
+    "key": "QUEST_STAGE_NAME_8ST",
+    "text": "Der vergessene Himmel"
+  },
+  "03fa7660": {
+    "key": "LOCATION_14",
+    "text": "Schauderstein-Altar"
+  },
+  "0601daa7": {
+    "key": "LOCATION_61",
+    "text": "Tal des Zwielichts"
+  },
+  "063a1422": {
+    "key": "LOCATION_07",
+    "text": "Insel Leautagne, Neigelith"
+  },
+  "06ece960": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "08027625": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "0b53c82e": {
+    "key": "LOCATION_09",
+    "text": "Baufälliges Kloster"
+  },
+  "0d289b23": {
+    "key": "LOCATION_57",
+    "text": "Altes Sphärenschlachtfeld"
+  },
+  "0e72aa76": {
+    "key": "LOCATION_05",
+    "text": "Minen von Tempera"
+  },
+  "1d973d2c": {
+    "key": "LOCATION_NOTHING",
+    "text": "???"
+  },
+  "2a5a11a3": {
+    "key": "LOCATION_31",
+    "text": "Hauptdeck, Schlachtschiff"
+  },
+  "3de45f66": {
+    "key": "LOCATION_15",
+    "text": "Phondam-Inseln"
+  },
+  "44c8a56f": {
+    "key": "LOCATION_03",
+    "text": "Ainstedt-Archipel, die Hügel"
+  },
+  "45ee1562": {
+    "key": "LOCATION_52",
+    "text": "Sephira-Tiefen"
+  },
+  "46b84d67": {
+    "key": "LOCATION_33",
+    "text": "Schloss Saatholm"
+  },
+  "491e6d79": {
+    "key": "LOCATION_50",
+    "text": "Sternenmeer-Ruinen von Dahli"
+  },
+  "518ed3b5": {
+    "key": "LOCATION_11",
+    "text": "Bitterfrost-Altar"
+  },
+  "536ca1d9": {
+    "key": "LOCATION_54",
+    "text": "Himmel der Erleuchtung"
+  },
+  "5b8cf8e8": {
+    "key": "LOCATION_20",
+    "text": "Der vergessene Himmel"
+  },
+  "5df0ab63": {
+    "key": "LOCATION_60",
+    "text": "Rotnebel-Wald"
+  },
+  "5eb95d74": {
+    "key": "LOCATION_70",
+    "text": "Wehklagende Lande"
+  },
+  "6625afc9": {
+    "key": "LOCATION_64",
+    "text": "Altar der Stille"
+  },
+  "68819c2d": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "781ff7a8": {
+    "key": "LOCATION_62",
+    "text": "Sonnenhügel"
+  },
+  "7c62b886": {
+    "key": "LOCATION_55",
+    "text": "Null-Meridiankreis"
+  },
+  "962e0f1d": {
+    "key": "LOCATION_68",
+    "text": "Blutrote Glockenstube"
+  },
+  "9948eb8e": {
+    "key": "LOCATION_06",
+    "text": "Edelwind-Altar"
+  },
+  "9d9008a2": {
+    "key": "LOCATION_04",
+    "text": "Goblin-Festung"
+  },
+  "a50ed659": {
+    "key": "LOCATION_69",
+    "text": "Trauerblüte"
+  },
+  "abd287ff": {
+    "key": "LOCATION_00",
+    "text": "Grandcypher-Deck"
+  },
+  "bce014bc": {
+    "key": "LOCATION_18",
+    "text": "Hohlnebel-Altar"
+  },
+  "c15e30c4": {
+    "key": "LOCATION_NOTHING",
+    "text": "???"
+  },
+  "c5328b59": {
+    "key": "LOCATION_66",
+    "text": "Verschneite Stadtruinen"
+  },
+  "cc675873": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "d1b646f9": {
+    "key": "LOCATION_33",
+    "text": "Schloss Saatholm"
+  },
+  "d616a08d": {
+    "key": "LOCATION_15",
+    "text": "Phondam-Inseln"
+  },
+  "d6c6d96c": {
+    "key": "LOCATION_08",
+    "text": "Schneedeckenschlucht"
+  },
+  "d7f4e3c0": {
+    "key": "LOCATION_53",
+    "text": "Thronraum"
+  },
+  "d8ed3036": {
+    "key": "LOCATION_32",
+    "text": "Skywyrm-Tal"
+  },
+  "dc94ad26": {
+    "key": "LOCATION_01",
+    "text": "Sonnenfleckenhain"
+  },
+  "e3146bff": {
+    "key": "LOCATION_58",
+    "text": "Epizentrum der Verzerrung"
+  },
+  "e46d8d29": {
+    "key": "LOCATION_65",
+    "text": "Antike Wohnstätte"
+  },
+  "e4d8397e": {
+    "key": "LOCATION_56",
+    "text": "Yoraku-Tempel"
+  },
+  "e4fb7873": {
+    "key": "LOCATION_67",
+    "text": "Tintenbefleckte Arena"
+  },
+  "e52a8a36": {
+    "key": "LOCATION_13",
+    "text": "Dahli-Ruinengürtel"
+  },
+  "e54cc44d": {
+    "key": "LOCATION_51",
+    "text": "Elysischer Sitz"
+  },
+  "e951128a": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Säule von Vayoi"
+  },
+  "f9765b44": {
+    "key": "LOCATION_63",
+    "text": "Teuflische Burgruine"
+  }
+}

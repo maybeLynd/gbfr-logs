@@ -34,6 +34,8 @@ export const usePlayerRow = (live: boolean, player: ComputedPlayerState, partyDa
   const [dps, dpsUnit] = humanizeNumbers(player.dps);
   const [totalStunValue, totalStunValueUnit] = humanizeNumbers(player.totalStunValue);
 
+  const damageCapPercentage = player.capKnownHits > 0 ? (player.cappedHits / player.capKnownHits) * 100 : null;
+
   // Function for matching the column type to the value to display in the table.
   const matchColumnTypeToValue = (showFullValues: boolean, column: MeterColumns): ColumnValue => {
     switch (column) {
@@ -45,6 +47,8 @@ export const usePlayerRow = (live: boolean, player: ComputedPlayerState, partyDa
         return showFullValues ? { value: (player.dps || 0).toLocaleString() } : { value: dps, unit: dpsUnit };
       case MeterColumns.DamagePercentage:
         return { value: (player.percentage || 0).toFixed(0), unit: "%" };
+      case MeterColumns.DamageCap:
+        return damageCapPercentage === null ? { value: "—" } : { value: damageCapPercentage.toFixed(0), unit: "%" };
       case MeterColumns.SBA:
         return showFullValues
           ? { value: (player.sba / 10).toFixed(2) }
@@ -55,6 +59,8 @@ export const usePlayerRow = (live: boolean, player: ComputedPlayerState, partyDa
         return showFullValues
           ? { value: (player.totalStunValue || 0).toLocaleString() }
           : { value: totalStunValue, unit: totalStunValueUnit };
+      case MeterColumns.Deaths:
+        return { value: player.deaths || 0 };
       default:
         return { value: "" };
     }
@@ -68,7 +74,9 @@ export const usePlayerRow = (live: boolean, player: ComputedPlayerState, partyDa
         MeterColumns.DPS,
         MeterColumns.TotalStunValue,
         MeterColumns.StunPerSecond,
+        MeterColumns.DamageCap,
         MeterColumns.DamagePercentage,
+        MeterColumns.Deaths,
       ];
 
   return {

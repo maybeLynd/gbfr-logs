@@ -4,7 +4,8 @@ use anyhow::Result;
 use chrono::Utc;
 use protocol::{
     AreaEnterEvent, DamageEvent, Message, OnAttemptSBAEvent, OnContinueSBAChainEvent, OnDeathEvent,
-    OnPerformSBAEvent, OnUpdateSBAEvent, PlayerLoadEvent, QuestCompleteEvent,
+    OnPerformSBAEvent, OnUpdateSBAEvent, PlayerEquipmentEvent, PlayerIdentityEvent,
+    PlayerLoadEvent, QuestCompleteEvent,
 };
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
@@ -15,25 +16,135 @@ use super::{
     v0,
 };
 
+mod cap_detection;
+mod master_traits;
 mod player_state;
 mod skill_state;
 
 use player_state::PlayerState;
 
+const ID_ACTOR_TYPE: u32 = 0x8056_ABCD;
+const ID_TRANSFORMATION_ACTOR_TYPE: u32 = 0xF575_5C0E;
+const INFERRED_SBA_USE_PREVIOUS_MIN: f32 = 900.0;
+const INFERRED_SBA_USE_CURRENT_MAX: f32 = 100.0;
+
+type IdTransformationParents = HashMap<u32, u32>;
+
+fn apply_death_count(
+    death_counts: &mut HashMap<u32, u32>,
+    derived_state: &mut DerivedEncounterState,
+    id_transformation_parents: &IdTransformationParents,
+    actor_index: u32,
+    death_counter: u32,
+    is_delta: bool,
+) {
+    let actor_index = id_transformation_parents
+        .get(&actor_index)
+        .copied()
+        .unwrap_or(actor_index);
+    let deaths = death_counts.entry(actor_index).or_default();
+    if is_delta {
+        *deaths = deaths.saturating_add(death_counter);
+    } else {
+        *deaths = (*deaths).max(death_counter);
+    }
+
+    if let Some(player) = derived_state.party.get_mut(&actor_index) {
+        player.set_deaths(*deaths);
+    }
+}
+
+fn observed_id_transformation_parent(event: &DamageEvent) -> Option<(u32, u32)> {
+    (event.source.actor_type == ID_TRANSFORMATION_ACTOR_TYPE
+        && event.source.parent_actor_type == ID_ACTOR_TYPE)
+        .then_some((event.source.index, event.source.parent_index))
+}
+
+fn collect_id_transformation_parents<'a>(
+    events: impl Iterator<Item = &'a (i64, Message)>,
+) -> IdTransformationParents {
+    let mut parents = IdTransformationParents::new();
+
+    for (_, message) in events {
+        let Message::DamageEvent(event) = message else {
+            continue;
+        };
+        let Some((transformation_index, parent_index)) = observed_id_transformation_parent(event)
+        else {
+            continue;
+        };
+
+        parents.entry(transformation_index).or_insert(parent_index);
+    }
+
+    parents
+}
+
+fn resolve_id_transformation_parent(
+    event: &DamageEvent,
+    players: &[Option<PlayerData>; 4],
+    known_parents: &IdTransformationParents,
+) -> DamageEvent {
+    if event.source.actor_type != ID_TRANSFORMATION_ACTOR_TYPE {
+        return event.clone();
+    }
+
+    if let Some(parent_index) = known_parents.get(&event.source.index).copied() {
+        let mut resolved = event.clone();
+        resolved.source.parent_actor_type = ID_ACTOR_TYPE;
+        resolved.source.parent_index = parent_index;
+        return resolved;
+    }
+
+    if event.source.parent_actor_type == ID_ACTOR_TYPE {
+        return event.clone();
+    }
+
+    let mut ids = players
+        .iter()
+        .flatten()
+        .filter(|player| player.character_type == CharacterType::Pl1900);
+    let Some(id) = ids.next() else {
+        return event.clone();
+    };
+    if ids.next().is_some() {
+        return event.clone();
+    }
+
+    let mut resolved = event.clone();
+    resolved.source.parent_actor_type = ID_ACTOR_TYPE;
+    resolved.source.parent_index = id.actor_index;
+    resolved
+}
+
 pub struct AdjustedDamageInstance<'a> {
     pub event: &'a DamageEvent,
     pub player_data: Option<&'a PlayerData>,
     pub stun_damage: f64,
+    pub is_capped: bool,
+    pub cap_known: bool,
 }
 
 impl<'a> AdjustedDamageInstance<'a> {
     pub fn from_damage_event(event: &'a DamageEvent, player_data: Option<&'a PlayerData>) -> Self {
+        Self::from_damage_event_with_multipliers(event, player_data, &[])
+    }
+
+    pub fn from_damage_event_with_multipliers(
+        event: &'a DamageEvent,
+        player_data: Option<&'a PlayerData>,
+        crit_multipliers: &[f64],
+    ) -> Self {
         let stun_damage = event.stun_value.unwrap_or(0.0) as f64;
+        let cap_known = cap_detection::is_cap_known(event.damage_cap);
+        let is_capped = cap_detection::is_capped(event.damage, event.damage_cap, crit_multipliers);
 
         Self {
             event,
             player_data,
             stun_damage,
+            is_capped,
+            cap_known,
         }
     }
 }
@@ -203,6 +314,8 @@ pub struct PlayerData {
     overmastery_info: Option<OvermasteryInfo>,
     /// Player stats for this player
     player_stats: Option<PlayerStats>,
+    #[serde(default)]
+    master_traits: Vec<u32>,
 }
 
 /// Derived breakdown for an enemy target
@@ -292,6 +405,9 @@ enum ParserStatus {
     Stopped,
 }
 
+const AUTO_SAVE_INACTIVITY_MS: i64 = 60_000;
+const ENCOUNTER_EMIT_INTERVAL_MS: i64 = 100;
+
 /// The state of the encounter after processing all damage events (or all known events for now)
 /// Used for parsing the encounter into a calculated format that can be consumed by the front-end.
 #[derive(Debug, Serialize, Deserialize)]
@@ -380,6 +496,9 @@ impl DerivedEncounterState {
                 total_stun_value: 0.0,
                 skill_breakdown: Vec::new(),
                 last_known_pet_skill: None,
+                capped_hits: 0,
+                cap_known_hits: 0,
+                deaths: 0,
             });
 
         // Update player stats from damage event.
@@ -414,6 +533,17 @@ pub struct Parser {
     pub derived_state: DerivedEncounterState,
     /// Status of the parser
     status: ParserStatus,
+
+    #[serde(skip)]
+    id_transformation_parents: IdTransformationParents,
+
+    #[serde(skip)]
+    death_counts: HashMap<u32, u32>,
+
+    #[serde(skip)]
+    last_encounter_emit_at: i64,
+    #[serde(skip)]
+    encounter_update_pending: bool,
 
     /// The window handle for the parser, used to send messages to the front-end
     #[serde(skip)]
@@ -467,16 +597,38 @@ impl Parser {
         Ok(Self::from_encounter(encounter))
     }
 
+    fn learn_crit_multipliers(&self) -> Vec<f64> {
+        let damage_and_caps = self.encounter.event_log().filter_map(|(_, event)| {
+            if let Message::DamageEvent(event) = event {
+                event.damage_cap.map(|cap| (event.damage, cap))
+            } else {
+                None
+            }
+        });
+
+        cap_detection::learn_crit_multipliers(damage_and_caps)
+    }
+
     /// Reparses derived state from the current encounter.
     pub fn reparse(&mut self) {
+        self.id_transformation_parents =
+            collect_id_transformation_parents(self.encounter.event_log());
         self.derived_state = Default::default();
         self.derived_state.start(self.start_time());
+        self.derived_state.status = self.status;
+        self.death_counts.clear();
+        let crit_multipliers = self.learn_crit_multipliers();
 
         for (timestamp, event) in self.encounter.event_log() {
             self.derived_state.end_time = *timestamp;
 
             match event {
                 Message::DamageEvent(event) => {
+                    let event = resolve_id_transformation_parent(
+                        event,
+                        &self.encounter.player_data,
+                        &self.id_transformation_parents,
+                    );
                     let player_data = self
                         .encounter
                         .player_data
@@ -485,10 +637,61 @@ impl Parser {
                         .find(|player| player.actor_index == event.source.parent_index);
 
                     let damage_instance =
-                        AdjustedDamageInstance::from_damage_event(event, player_data);
+                        AdjustedDamageInstance::from_damage_event_with_multipliers(
+                            &event,
+                            player_data,
+                            &crit_multipliers,
+                        );
 
                     self.derived_state
                         .process_damage_event(*timestamp, &damage_instance);
+                    if let Some(&deaths) = self.death_counts.get(&event.source.parent_index) {
+                        if let Some(player) =
+                            self.derived_state.party.get_mut(&event.source.parent_index)
+                        {
+                            player.set_deaths(deaths);
+                        }
+                    }
+                }
+                Message::OnUpdateSBA(event) => {
+                    let actor_index = self
+                        .id_transformation_parents
+                        .get(&event.actor_index)
+                        .copied()
+                        .unwrap_or(event.actor_index);
+                    if let Some(player) = self.derived_state.party.get_mut(&actor_index) {
+                        player.set_sba(event.sba_value as f64);
+                    }
+                }
+                Message::OnAttemptSBA(event) => {
+                    let actor_index = self
+                        .id_transformation_parents
+                        .get(&event.actor_index)
+                        .copied()
+                        .unwrap_or(event.actor_index);
+                    if let Some(player) = self.derived_state.party.get_mut(&actor_index) {
+                        player.set_sba(1000.0);
+                    }
+                }
+                Message::OnPerformSBA(event) => {
+                    let actor_index = self
+                        .id_transformation_parents
+                        .get(&event.actor_index)
+                        .copied()
+                        .unwrap_or(event.actor_index);
+                    if let Some(player) = self.derived_state.party.get_mut(&actor_index) {
+                        player.set_sba(0.0);
+                    }
+                }
+                Message::OnDeathEvent(event) => {
+                    apply_death_count(
+                        &mut self.death_counts,
+                        &mut self.derived_state,
+                        &self.id_transformation_parents,
+                        event.actor_index,
+                        event.death_counter,
+                        event.is_delta,
+                    );
                 }
                 _ => {}
             }
@@ -497,14 +700,24 @@ impl Parser {
 
     // Re-analyzes the encounter with the given targets.
     pub fn reparse_with_options(&mut self, targets: &[EnemyType]) {
+        self.id_transformation_parents =
+            collect_id_transformation_parents(self.encounter.event_log());
         self.derived_state = Default::default();
         self.derived_state.start(self.start_time());
+        self.derived_state.status = self.status;
+        self.death_counts.clear();
+        let crit_multipliers = self.learn_crit_multipliers();
 
         for (timestamp, event) in self.encounter.event_log() {
             self.derived_state.end_time = *timestamp;
 
             match event {
                 Message::DamageEvent(event) => {
+                    let event = resolve_id_transformation_parent(
+                        event,
+                        &self.encounter.player_data,
+                        &self.id_transformation_parents,
+                    );
                     // If the target list is empty, then we're not filtering by target.
                     // Otherwise, we only process damage events that match the target list.
                     let target_type = EnemyType::from_hash(event.target.parent_actor_type);
@@ -518,11 +731,32 @@ impl Parser {
                             .find(|player| player.actor_index == event.source.parent_index);
 
                         let damage_instance =
-                            AdjustedDamageInstance::from_damage_event(event, player_data);
+                            AdjustedDamageInstance::from_damage_event_with_multipliers(
+                                &event,
+                                player_data,
+                                &crit_multipliers,
+                            );
 
                         self.derived_state
                             .process_damage_event(*timestamp, &damage_instance);
+                        if let Some(&deaths) = self.death_counts.get(&event.source.parent_index) {
+                            if let Some(player) =
+                                self.derived_state.party.get_mut(&event.source.parent_index)
+                            {
+                                player.set_deaths(deaths);
+                            }
+                        }
                     }
+                }
+                Message::OnDeathEvent(event) => {
+                    apply_death_count(
+                        &mut self.death_counts,
+                        &mut self.derived_state,
+                        &self.id_transformation_parents,
+                        event.actor_index,
+                        event.death_counter,
+                        event.is_delta,
+                    );
                 }
                 _ => {}
             }
@@ -532,38 +766,21 @@ impl Parser {
     pub fn generate_sba_chart(&self, interval: i64) -> HashMap<u32, Vec<f32>> {
         let start_time = self.start_time();
         let duration = self.derived_state.duration();
-
-        let mut chart_values: HashMap<u32, Vec<f32>> = HashMap::new();
-
-        for player in self.derived_state.party.values() {
-            chart_values.insert(player.index, vec![0.0; (duration / interval) as usize + 1]);
-        }
-
-        let mut last_event_timestamp = start_time;
+        let chart_len = (duration.max(0) / interval) as usize + 1;
+        let mut sampled_values: HashMap<u32, Vec<Option<f32>>> = self
+            .derived_state
+            .party
+            .values()
+            .map(|player| (player.index, vec![None; chart_len]))
+            .collect();
 
         for (timestamp, event) in self.encounter.event_log() {
-            let last_index = ((last_event_timestamp - start_time) / interval) as usize;
-            let index = ((timestamp - start_time) / interval) as usize;
-
-            // Carry over the previous values to the current timeslice.
-            if last_index != index && last_index > 0 {
-                for (_, entries) in chart_values.iter_mut() {
-                    let previous_value = entries[last_index];
-
-                    for i in last_index..=index {
-                        if i > 0 && i < entries.len() {
-                            entries[i] = previous_value;
-                        }
-                    }
-                }
-            }
-
             if let Some((actor_index, sba_value)) = match event {
                 Message::OnUpdateSBA(sba_update_event) => {
                     Some((sba_update_event.actor_index, sba_update_event.sba_value))
                 }
                 Message::OnAttemptSBA(sba_attempt_event) => {
-                    Some((sba_attempt_event.actor_index, 800.0))
+                    Some((sba_attempt_event.actor_index, 1000.0))
                 }
                 Message::OnPerformSBA(sba_perform_event) => {
                     Some((sba_perform_event.actor_index, 0.0))
@@ -573,15 +790,96 @@ impl Parser {
                 }
                 _ => None,
             } {
-                if let Some(entries) = chart_values.get_mut(&actor_index) {
-                    entries[index] = sba_value;
+                let actor_index = self.resolve_actor_parent(actor_index);
+                let elapsed = *timestamp - start_time;
+                if elapsed < 0 {
+                    continue;
+                }
+
+                let index = (elapsed / interval) as usize;
+                if let Some(entries) = sampled_values.get_mut(&actor_index) {
+                    if let Some(entry) = entries.get_mut(index) {
+                        *entry = Some(sba_value);
+                    }
                 }
             }
-
-            last_event_timestamp = *timestamp;
         }
 
-        chart_values
+        sampled_values
+            .into_iter()
+            .map(|(actor_index, entries)| {
+                let mut last_value = 0.0;
+                let entries = entries
+                    .into_iter()
+                    .map(|value| {
+                        if let Some(value) = value {
+                            last_value = value;
+                        }
+                        last_value
+                    })
+                    .collect();
+                (actor_index, entries)
+            })
+            .collect()
+    }
+
+    pub fn generate_sba_transition_events(&self) -> Vec<(i64, Message)> {
+        let explicit_events: Vec<_> = self
+            .encounter
+            .event_log()
+            .filter_map(|(timestamp, event)| {
+                let event = match event {
+                    Message::OnAttemptSBA(event) => Message::OnAttemptSBA(OnAttemptSBAEvent {
+                        actor_index: self.resolve_actor_parent(event.actor_index),
+                    }),
+                    Message::OnPerformSBA(event) => Message::OnPerformSBA(OnPerformSBAEvent {
+                        actor_index: self.resolve_actor_parent(event.actor_index),
+                    }),
+                    Message::OnContinueSBAChain(event) => {
+                        Message::OnContinueSBAChain(OnContinueSBAChainEvent {
+                            actor_index: self.resolve_actor_parent(event.actor_index),
+                        })
+                    }
+                    _ => return None,
+                };
+                Some((*timestamp, event))
+            })
+            .collect();
+
+        if !explicit_events.is_empty() {
+            return explicit_events;
+        }
+
+        let mut previous_values = HashMap::<u32, f32>::new();
+        let mut inferred_events = Vec::new();
+
+        for (timestamp, event) in self.encounter.event_log() {
+            let Message::OnUpdateSBA(event) = event else {
+                continue;
+            };
+
+            let actor_index = self.resolve_actor_parent(event.actor_index);
+            if let Some(previous_value) = previous_values.insert(actor_index, event.sba_value) {
+                if previous_value >= INFERRED_SBA_USE_PREVIOUS_MIN
+                    && event.sba_value <= INFERRED_SBA_USE_CURRENT_MAX
+                    && event.sba_value < previous_value
+                {
+                    inferred_events.push((
+                        *timestamp,
+                        Message::OnPerformSBA(OnPerformSBAEvent { actor_index }),
+                    ));
+                }
+            }
+        }
+
+        inferred_events
+    }
+
+    fn resolve_actor_parent(&self, actor_index: u32) -> u32 {
+        self.id_transformation_parents
+            .get(&actor_index)
+            .copied()
+            .unwrap_or(actor_index)
     }
 
     /// Handles the event when an area is entered.
@@ -664,8 +962,37 @@ impl Parser {
             self.update_status(ParserStatus::InProgress);
         }
 
+        let newly_learned_id_parent = observed_id_transformation_parent(&event).and_then(
+            |(transformation_index, parent_index)| {
+                if self
+                    .id_transformation_parents
+                    .contains_key(&transformation_index)
+                {
+                    None
+                } else {
+                    self.id_transformation_parents
+                        .insert(transformation_index, parent_index);
+                    Some(transformation_index)
+                }
+            },
+        );
+
+        let event = resolve_id_transformation_parent(
+            &event,
+            &self.encounter.player_data,
+            &self.id_transformation_parents,
+        );
+
         self.encounter
             .push_event(now, Message::DamageEvent(event.clone()));
+
+        if newly_learned_id_parent
+            .is_some_and(|index| self.derived_state.party.contains_key(&index))
+        {
+            self.reparse();
+            self.queue_encounter_update(now);
+            return;
+        }
 
         let player_data = self
             .encounter
@@ -679,8 +1006,64 @@ impl Parser {
         self.derived_state
             .process_damage_event(now, &damage_instance);
 
-        if let Some(window) = &self.window_handle {
-            let _ = window.emit("encounter-update", &self.derived_state);
+        if let Some(&deaths) = self.death_counts.get(&event.source.parent_index) {
+            if let Some(player) = self.derived_state.party.get_mut(&event.source.parent_index) {
+                player.set_deaths(deaths);
+            }
+        }
+
+        self.queue_encounter_update(now);
+    }
+
+    pub fn auto_save_if_inactive(&mut self, now: i64) -> bool {
+        self.flush_pending_encounter_update(now);
+
+        if self.status != ParserStatus::InProgress
+            || !self.has_damage()
+            || now - self.derived_state.end_time < AUTO_SAVE_INACTIVITY_MS
+        {
+            return false;
+        }
+
+        self.finish_and_save_encounter()
+    }
+
+    pub fn on_battle_end_event(&mut self) -> bool {
+        if self.status != ParserStatus::InProgress || !self.has_damage() {
+            return false;
+        }
+
+        self.finish_and_save_encounter()
+    }
+
+    fn finish_and_save_encounter(&mut self) -> bool {
+        self.update_status(ParserStatus::Stopped);
+
+        match self.save_encounter_to_db() {
+            Ok(id) => {
+                if let Some(app) = &self.app {
+                    let _ = app.emit_all("encounter-saved", id);
+                } else if let Some(window) = &self.window_handle {
+                    let _ = window.emit("encounter-saved", id);
+                }
+
+                if let Some(window) = &self.window_handle {
+                    let _ = window.emit("encounter-update", &self.derived_state);
+                }
+                true
+            }
+            Err(error) => {
+                if let Some(app) = &self.app {
+                    let _ = app.emit_all("encounter-saved-error", error.to_string());
+                } else if let Some(window) = &self.window_handle {
+                    let _ = window.emit("encounter-saved-error", error.to_string());
+                }
+
+                if let Some(window) = &self.window_handle {
+                    let _ = window.emit("encounter-update", &self.derived_state);
+                }
+                false
+            }
         }
     }
 
@@ -692,7 +1075,7 @@ impl Parser {
             return;
         }
 
-        let sigils = event
+        let sigils: Vec<Sigil> = event
             .sigils
             .into_iter()
             .map(|sigil| Sigil {
@@ -706,7 +1089,7 @@ impl Parser {
                 acquisition_count: sigil.acquisition_count,
                 notification_enum: sigil.notification_enum,
             })
-            .collect();
+            .collect::<Vec<_>>();
 
         let player_data = PlayerData {
             actor_index: event.actor_index,
@@ -718,32 +1101,183 @@ impl Parser {
             weapon_info: Some(event.weapon_info.into()),
             overmastery_info: Some(event.overmastery_info.into()),
             player_stats: Some(event.player_stats.into()),
+            master_traits: if event.is_online {
+                Vec::new()
+            } else {
+                master_traits::load_for_party(event.party_index)
+            },
         };
 
-        // Insert into encounter player data array, using actor_index.
-        if !player_data.is_online && event.party_index == 0 {
-            self.encounter.player_data[0] = Some(player_data.clone());
-        } else {
-            for i in 1..=3 {
-                if let Some(player) = &self.encounter.player_data[i] {
-                    // If this is the same player, update it.
-                    if player.actor_index == player_data.actor_index {
-                        self.encounter.player_data[i] = Some(player_data.clone());
-                        break;
-                    }
+        self.insert_player_data(player_data, event.party_index);
+    }
 
-                    // If the actor index we're trying to insert is lower than the current slot's actor index,
-                    // then we need to shift the rest of the array to the right.
-                    if player_data.actor_index < player.actor_index {
-                        self.encounter.player_data[i..].rotate_right(1);
-                        self.encounter.player_data[i] = Some(player_data.clone());
-                        break;
-                    }
+    pub fn on_player_identity_event(&mut self, event: PlayerIdentityEvent) {
+        let character_type = CharacterType::from_hash(event.character_type);
+
+        if character_type == CharacterType::Pl2000 {
+            return;
+        }
+
+        let mut player_data = self
+            .encounter
+            .player_data
+            .iter()
+            .flatten()
+            .find(|player| player.actor_index == event.actor_index)
+            .cloned()
+            .unwrap_or(PlayerData {
+                actor_index: event.actor_index,
+                display_name: String::new(),
+                character_name: String::new(),
+                character_type,
+                sigils: if event.is_online {
+                    Vec::new()
                 } else {
-                    self.encounter.player_data[i] = Some(player_data.clone());
-                    break;
-                }
+                    master_traits::load_sigils_for_party(event.party_index)
+                },
+                is_online: event.is_online,
+                weapon_info: if event.is_online {
+                    None
+                } else {
+                    master_traits::load_weapon_for_party(event.party_index)
+                },
+                overmastery_info: None,
+                player_stats: None,
+                master_traits: if event.is_online {
+                    Vec::new()
+                } else {
+                    master_traits::load_for_party(event.party_index)
+                },
+            });
+
+        let was_online = player_data.is_online;
+        player_data.display_name = event.display_name.to_string_lossy().to_string();
+        player_data.character_name = event.character_name.to_string_lossy().to_string();
+        player_data.character_type = character_type;
+        player_data.is_online = event.is_online;
+        if event.is_online {
+            player_data.master_traits.clear();
+            if !was_online {
+                player_data.sigils.clear();
+                player_data.weapon_info = None;
+                player_data.overmastery_info = None;
+                player_data.player_stats = None;
             }
+        } else {
+            player_data.master_traits = master_traits::load_for_party(event.party_index);
+            if was_online || player_data.sigils.is_empty() {
+                player_data.sigils = master_traits::load_sigils_for_party(event.party_index);
+            }
+            if was_online || player_data.weapon_info.is_none() {
+                player_data.weapon_info = master_traits::load_weapon_for_party(event.party_index);
+            }
+            if was_online {
+                player_data.overmastery_info = None;
+                player_data.player_stats = None;
+            }
+        }
+
+        self.insert_player_data(player_data, event.party_index);
+    }
+
+    pub fn on_player_equipment_event(&mut self, event: PlayerEquipmentEvent) {
+        let character_type = CharacterType::from_hash(event.character_type);
+        if character_type == CharacterType::Pl2000 {
+            return;
+        }
+
+        let sigils: Vec<Sigil> = event
+            .sigils
+            .into_iter()
+            .take(12)
+            .map(|sigil| Sigil {
+                first_trait_id: sigil.first_trait_id,
+                first_trait_level: sigil.first_trait_level,
+                second_trait_id: sigil.second_trait_id,
+                second_trait_level: sigil.second_trait_level,
+                sigil_id: sigil.sigil_id,
+                equipped_character: sigil.equipped_character,
+                sigil_level: sigil.sigil_level,
+                acquisition_count: sigil.acquisition_count,
+                notification_enum: sigil.notification_enum,
+            })
+            .collect();
+
+        let mut player_data = self
+            .encounter
+            .player_data
+            .iter()
+            .flatten()
+            .find(|player| player.actor_index == event.actor_index)
+            .cloned()
+            .unwrap_or(PlayerData {
+                actor_index: event.actor_index,
+                display_name: String::new(),
+                character_name: String::new(),
+                character_type,
+                sigils: Vec::new(),
+                is_online: event.is_online,
+                weapon_info: None,
+                overmastery_info: None,
+                player_stats: None,
+                master_traits: Vec::new(),
+            });
+
+        let was_online = player_data.is_online;
+        player_data.character_type = character_type;
+        player_data.is_online = event.is_online;
+        if !event.is_online && event.party_index != 0 {
+            player_data.display_name.clear();
+            player_data.character_name.clear();
+        }
+        if !sigils.is_empty() {
+            player_data.sigils = sigils;
+        }
+        let live_master_traits = event.master_traits;
+        if event.is_online {
+            if live_master_traits.is_none() {
+                player_data.master_traits.clear();
+            }
+            if !was_online {
+                player_data.weapon_info = None;
+                player_data.overmastery_info = None;
+                player_data.player_stats = None;
+            }
+        } else {
+            if live_master_traits.is_none() {
+                player_data.master_traits = master_traits::load_for_party(event.party_index);
+            }
+            if player_data.weapon_info.is_none() {
+                player_data.weapon_info = master_traits::load_weapon_for_party(event.party_index);
+            }
+        }
+        if let Some(master_traits) = live_master_traits {
+            player_data.master_traits = master_traits;
+        }
+        if let Some(weapon_info) = event.weapon_info {
+            player_data.weapon_info = Some(weapon_info.into());
+        }
+        if let Some(overmastery_info) = event.overmastery_info {
+            player_data.overmastery_info = Some(overmastery_info.into());
+        }
+        if let Some(player_stats) = event.player_stats {
+            player_data.player_stats = Some(player_stats.into());
+        }
+        self.insert_player_data(player_data, event.party_index);
+    }
+
+    fn insert_player_data(&mut self, player_data: PlayerData, party_index: u8) {
+        for (index, slot) in self.encounter.player_data.iter_mut().enumerate() {
+            if index != party_index as usize
+                && slot
+                    .as_ref()
+                    .is_some_and(|existing| existing.actor_index == player_data.actor_index)
+            {
+                *slot = None;
+            }
+        }
+        if let Some(slot) = self.encounter.player_data.get_mut(party_index as usize) {
+            *slot = Some(player_data.clone());
         }
 
         if let Some(window) = &self.window_handle {
@@ -753,81 +1287,108 @@ impl Parser {
 
     /// Handles setting the SBA gauge value for a player
     pub fn on_sba_update(&mut self, event: OnUpdateSBAEvent) {
-        self.encounter.push_event(
-            Utc::now().timestamp_millis(),
-            Message::OnUpdateSBA(event.clone()),
-        );
+        let now = Utc::now().timestamp_millis();
+        self.encounter
+            .push_event(now, Message::OnUpdateSBA(event.clone()));
 
         let player_index = event.actor_index;
         if let Some(player) = self.derived_state.party.get_mut(&player_index) {
             player.set_sba(event.sba_value as f64);
         }
 
-        if let Some(window) = &self.window_handle {
-            let _ = window.emit("encounter-update", &self.derived_state);
-        }
+        self.queue_encounter_update(now);
     }
 
     pub fn on_sba_attempt(&mut self, event: OnAttemptSBAEvent) {
-        self.encounter.push_event(
-            Utc::now().timestamp_millis(),
-            Message::OnAttemptSBA(event.clone()),
-        );
+        let now = Utc::now().timestamp_millis();
+        self.encounter
+            .push_event(now, Message::OnAttemptSBA(event.clone()));
 
         let player_index = event.actor_index;
         if let Some(player) = self.derived_state.party.get_mut(&player_index) {
-            player.set_sba(800.0);
+            player.set_sba(1000.0);
         }
 
-        if let Some(window) = &self.window_handle {
-            let _ = window.emit("encounter-update", &self.derived_state);
-        }
+        self.queue_encounter_update(now);
     }
 
     pub fn on_sba_perform(&mut self, event: OnPerformSBAEvent) {
-        self.encounter.push_event(
-            Utc::now().timestamp_millis(),
-            Message::OnPerformSBA(event.clone()),
-        );
+        let now = Utc::now().timestamp_millis();
+        self.encounter
+            .push_event(now, Message::OnPerformSBA(event.clone()));
 
         let player_index = event.actor_index;
         if let Some(player) = self.derived_state.party.get_mut(&player_index) {
             player.set_sba(0.0);
         }
 
-        if let Some(window) = &self.window_handle {
-            let _ = window.emit("encounter-update", &self.derived_state);
-        }
+        self.queue_encounter_update(now);
     }
 
     /// @TODO(false): Note that this event only fires for the local player.
     pub fn on_continue_sba_chain(&mut self, event: OnContinueSBAChainEvent) {
-        self.encounter.push_event(
-            Utc::now().timestamp_millis(),
-            Message::OnContinueSBAChain(event.clone()),
-        );
+        let now = Utc::now().timestamp_millis();
+        self.encounter
+            .push_event(now, Message::OnContinueSBAChain(event.clone()));
 
         let player_index = event.actor_index;
         if let Some(player) = self.derived_state.party.get_mut(&player_index) {
             player.set_sba(0.0);
         }
 
-        if let Some(window) = &self.window_handle {
-            let _ = window.emit("encounter-update", &self.derived_state);
-        }
+        self.queue_encounter_update(now);
     }
 
     pub fn on_death_event(&mut self, event: OnDeathEvent) {
-        self.encounter.push_event(
-            Utc::now().timestamp_millis(),
-            Message::OnDeathEvent(event.clone()),
+        let now = Utc::now().timestamp_millis();
+        if self.status == ParserStatus::Stopped || self.status == ParserStatus::Waiting {
+            self.reset();
+            self.derived_state.start(now);
+            self.update_status(ParserStatus::InProgress);
+        }
+
+        self.encounter
+            .push_event(now, Message::OnDeathEvent(event.clone()));
+        apply_death_count(
+            &mut self.death_counts,
+            &mut self.derived_state,
+            &self.id_transformation_parents,
+            event.actor_index,
+            event.death_counter,
+            event.is_delta,
         );
+        self.queue_encounter_update(now);
     }
 
     fn reset(&mut self) {
         self.encounter.raw_event_log.clear();
         self.encounter.raw_event_log.shrink_to_fit();
         self.derived_state = Default::default();
+        self.id_transformation_parents.clear();
+        self.death_counts.clear();
+        self.last_encounter_emit_at = 0;
+        self.encounter_update_pending = false;
+    }
+
+    fn queue_encounter_update(&mut self, now: i64) {
+        self.encounter_update_pending = true;
+        self.flush_pending_encounter_update(now);
+    }
+
+    fn flush_pending_encounter_update(&mut self, now: i64) -> bool {
+        if !self.encounter_update_pending
+            || (self.last_encounter_emit_at != 0
+                && now - self.last_encounter_emit_at < ENCOUNTER_EMIT_INTERVAL_MS)
+        {
+            return false;
+        }
+
+        if let Some(window) = &self.window_handle {
+            let _ = window.emit("encounter-update", &self.derived_state);
+        }
+        self.last_encounter_emit_at = now;
+        self.encounter_update_pending = false;
+        true
     }
 
     fn update_status(&mut self, new_status: ParserStatus) {
@@ -952,9 +1513,74 @@ impl From<v0::Parser> for Parser {
 
 #[cfg(test)]
 mod tests {
+    use std::ffi::CString;
+
     use protocol::{ActionType, Actor};
 
     use super::*;
+
+    fn game_2_damage_event(actor_index: u32, damage: i32, damage_cap: Option<i32>) -> DamageEvent {
+        DamageEvent {
+            source: Actor {
+                index: actor_index,
+                actor_type: 0x4C714F77,
+                parent_actor_type: 0x4C714F77,
+                parent_index: actor_index,
+            },
+            target: Actor {
+                index: 100,
+                actor_type: 0x12345678,
+                parent_actor_type: 0x12345678,
+                parent_index: 100,
+            },
+            damage,
+            flags: 0,
+            action_id: ActionType::Normal(1),
+            attack_rate: None,
+            stun_value: None,
+            damage_cap,
+        }
+    }
+
+    fn id_player(actor_index: u32) -> PlayerData {
+        PlayerData {
+            actor_index,
+            display_name: "Lynd".to_string(),
+            character_name: "Id".to_string(),
+            character_type: CharacterType::Pl1900,
+            sigils: Vec::new(),
+            is_online: false,
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: Vec::new(),
+        }
+    }
+
+    fn id_transformation_damage(actor_index: u32, damage: i32) -> DamageEvent {
+        let mut event = game_2_damage_event(actor_index, damage, None);
+        event.source.actor_type = ID_TRANSFORMATION_ACTOR_TYPE;
+        event.source.parent_actor_type = ID_TRANSFORMATION_ACTOR_TYPE;
+        event
+    }
+
+    fn parented_id_transformation_damage(
+        transformation_index: u32,
+        id_index: u32,
+        damage: i32,
+    ) -> DamageEvent {
+        let mut event = id_transformation_damage(transformation_index, damage);
+        event.source.parent_actor_type = ID_ACTOR_TYPE;
+        event.source.parent_index = id_index;
+        event
+    }
+
+    fn id_damage(actor_index: u32, damage: i32) -> DamageEvent {
+        let mut event = game_2_damage_event(actor_index, damage, None);
+        event.source.actor_type = ID_ACTOR_TYPE;
+        event.source.parent_actor_type = ID_ACTOR_TYPE;
+        event
+    }
 
     #[test]
     fn can_create_parser() {
@@ -962,6 +1588,370 @@ mod tests {
 
         assert_eq!(parser.status, ParserStatus::Waiting);
         assert_eq!(parser.start_time(), 1);
+    }
+
+    #[test]
+    fn sba_chart_carries_sparse_samples_forward() {
+        let mut parser = Parser::default();
+        parser.encounter.raw_event_log.extend([
+            (
+                1_000,
+                Message::DamageEvent(game_2_damage_event(7, 100, None)),
+            ),
+            (
+                1_500,
+                Message::OnUpdateSBA(OnUpdateSBAEvent {
+                    actor_index: 7,
+                    sba_value: 200.0,
+                    sba_added: 200.0,
+                }),
+            ),
+            (
+                3_500,
+                Message::OnUpdateSBA(OnUpdateSBAEvent {
+                    actor_index: 7,
+                    sba_value: 700.0,
+                    sba_added: 500.0,
+                }),
+            ),
+            (
+                4_000,
+                Message::DamageEvent(game_2_damage_event(7, 100, None)),
+            ),
+        ]);
+        parser.reparse();
+
+        assert_eq!(
+            parser.generate_sba_chart(1_000)[&7],
+            vec![200.0, 200.0, 700.0, 700.0]
+        );
+    }
+
+    #[test]
+    fn gauge_reset_infers_sba_execution_and_maps_id_transformation_to_owner() {
+        let mut parser = Parser::default();
+        parser.encounter.raw_event_log.extend([
+            (1_000, Message::DamageEvent(id_damage(13, 100))),
+            (
+                1_100,
+                Message::OnUpdateSBA(OnUpdateSBAEvent {
+                    actor_index: 4,
+                    sba_value: 965.0,
+                    sba_added: 965.0,
+                }),
+            ),
+            (
+                1_200,
+                Message::DamageEvent(parented_id_transformation_damage(4, 13, 100)),
+            ),
+            (
+                1_300,
+                Message::OnUpdateSBA(OnUpdateSBAEvent {
+                    actor_index: 4,
+                    sba_value: 0.0,
+                    sba_added: -965.0,
+                }),
+            ),
+        ]);
+        parser.reparse();
+
+        let events = parser.generate_sba_transition_events();
+        assert_eq!(events.len(), 1);
+        assert_eq!(events[0].0, 1_300);
+        assert!(matches!(
+            &events[0].1,
+            Message::OnPerformSBA(OnPerformSBAEvent { actor_index: 13 })
+        ));
+        assert!(parser.generate_sba_chart(1_000).contains_key(&13));
+        assert!(!parser.generate_sba_chart(1_000).contains_key(&4));
+    }
+
+    #[test]
+    fn inactive_encounter_is_saved_once() {
+        let mut parser = Parser::default();
+        parser.on_damage_event(game_2_damage_event(1, 100, None));
+        let last_damage_at = parser.derived_state.end_time;
+
+        assert!(parser.auto_save_if_inactive(last_damage_at + AUTO_SAVE_INACTIVITY_MS));
+        assert_eq!(parser.status, ParserStatus::Stopped);
+        assert!(!parser.auto_save_if_inactive(last_damage_at + AUTO_SAVE_INACTIVITY_MS * 2));
+    }
+
+    #[test]
+    fn battle_end_event_stops_and_saves_once() {
+        let mut parser = Parser::default();
+        parser.on_damage_event(game_2_damage_event(1, 100, None));
+
+        assert!(parser.on_battle_end_event());
+        assert_eq!(parser.status, ParserStatus::Stopped);
+        assert!(!parser.on_battle_end_event());
+    }
+
+    #[test]
+    fn game_2_actor_ids_keep_same_character_players_separate() {
+        let mut parser = Parser::default();
+        parser.on_damage_event(game_2_damage_event(10, 100, None));
+        parser.on_damage_event(game_2_damage_event(11, 100, None));
+
+        assert_eq!(parser.derived_state.party.len(), 2);
+    }
+
+    #[test]
+    fn reparsing_merges_id_transformation_into_the_only_id() {
+        let mut parser = Parser::default();
+        parser.encounter.player_data[0] = Some(id_player(5));
+        parser
+            .encounter
+            .raw_event_log
+            .push((1_000, Message::DamageEvent(id_damage(5, 100))));
+        parser.encounter.raw_event_log.push((
+            2_000,
+            Message::DamageEvent(id_transformation_damage(4, 200)),
+        ));
+
+        parser.reparse();
+
+        assert_eq!(parser.derived_state.party.len(), 1);
+        let id = &parser.derived_state.party[&5];
+        assert_eq!(id.character_type, CharacterType::Pl1900);
+        assert_eq!(id.total_damage, 300);
+        assert!(id
+            .skill_breakdown
+            .iter()
+            .any(|skill| skill.child_character_type == CharacterType::Pl2000));
+    }
+
+    #[test]
+    fn late_id_owner_discovery_merges_earlier_transformation_hits_live() {
+        let mut parser = Parser::default();
+
+        parser.on_damage_event(id_transformation_damage(4, 100));
+        assert_eq!(parser.derived_state.party[&4].total_damage, 100);
+
+        parser.on_sba_update(OnUpdateSBAEvent {
+            actor_index: 4,
+            sba_value: 427.5,
+            sba_added: 427.5,
+        });
+        parser.on_damage_event(parented_id_transformation_damage(4, 13, 200));
+
+        assert_eq!(parser.derived_state.party.len(), 1);
+        assert!(!parser.derived_state.party.contains_key(&4));
+        let id = &parser.derived_state.party[&13];
+        assert_eq!(id.character_type, CharacterType::Pl1900);
+        assert_eq!(id.total_damage, 300);
+        assert_eq!(id.sba, 427.5);
+        assert!(id
+            .skill_breakdown
+            .iter()
+            .all(|skill| skill.child_character_type == CharacterType::Pl2000));
+    }
+
+    #[test]
+    fn late_owner_discovery_keeps_multiple_id_transformations_distinct() {
+        let mut parser = Parser::default();
+
+        parser.on_damage_event(id_transformation_damage(4, 100));
+        parser.on_damage_event(id_transformation_damage(5, 200));
+        parser.on_damage_event(parented_id_transformation_damage(4, 13, 300));
+        parser.on_damage_event(parented_id_transformation_damage(5, 14, 400));
+
+        assert_eq!(parser.derived_state.party.len(), 2);
+        assert_eq!(parser.derived_state.party[&13].total_damage, 400);
+        assert_eq!(parser.derived_state.party[&14].total_damage, 600);
+        assert_eq!(
+            parser.derived_state.party[&13].character_type,
+            CharacterType::Pl1900
+        );
+        assert_eq!(
+            parser.derived_state.party[&14].character_type,
+            CharacterType::Pl1900
+        );
+    }
+
+    #[test]
+    fn ambiguous_multiple_id_party_does_not_guess_transformation_owner() {
+        let mut parser = Parser::default();
+        parser.encounter.player_data[0] = Some(id_player(5));
+        parser.encounter.player_data[1] = Some(id_player(6));
+        parser.encounter.raw_event_log.push((
+            1_000,
+            Message::DamageEvent(id_transformation_damage(4, 200)),
+        ));
+
+        parser.reparse();
+
+        assert!(parser.derived_state.party.contains_key(&4));
+        assert_eq!(
+            parser.derived_state.party[&4].character_type,
+            CharacterType::Pl2000
+        );
+    }
+
+    #[test]
+    fn capped_hits_are_tracked_for_each_party_actor() {
+        let mut parser = Parser::default();
+        parser.on_damage_event(game_2_damage_event(10, 99_999, Some(99_999)));
+        parser.on_damage_event(game_2_damage_event(11, 100, Some(99_999)));
+
+        assert_eq!(parser.derived_state.party[&10].capped_hits, 1);
+        assert_eq!(parser.derived_state.party[&11].capped_hits, 0);
+    }
+
+    #[test]
+    fn same_character_players_keep_distinct_online_names() {
+        let mut parser = Parser::default();
+
+        for (actor_index, party_index, display_name) in [(10, 1, "Player A"), (11, 2, "Player B")] {
+            parser.on_player_identity_event(PlayerIdentityEvent {
+                character_name: CString::new(display_name).unwrap(),
+                display_name: CString::new(display_name).unwrap(),
+                character_type: 0x48ADDA36,
+                party_index,
+                actor_index,
+                is_online: true,
+            });
+        }
+
+        let players = parser
+            .encounter
+            .player_data
+            .iter()
+            .flatten()
+            .collect::<Vec<_>>();
+
+        assert_eq!(players.len(), 2);
+        assert_eq!(players[0].display_name, "Player A");
+        assert_eq!(players[1].display_name, "Player B");
+        assert_ne!(players[0].actor_index, players[1].actor_index);
+        assert_eq!(players[0].character_type, CharacterType::Pl2800);
+        assert_eq!(players[1].character_type, CharacterType::Pl2800);
+    }
+
+    #[test]
+    fn ai_equipment_event_clears_a_reused_online_player_name() {
+        let mut parser = Parser::default();
+        parser.encounter.player_data[1] = Some(PlayerData {
+            actor_index: 10,
+            display_name: "Previous Player".to_string(),
+            character_name: "Ferry".to_string(),
+            character_type: CharacterType::Pl0700,
+            sigils: Vec::new(),
+            is_online: true,
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: Vec::new(),
+        });
+
+        parser.on_player_equipment_event(PlayerEquipmentEvent {
+            sigils: Vec::new(),
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: None,
+            character_type: 0x48ADDA36,
+            party_index: 2,
+            actor_index: 10,
+            is_online: false,
+        });
+
+        assert!(parser.encounter.player_data[1].is_none());
+        let ai = parser.encounter.player_data[2].as_ref().unwrap();
+        assert!(!ai.is_online);
+        assert!(ai.display_name.is_empty());
+        assert!(ai.character_name.is_empty());
+        assert_eq!(ai.character_type, CharacterType::Pl2800);
+    }
+
+    #[test]
+    fn live_master_traits_preserve_authoritative_empty_and_selected_builds() {
+        let mut parser = Parser::default();
+        parser.encounter.player_data[1] = Some(PlayerData {
+            actor_index: 10,
+            display_name: "Star".to_string(),
+            character_name: "Ferry".to_string(),
+            character_type: CharacterType::Pl0700,
+            sigils: Vec::new(),
+            is_online: true,
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: vec![0xDEADBEEF],
+        });
+
+        parser.on_player_equipment_event(PlayerEquipmentEvent {
+            sigils: Vec::new(),
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: Some(Vec::new()),
+            character_type: 0xFBA6615D,
+            party_index: 1,
+            actor_index: 10,
+            is_online: true,
+        });
+        assert!(parser.encounter.player_data[1]
+            .as_ref()
+            .unwrap()
+            .master_traits
+            .is_empty());
+
+        parser.on_player_equipment_event(PlayerEquipmentEvent {
+            sigils: Vec::new(),
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: Some(vec![0x11111111, 0x22222222]),
+            character_type: 0xFBA6615D,
+            party_index: 1,
+            actor_index: 10,
+            is_online: true,
+        });
+        assert_eq!(
+            parser.encounter.player_data[1]
+                .as_ref()
+                .unwrap()
+                .master_traits,
+            vec![0x11111111, 0x22222222]
+        );
+    }
+
+    #[test]
+    fn capped_hits_are_aggregated_on_reparse() {
+        let mut parser = Parser::default();
+        parser.encounter.raw_event_log.push((
+            1_000,
+            Message::DamageEvent(game_2_damage_event(1, 99_999, Some(99_999))),
+        ));
+        parser.encounter.raw_event_log.push((
+            2_000,
+            Message::DamageEvent(game_2_damage_event(1, 100, Some(99_999))),
+        ));
+
+        parser.reparse();
+
+        let player = parser.derived_state.party.get(&1).expect("player present");
+        assert_eq!(player.capped_hits, 1);
+        assert_eq!(player.cap_known_hits, 2);
+        assert_eq!(player.skill_breakdown[0].capped_hits, 1);
+        assert_eq!(player.skill_breakdown[0].cap_known_hits, 2);
+        assert_eq!(player.skill_breakdown[0].hits, 2);
+    }
+
+    #[test]
+    fn unavailable_remote_cap_is_not_reported_as_zero_percent() {
+        let mut parser = Parser::default();
+        parser.on_damage_event(game_2_damage_event(
+            12,
+            cap_detection::UNAVAILABLE_DAMAGE_CAP - 1,
+            Some(cap_detection::UNAVAILABLE_DAMAGE_CAP),
+        ));
+
+        let player = &parser.derived_state.party[&12];
+        assert_eq!(player.capped_hits, 0);
+        assert_eq!(player.cap_known_hits, 0);
+        assert_eq!(player.skill_breakdown[0].cap_known_hits, 0);
     }
 
     #[test]
@@ -1052,5 +2042,59 @@ mod tests {
         assert_eq!(parser.derived_state.start_time, 1_000);
         assert_eq!(parser.derived_state.end_time, 5_000);
         assert_eq!(parser.derived_state.duration(), 4_000);
+    }
+
+    #[test]
+    fn death_before_first_damage_attaches_to_the_exact_actor_and_reparses() {
+        let mut parser = Parser::default();
+
+        parser.on_death_event(OnDeathEvent {
+            actor_index: 10,
+            death_counter: 1,
+            is_delta: true,
+        });
+        parser.on_damage_event(game_2_damage_event(10, 100, Some(100)));
+        parser.on_death_event(OnDeathEvent {
+            actor_index: 10,
+            death_counter: 1,
+            is_delta: true,
+        });
+
+        assert_eq!(parser.status, ParserStatus::InProgress);
+        assert_eq!(parser.derived_state.party[&10].deaths, 2);
+
+        parser.reparse();
+        assert_eq!(parser.derived_state.party[&10].deaths, 2);
+    }
+
+    #[test]
+    fn id_transformation_death_moves_to_base_id_after_owner_discovery() {
+        let mut parser = Parser::default();
+
+        parser.on_damage_event(id_transformation_damage(4, 100));
+        parser.on_death_event(OnDeathEvent {
+            actor_index: 4,
+            death_counter: 1,
+            is_delta: true,
+        });
+        parser.on_damage_event(parented_id_transformation_damage(4, 13, 200));
+
+        assert!(!parser.derived_state.party.contains_key(&4));
+        assert_eq!(parser.derived_state.party[&13].deaths, 1);
+    }
+
+    #[test]
+    fn encounter_window_updates_are_coalesced_without_dropping_parser_work() {
+        let mut parser = Parser::default();
+
+        parser.queue_encounter_update(1_000);
+        assert_eq!(parser.last_encounter_emit_at, 1_000);
+        assert!(!parser.encounter_update_pending);
+
+        parser.queue_encounter_update(1_050);
+        assert!(parser.encounter_update_pending);
+        assert!(!parser.flush_pending_encounter_update(1_099));
+        assert!(parser.flush_pending_encounter_update(1_100));
+        assert!(!parser.encounter_update_pending);
     }
 }

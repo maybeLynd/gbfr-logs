@@ -80,6 +80,16 @@ export const SkillRow = ({ characterType, skill, color, nested }: SkillRowProps)
         )}
       </td>
       <td className="text-center row-data">
+        {skill.capKnownHits > 0 ? (
+          <span className="capped">
+            {((skill.cappedHits / skill.capKnownHits) * 100).toFixed(0)}
+            <span className="font-sm">%</span>
+          </span>
+        ) : (
+          <>—</>
+        )}
+      </td>
+      <td className="text-center row-data">
         {skill.percentage.toFixed(0)}
         <span className="unit font-sm">%</span>
       </td>

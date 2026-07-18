@@ -1,0 +1,402 @@
+{
+  "00000100": {
+    "key": "LOCATION_03",
+    "text": "艾因斯特群岛 丘陵"
+  },
+  "00000101": {
+    "key": "LOCATION_04",
+    "text": "泽加德据点"
+  },
+  "00000102": {
+    "key": "LOCATION_05",
+    "text": "矿山镇 天培尔"
+  },
+  "00000103": {
+    "key": "LOCATION_06",
+    "text": "荣风祭坛"
+  },
+  "00000104": {
+    "key": "LOCATION_06",
+    "text": "荣风祭坛"
+  },
+  "00000150": {
+    "key": "LOCATION_32",
+    "text": "飞龙之谷"
+  },
+  "00000200": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000201": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000202": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000203": {
+    "key": "LOCATION_31",
+    "text": "阿维亚战舰 甲板"
+  },
+  "00000300": {
+    "key": "LOCATION_07",
+    "text": "隆塔涅岛 涅咎里斯灵峰"
+  },
+  "00000310": {
+    "key": "TITLE_DATA_TREDAME",
+    "text": "特尔达姆宫"
+  },
+  "00000400": {
+    "key": "LOCATION_13",
+    "text": "达利遗迹群"
+  },
+  "00000401": {
+    "key": "LOCATION_13",
+    "text": "达利遗迹群"
+  },
+  "00000402": {
+    "key": "LOCATION_13",
+    "text": "达利遗迹群"
+  },
+  "00000500": {
+    "key": "LOCATION_15",
+    "text": "被封锁的岛屿枫达慕"
+  },
+  "00000501": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000502": {
+    "key": "LOCATION_15",
+    "text": "被封锁的岛屿枫达慕"
+  },
+  "00000600": {
+    "key": "LOCATION_33",
+    "text": "希德霍姆城"
+  },
+  "00000601": {
+    "key": "LOCATION_33",
+    "text": "希德霍姆城"
+  },
+  "00000700": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "00000701": {
+    "key": "LOCATION_20",
+    "text": "被遗忘的天空"
+  },
+  "00000702": {
+    "key": "LOCATION_20",
+    "text": "被遗忘的天空"
+  },
+  "00000703": {
+    "key": "LOCATION_30",
+    "text": "扎斯巴的骑空艇 甲板"
+  },
+  "00000704": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "00000710": {
+    "key": "LOCATION_20",
+    "text": "被遗忘的天空"
+  },
+  "00000720": {
+    "key": "LOCATION_20",
+    "text": "被遗忘的天空"
+  },
+  "00000800": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000801": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000802": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000803": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000900": {
+    "key": "LOCATION_01",
+    "text": "光影斑驳之森"
+  },
+  "00000901": {
+    "key": "LOCATION_01",
+    "text": "光影斑驳之森"
+  },
+  "00000c00": {
+    "key": "LOCATION_02",
+    "text": "边境小镇 弗尔卡"
+  },
+  "00000d00": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "花都希德霍姆"
+  },
+  "00000d01": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "花都希德霍姆"
+  },
+  "00000d02": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "花都希德霍姆"
+  },
+  "00000d03": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "花都希德霍姆"
+  },
+  "00000d04": {
+    "key": "TITLE_DATA_BACK_ALLEY",
+    "text": "花都希德霍姆 小巷"
+  },
+  "00000e10": {
+    "key": "LOCATION_29",
+    "text": "罗兰的骑空艇 甲板"
+  },
+  "00000e20": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e30": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e40": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e41": {
+    "key": "LOCATION_30",
+    "text": "扎斯巴的骑空艇 甲板"
+  },
+  "00000e50": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e60": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e70": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e80": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e90": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000e91": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000ea0": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "00000f21": {
+    "key": "LOCATION_02",
+    "text": "边境小镇 弗尔卡"
+  },
+  "00000ff0": {
+    "key": "QUEST_STAGE_NAME_8ST",
+    "text": "被遗忘的天空"
+  },
+  "03fa7660": {
+    "key": "LOCATION_14",
+    "text": "崭岩祭坛"
+  },
+  "0601daa7": {
+    "key": "LOCATION_61",
+    "text": "昏暮峡谷"
+  },
+  "063a1422": {
+    "key": "LOCATION_07",
+    "text": "隆塔涅岛 涅咎里斯灵峰"
+  },
+  "06ece960": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "08027625": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "0b53c82e": {
+    "key": "LOCATION_09",
+    "text": "破败的教堂"
+  },
+  "0d289b23": {
+    "key": "LOCATION_57",
+    "text": "境界古战场"
+  },
+  "0e72aa76": {
+    "key": "LOCATION_05",
+    "text": "矿山镇 天培尔"
+  },
+  "1d973d2c": {
+    "key": "LOCATION_NOTHING",
+    "text": "？？？"
+  },
+  "2a5a11a3": {
+    "key": "LOCATION_31",
+    "text": "阿维亚战舰 甲板"
+  },
+  "3de45f66": {
+    "key": "LOCATION_15",
+    "text": "被封锁的岛屿枫达慕"
+  },
+  "44c8a56f": {
+    "key": "LOCATION_03",
+    "text": "艾因斯特群岛 丘陵"
+  },
+  "45ee1562": {
+    "key": "LOCATION_52",
+    "text": "塞斐拉·深层空间"
+  },
+  "46b84d67": {
+    "key": "LOCATION_33",
+    "text": "希德霍姆城"
+  },
+  "491e6d79": {
+    "key": "LOCATION_50",
+    "text": "达利遗迹的星夜"
+  },
+  "518ed3b5": {
+    "key": "LOCATION_11",
+    "text": "绝零祭坛"
+  },
+  "536ca1d9": {
+    "key": "LOCATION_54",
+    "text": "至理之空"
+  },
+  "5b8cf8e8": {
+    "key": "LOCATION_20",
+    "text": "被遗忘的天空"
+  },
+  "5df0ab63": {
+    "key": "LOCATION_60",
+    "text": "红霞之森"
+  },
+  "5eb95d74": {
+    "key": "LOCATION_70",
+    "text": "讣音冥境"
+  },
+  "6625afc9": {
+    "key": "LOCATION_64",
+    "text": "幽静祭坛"
+  },
+  "68819c2d": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "781ff7a8": {
+    "key": "LOCATION_62",
+    "text": "茜色之丘"
+  },
+  "7c62b886": {
+    "key": "LOCATION_55",
+    "text": "本初子午环"
+  },
+  "962e0f1d": {
+    "key": "LOCATION_68",
+    "text": "朱门无血廊"
+  },
+  "9948eb8e": {
+    "key": "LOCATION_06",
+    "text": "荣风祭坛"
+  },
+  "9d9008a2": {
+    "key": "LOCATION_04",
+    "text": "泽加德据点"
+  },
+  "a50ed659": {
+    "key": "LOCATION_69",
+    "text": "冥泣蜃阁"
+  },
+  "abd287ff": {
+    "key": "LOCATION_00",
+    "text": "骑空艇格兰赛法号 甲板"
+  },
+  "bce014bc": {
+    "key": "LOCATION_18",
+    "text": "胧暗祭坛"
+  },
+  "c15e30c4": {
+    "key": "LOCATION_NOTHING",
+    "text": "？？？"
+  },
+  "c5328b59": {
+    "key": "LOCATION_66",
+    "text": "雪骸遗都"
+  },
+  "cc675873": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "d1b646f9": {
+    "key": "LOCATION_33",
+    "text": "希德霍姆城"
+  },
+  "d616a08d": {
+    "key": "LOCATION_15",
+    "text": "被封锁的岛屿枫达慕"
+  },
+  "d6c6d96c": {
+    "key": "LOCATION_08",
+    "text": "霜枕谷"
+  },
+  "d7f4e3c0": {
+    "key": "LOCATION_53",
+    "text": "王座之厅"
+  },
+  "d8ed3036": {
+    "key": "LOCATION_32",
+    "text": "飞龙之谷"
+  },
+  "dc94ad26": {
+    "key": "LOCATION_01",
+    "text": "光影斑驳之森"
+  },
+  "e3146bff": {
+    "key": "LOCATION_58",
+    "text": "扭曲的震中"
+  },
+  "e46d8d29": {
+    "key": "LOCATION_65",
+    "text": "往昔净土"
+  },
+  "e4d8397e": {
+    "key": "LOCATION_56",
+    "text": "遥洛阁"
+  },
+  "e4fb7873": {
+    "key": "LOCATION_67",
+    "text": "水岩圆斗场"
+  },
+  "e52a8a36": {
+    "key": "LOCATION_13",
+    "text": "达利遗迹群"
+  },
+  "e54cc44d": {
+    "key": "LOCATION_51",
+    "text": "遥天之座"
+  },
+  "e951128a": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "巴约塔"
+  },
+  "f9765b44": {
+    "key": "LOCATION_63",
+    "text": "恶鬼荒城"
+  }
+}

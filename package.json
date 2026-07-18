@@ -1,10 +1,11 @@
 {
   "name": "gbfr-logs",
   "private": true,
-  "version": "1.8.0",
+  "version": "2.0.2",
   "type": "module",
   "scripts": {
-    "dev": "cargo build --release --package hook --features hook/console && vite",
+    "dev": "cargo build --release --package hook --features hook/console && node scripts/sync-hook.mjs && vite",
+    "build:hook": "cargo build --release --package hook && node scripts/sync-hook.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint ./src",

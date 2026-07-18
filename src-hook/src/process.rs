@@ -97,10 +97,19 @@ impl Process {
         let mut matches = scanner.matches_code(&pattern);
 
         let mut first_addr = None;
+        let mut match_count = 0usize;
 
         // addrs[0] = RVA of where the match was found.
         // addrs[1] = RVA of the function being called.
         while matches.next(&mut addrs) {
+            match_count += 1;
+            if match_count > 1 {
+                return Err(anyhow!(
+                    "Signature is ambiguous ({} or more matches): {}",
+                    match_count,
+                    signature_pattern
+                ));
+            }
             first_addr = Some(self.base_address + addrs[1] as usize);
         }
 
@@ -110,23 +119,106 @@ impl Process {
         ))
     }
 
+    pub fn search_match_address(&self, signature_pattern: &str) -> anyhow::Result<usize> {
+        let view = unsafe { PeView::module(self.module_handle.0 as *const u8) };
+        let scanner = view.scanner();
+        let pattern = pattern::parse(signature_pattern)?;
+        let mut addrs = [0; 8];
+        let mut matches = scanner.matches_code(&pattern);
+
+        if !matches.next(&mut addrs) {
+            return Err(anyhow!(
+                "Could not find match for pattern: {}",
+                signature_pattern
+            ));
+        }
+
+        let address = self.base_address + addrs[0] as usize;
+        if matches.next(&mut addrs) {
+            return Err(anyhow!(
+                "Signature is ambiguous (2 or more matches): {}",
+                signature_pattern
+            ));
+        }
+
+        Ok(address)
+    }
+
+    pub fn search_function_start(
+        &self,
+        signature_pattern: &str,
+        prologue: &[u8],
+        max_distance: usize,
+    ) -> anyhow::Result<usize> {
+        if prologue.is_empty() {
+            return Err(anyhow!("Function prologue cannot be empty"));
+        }
+
+        let signed_address = self.search_match_address(signature_pattern)?;
+        for distance in 0..=max_distance {
+            let Some(candidate) = signed_address.checked_sub(distance) else {
+                break;
+            };
+            if candidate < self.base_address {
+                break;
+            }
+
+            let bytes =
+                unsafe { std::slice::from_raw_parts(candidate as *const u8, prologue.len()) };
+            if bytes == prologue {
+                return Ok(candidate);
+            }
+        }
+
+        Err(anyhow!(
+            "Could not find function prologue within {max_distance:#x} bytes of pattern: {signature_pattern}"
+        ))
+    }
+
+    pub fn search_rip_relative_address(
+        &self,
+        signature_pattern: &str,
+        displacement_offset: usize,
+        instruction_size: usize,
+    ) -> anyhow::Result<usize> {
+        let instruction = self.search_match_address(signature_pattern)?;
+        let displacement_address = instruction
+            .checked_add(displacement_offset)
+            .ok_or_else(|| anyhow!("RIP-relative displacement address overflow"))?;
+        let displacement = unsafe { (displacement_address as *const i32).read_unaligned() };
+        let next_instruction = instruction
+            .checked_add(instruction_size)
+            .ok_or_else(|| anyhow!("RIP-relative instruction address overflow"))?;
+
+        next_instruction
+            .checked_add_signed(displacement as isize)
+            .ok_or_else(|| anyhow!("RIP-relative target address overflow"))
+    }
+
     /// Searches and returns the value of the type `T` that matches the given signature pattern.
     pub fn search_slice<T>(&self, signature_pattern: &str) -> anyhow::Result<T> {
         let view = unsafe { PeView::module(self.module_handle.0 as *const u8) };
         let scanner = view.scanner();
         let pattern = pattern::parse(signature_pattern)?;
         let mut addrs = [0; 8];
-        let matches = scanner.matches_code(&pattern).next(&mut addrs);
+        let mut matches = scanner.matches_code(&pattern);
 
-        if matches {
-            let addr = self.base_address + addrs[1] as usize;
-            let ptr = addr as *const T;
-            Ok(unsafe { ptr.read_unaligned() })
-        } else {
-            Err(anyhow!(
+        if !matches.next(&mut addrs) {
+            return Err(anyhow!(
                 "Could not find match for pattern: {}",
                 signature_pattern
-            ))
+            ));
         }
+
+        let addr = self.base_address + addrs[1] as usize;
+        if matches.next(&mut addrs) {
+            return Err(anyhow!(
+                "Signature is ambiguous (2 or more matches): {}",
+                signature_pattern
+            ));
+        }
+
+        let ptr = addr as *const T;
+        Ok(unsafe { ptr.read_unaligned() })
     }
 }

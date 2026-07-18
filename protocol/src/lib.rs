@@ -81,7 +81,7 @@ pub struct DamageEvent {
     pub damage_cap: Option<i32>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct Sigil {
     pub first_trait_id: u32,
     pub first_trait_level: u32,
@@ -142,7 +142,7 @@ pub struct OvermasteryInfo {
     pub overmasteries: Vec<Overmastery>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct PlayerStats {
     pub level: u32,
     pub total_hp: u32,
@@ -164,6 +164,29 @@ pub struct PlayerLoadEvent {
     pub weapon_info: WeaponInfo,
     pub overmastery_info: OvermasteryInfo,
     pub player_stats: PlayerStats,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PlayerIdentityEvent {
+    pub character_name: CString,
+    pub display_name: CString,
+    pub character_type: u32,
+    pub party_index: u8,
+    pub actor_index: u32,
+    pub is_online: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct PlayerEquipmentEvent {
+    pub sigils: Vec<Sigil>,
+    pub weapon_info: Option<WeaponInfo>,
+    pub overmastery_info: Option<OvermasteryInfo>,
+    pub player_stats: Option<PlayerStats>,
+    pub master_traits: Option<Vec<u32>>,
+    pub character_type: u32,
+    pub party_index: u8,
+    pub actor_index: u32,
+    pub is_online: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -207,6 +230,8 @@ pub struct OnContinueSBAChainEvent {
 pub struct OnDeathEvent {
     pub actor_index: u32,
     pub death_counter: u32,
+    #[serde(default)]
+    pub is_delta: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -220,4 +245,7 @@ pub enum Message {
     OnContinueSBAChain(OnContinueSBAChainEvent),
     PlayerLoadEvent(PlayerLoadEvent),
     OnDeathEvent(OnDeathEvent),
+    OnBattleEnd,
+    PlayerIdentityEvent(PlayerIdentityEvent),
+    PlayerEquipmentEvent(PlayerEquipmentEvent),
 }

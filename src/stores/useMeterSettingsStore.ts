@@ -31,7 +31,13 @@ const DEFAULT_METER_SETTINGS: MeterSettings = {
   show_full_values: false,
   use_condensed_skills: true,
   open_log_on_save: true,
-  overlay_columns: [MeterColumns.TotalDamage, MeterColumns.DPS, MeterColumns.DamagePercentage],
+  overlay_columns: [
+    MeterColumns.TotalDamage,
+    MeterColumns.DPS,
+    MeterColumns.DamageCap,
+    MeterColumns.DamagePercentage,
+    MeterColumns.Deaths,
+  ],
 };
 
 export type StoreWithPersist<T> = Mutate<StoreApi<T>, [["zustand/persist", T]]>;
@@ -62,6 +68,21 @@ export const useMeterSettingsStore = create<MeterSettings & MeterStateFunctions>
     }),
     {
       name: "meter-settings",
+      version: 3,
+      migrate: (persistedState: unknown, version) => {
+        const state = persistedState as MeterSettings & MeterStateFunctions;
+        const overlayColumns = state.overlay_columns || DEFAULT_METER_SETTINGS.overlay_columns;
+        const columns =
+          version < 2 && !overlayColumns.includes(MeterColumns.Deaths)
+            ? [...overlayColumns, MeterColumns.Deaths]
+            : overlayColumns;
+
+        return {
+          ...state,
+          overlay_columns: columns,
+          use_condensed_skills: version < 3 ? true : state.use_condensed_skills,
+        };
+      },
     }
   )
 );

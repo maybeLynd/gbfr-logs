@@ -1,4 +1,7 @@
-use std::sync::atomic::Ordering;
+use std::{
+    collections::HashMap,
+    sync::{atomic::Ordering, Mutex, OnceLock},
+};
 
 use anyhow::{anyhow, Result};
 use protocol::Message;
@@ -7,6 +10,91 @@ use retour::static_detour;
 use crate::{event, process::Process};
 
 use super::{actor_idx, actor_type_id, get_source_parent, globals::SBA_OFFSET};
+
+const GAME_2_SBA_VALUE_OFFSET: usize = 0x32AC;
+const GAME_2_SBA_MAX: f32 = 1000.0;
+const SBA_CHANGE_EPSILON: f32 = 0.001;
+static OBSERVED_SBA_VALUES: OnceLock<Mutex<HashMap<u32, f32>>> = OnceLock::new();
+
+pub fn observe_sba_for_actor(
+    tx: &event::Tx,
+    actor: *const usize,
+    actor_type: u32,
+    actor_index: u32,
+) {
+    if actor.is_null() || !is_player_actor_type(actor_type) {
+        return;
+    }
+
+    let Some(address) = (actor as usize).checked_add(GAME_2_SBA_VALUE_OFFSET) else {
+        return;
+    };
+    let Some(value) = super::read_process_value::<f32>(address) else {
+        return;
+    };
+    if !value.is_finite() || !(0.0..=GAME_2_SBA_MAX).contains(&value) {
+        return;
+    }
+
+    let mut values = OBSERVED_SBA_VALUES
+        .get_or_init(|| Mutex::new(HashMap::new()))
+        .lock()
+        .expect("SBA value map lock poisoned");
+    let previous = values.insert(actor_index, value);
+    let Some(sba_added) = calculate_sba_added(previous, value) else {
+        return;
+    };
+    drop(values);
+
+    let _ = tx.send(Message::OnUpdateSBA(protocol::OnUpdateSBAEvent {
+        actor_index,
+        sba_value: value,
+        sba_added,
+    }));
+}
+
+fn calculate_sba_added(previous: Option<f32>, current: f32) -> Option<f32> {
+    if previous.is_some_and(|old| (current - old).abs() <= SBA_CHANGE_EPSILON) {
+        return None;
+    }
+    Some(previous.map_or(0.0, |old| (current - old).max(0.0)))
+}
+
+pub(super) fn is_player_actor_type(actor_type: u32) -> bool {
+    matches!(
+        actor_type,
+        0x26A4848A
+            | 0x9498420D
+            | 0x34D4FD8F
+            | 0xF8D73D33
+            | 0x7B5934AD
+            | 0x443D46BB
+            | 0xA9D6569E
+            | 0xFBA6615D
+            | 0x63A7C3F0
+            | 0xF96A90C2
+            | 0x28AC1108
+            | 0x94E2514E
+            | 0x2B4AA114
+            | 0xC97F3365
+            | 0x601AA977
+            | 0xBCC238DE
+            | 0xC3155079
+            | 0xD16CFBDE
+            | 0x6FDD6932
+            | 0x8056ABCD
+            | 0xF5755C0E
+            | 0x9C89A455
+            | 0x59DB0CD9
+            | 0xDA5A8E25
+            | 0x4C714F77
+            | 0xE330418F
+            | 0xE3D1BE26
+            | 0x91418145
+            | 0x48ADDA36
+            | 0x0A58FB4D
+    )
+}
 
 type OnSBAUpdateFunc = unsafe extern "system" fn(*const usize, f32, u32, u8, u32, u8) -> usize;
 type OnSBAAttemptFunc = unsafe extern "system" fn(*const usize, f32) -> usize;
@@ -343,5 +431,27 @@ impl OnRemoteSBAUpdateHook {
         }
 
         ret
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{calculate_sba_added, is_player_actor_type};
+
+    #[test]
+    fn recognizes_base_and_expansion_player_actors_only() {
+        assert!(is_player_actor_type(0xFBA6615D));
+        assert!(is_player_actor_type(0x4C714F77));
+        assert!(is_player_actor_type(0x0A58FB4D));
+        assert!(!is_player_actor_type(0x8364C8BC));
+        assert!(!is_player_actor_type(0x121D9D67));
+    }
+
+    #[test]
+    fn reports_initial_gain_reset_and_real_changes_only() {
+        assert_eq!(calculate_sba_added(None, 125.0), Some(0.0));
+        assert_eq!(calculate_sba_added(Some(125.0), 150.0), Some(25.0));
+        assert_eq!(calculate_sba_added(Some(150.0), 0.0), Some(0.0));
+        assert_eq!(calculate_sba_added(Some(150.0), 150.0005), None);
     }
 }

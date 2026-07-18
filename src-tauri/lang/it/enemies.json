@@ -3,6 +3,10 @@
     "key": "EM0003",
     "text": "Goblin arciere"
   },
+  "0014a1b8": {
+    "key": "EM0013",
+    "text": "Oni arciere"
+  },
   "0178bc98": {
     "key": "EM0603",
     "text": "Re Melmargento"
@@ -14,6 +18,14 @@
   "06d40674": {
     "key": "WE2112",
     "text": "Caduceus"
+  },
+  "073ad302": {
+    "key": "EM0012",
+    "text": "Oni difensore"
+  },
+  "08c5ecc7": {
+    "key": "WE8453",
+    "text": "Provvidenza smeraldina"
   },
   "095c118f": {
     "key": "EM0900",
@@ -43,6 +55,10 @@
     "key": "EM1805",
     "text": "Radis, Drago Bianco"
   },
+  "0ed6a142": {
+    "key": "EM8401",
+    "text": "Echo logi"
+  },
   "0ee3e67f": {
     "key": "EM0902",
     "text": "Spirito d'acqua"
@@ -67,6 +83,10 @@
     "key": "EM1804",
     "text": "Elusious, Drago del Vento"
   },
+  "18fde573": {
+    "key": "EM8300",
+    "text": "Il Mondo"
+  },
   "1943ed28": {
     "key": "EM7530",
     "text": "Aka Manah"
@@ -74,6 +94,10 @@
   "1b7264b0": {
     "key": "EM00A4",
     "text": "Goblin soldato"
+  },
+  "1f3323c0": {
+    "key": "EM0014",
+    "text": "Canaglia blu"
   },
   "20037267": {
     "key": "BA7200",
@@ -86,6 +110,18 @@
   "22e188a1": {
     "key": "EM7406",
     "text": "Spina atlante"
+  },
+  "23dbc16e": {
+    "key": "EM0102_02",
+    "text": "Ragnatherion della maledizione"
+  },
+  "257a4a69": {
+    "key": "EM1502",
+    "text": ""
+  },
+  "2678f0c1": {
+    "key": "EM1001",
+    "text": "Lanciere di Avia"
   },
   "269529e2": {
     "key": "WE7002",
@@ -107,9 +143,17 @@
     "key": "EM0604",
     "text": "Re Melmadoro"
   },
+  "2f5f3e49": {
+    "key": "EM8510",
+    "text": "Aces High"
+  },
   "3165aaba": {
     "key": "EM1001",
     "text": "Lanciere di Avia"
+  },
+  "320685fd": {
+    "key": "EM1806_02",
+    "text": "Drago Nero dello sconforto"
   },
   "363f9b5c": {
     "key": "EM1003",
@@ -119,6 +163,10 @@
     "key": "EM0102",
     "text": "Gerasene"
   },
+  "3a1018ce": {
+    "key": "EM1900_08",
+    "text": "Tayu'itar del massacro"
+  },
   "3a1c16f4": {
     "key": "EM1005",
     "text": "Mietitore Avalan"
@@ -127,13 +175,29 @@
     "key": "EM0002",
     "text": "Goblin gigante"
   },
+  "3f4b75d5": {
+    "key": "EM8000",
+    "text": "Seofon"
+  },
+  "3f6f3fef": {
+    "key": "EM1510",
+    "text": "Pietra del labirinto"
+  },
   "3f7f9a35": {
     "key": "EM1500",
     "text": "Golem di pietra"
   },
+  "4040b8cd": {
+    "key": "EM8100",
+    "text": "Tweyen"
+  },
   "427e32fe": {
     "key": "EM0000",
     "text": "Goblin assaltatore"
+  },
+  "43cf4540": {
+    "key": "EM0104",
+    "text": "Ossa contrite"
   },
   "44a72d4b": {
     "key": "EM0001",
@@ -147,13 +211,29 @@
     "key": "EM1000",
     "text": "Sciabola di Avia"
   },
+  "498e8418": {
+    "key": "WE8454",
+    "text": "Provvidenza nivea"
+  },
+  "49ad1aa0": {
+    "key": "EM0706_05",
+    "text": "Ragnatherion occhio affilato"
+  },
   "4a299e62": {
     "key": "EM1801",
     "text": "Vrazarek, Drago del Fuoco"
   },
+  "4a87f079": {
+    "key": "EM1801_02",
+    "text": "Drago del Fuoco rovente"
+  },
   "4a9e6f56": {
     "key": "EM1700",
     "text": "Behemot"
+  },
+  "4ac36db7": {
+    "key": "EM1805_02",
+    "text": "Drago Bianco infuriato"
   },
   "4d2202ae": {
     "key": "EM7404",
@@ -162,6 +242,10 @@
   "4d2d2ef6": {
     "key": "EM7402",
     "text": "Excavallion"
+  },
+  "4f8a14ac": {
+    "key": "EM1803_02",
+    "text": "Drago della Terra franante"
   },
   "4fdad2ca": {
     "key": "EM7526",
@@ -175,6 +259,10 @@
     "key": "EM00A2",
     "text": "Goblin gigante"
   },
+  "53e6b191": {
+    "key": "EM1000",
+    "text": "Sciabola di Avia"
+  },
   "563b59b1": {
     "key": "BH2002",
     "text": "Autocannone a etere 20mm"
@@ -187,9 +275,21 @@
     "key": "EM7524",
     "text": "Daeva"
   },
+  "58a85756": {
+    "key": "EM1300",
+    "text": ""
+  },
+  "5c1e1def": {
+    "key": "EM0500_06",
+    "text": "Ragnatherion della rotazione fatale"
+  },
   "5e316d49": {
     "key": "EM7603",
     "text": "Nucleo di Bahamut"
+  },
+  "5e7148b7": {
+    "key": "EM1003",
+    "text": "Alfiere di Avia"
   },
   "5fb90ec9": {
     "key": "EM0501",
@@ -198,6 +298,14 @@
   "6056b80a": {
     "key": "EM2600",
     "text": "Cobra"
+  },
+  "61325867": {
+    "key": "EM0610",
+    "text": "Melma celestiale"
+  },
+  "62d7c859": {
+    "key": "EM0015",
+    "text": "Mascalzone"
   },
   "635fffb6": {
     "key": "WE7702",
@@ -211,6 +319,10 @@
     "key": "EM1806",
     "text": "Evyl, Drago Nero"
   },
+  "66a3b7f4": {
+    "key": "EM8200",
+    "text": "Beelzebub"
+  },
   "677f73cd": {
     "key": "EM7409",
     "text": "Reattore torace"
@@ -222,6 +334,10 @@
   "69bb1528": {
     "key": "WE7022",
     "text": "Hydor"
+  },
+  "6c9a3a65": {
+    "key": "EM1004",
+    "text": "Inquisitore Rook"
   },
   "6d5ba989": {
     "key": "EM0701",
@@ -242,6 +358,10 @@
   "7044a13d": {
     "key": "WE3100",
     "text": "Lucciola"
+  },
+  "708c3fd9": {
+    "key": "EM0103_05",
+    "text": "Ragnatherion defunto"
   },
   "745da8b4": {
     "key": "EM7211",
@@ -275,6 +395,10 @@
     "key": "EM0005",
     "text": "Guerriero goblin"
   },
+  "85412de1": {
+    "key": "EM2510",
+    "text": "Granchio del sumo"
+  },
   "8b964be7": {
     "key": "EM2800",
     "text": "Forma infausta"
@@ -290,6 +414,10 @@
   "90793b2e": {
     "key": "BA7211",
     "text": "Portale della calamità"
+  },
+  "9338abc9": {
+    "key": "EM1200",
+    "text": ""
   },
   "938a4bdf": {
     "key": "EM7310",
@@ -311,6 +439,10 @@
     "key": "BH0002",
     "text": "Carico del mercante"
   },
+  "97dfa1f2": {
+    "key": "EM0901",
+    "text": ""
+  },
   "9a7dfec3": {
     "key": "EM7522",
     "text": "Daeva"
@@ -326,6 +458,10 @@
   "9beb4c14": {
     "key": "WE7023",
     "text": "Edafos"
+  },
+  "9e3c5762": {
+    "key": "WE8452",
+    "text": "Provvidenza dorata"
   },
   "9ff822ce": {
     "key": "EM7528",
@@ -391,6 +527,10 @@
     "key": "EM2400",
     "text": "Lilith"
   },
+  "b4276d8f": {
+    "key": "EM1804_03",
+    "text": "Drago del Vento karmico"
+  },
   "b4aed02d": {
     "key": "EM7600",
     "text": "Alter-Bahamut"
@@ -431,6 +571,10 @@
     "key": "EM0502",
     "text": "Piroalligatore"
   },
+  "ba89293f": {
+    "key": "WE7701",
+    "text": "Spada dell'abiura"
+  },
   "bc7e01a9": {
     "key": "BA2103",
     "text": "Ancora"
@@ -447,17 +591,45 @@
     "key": "EM7601",
     "text": "Alter-Bahamut"
   },
+  "c222c939": {
+    "key": "WE8451",
+    "text": "Provvidenza cerulea"
+  },
   "c3089918": {
     "key": "EM2500",
     "text": "Tenaglia"
+  },
+  "c38eab52": {
+    "key": "EM1802_02",
+    "text": "Drago dell'onda di Ghiaccio"
   },
   "c3c58c76": {
     "key": "EM7200",
     "text": "Furycane"
   },
+  "c4d2bb4b": {
+    "key": "EM0803",
+    "text": ""
+  },
+  "c90aa636": {
+    "key": "EM8500",
+    "text": "Alalunga"
+  },
   "ca4091c8": {
     "key": "EM0004",
     "text": "Goblin soldato"
+  },
+  "ca4964ab": {
+    "key": "EM8400",
+    "text": "Omnis Zegalith"
+  },
+  "cd60d5d8": {
+    "key": "EM0704",
+    "text": ""
+  },
+  "cd97935d": {
+    "key": "EM0502_04",
+    "text": "Ragnatherion divorafuoco"
   },
   "cdaa9205": {
     "key": "EM7504",
@@ -466,6 +638,14 @@
   "d09c5b2e": {
     "key": "EM7201",
     "text": "Furycane"
+  },
+  "d0d68948": {
+    "key": "EM1002",
+    "text": "Arciere di Avia"
+  },
+  "d316a5bd": {
+    "key": "WE8450",
+    "text": "Provvidenza scarlatta"
   },
   "d4950d74": {
     "key": "WE7700",
@@ -479,13 +659,25 @@
     "key": "EM0800",
     "text": "Vortice di fuoco"
   },
+  "d7ba6d4a": {
+    "key": "EM8300",
+    "text": "Il Mondo"
+  },
   "d9e45318": {
     "key": "EM0705",
     "text": "Ahriman"
   },
+  "da984d5f": {
+    "key": "WE8455",
+    "text": "Provvidenza oscura"
+  },
   "dbca3857": {
     "key": "EM7000",
     "text": "Proto-Bahamut"
+  },
+  "dbf6856a": {
+    "key": "EM0501_05",
+    "text": "Ragnatherion del guscio di ghiaccio"
   },
   "dea8e6e6": {
     "key": "EM7523",
@@ -494,6 +686,10 @@
   "df348320": {
     "key": "EM7001",
     "text": "Proto-Bahamut"
+  },
+  "df39cbd7": {
+    "key": "EM0702",
+    "text": ""
   },
   "e07acd74": {
     "key": "WE7300",
@@ -543,9 +739,37 @@
     "key": "EM7501",
     "text": "Angra Mainyu"
   },
+  "e93faca2": {
+    "key": "EM0903",
+    "text": ""
+  },
+  "e940aef5": {
+    "key": "WE7700",
+    "text": "Spada della confutazione"
+  },
   "eab390a0": {
     "key": "EM2200",
     "text": "Id"
+  },
+  "eb1f272b": {
+    "key": "EM0700",
+    "text": ""
+  },
+  "ed096929": {
+    "key": "WE7702",
+    "text": "Spada della rinuncia"
+  },
+  "effc3497": {
+    "key": "EM0010",
+    "text": "Oni gambalesta"
+  },
+  "f38ad679": {
+    "key": "EM1501",
+    "text": "Golem di rubini Aquila"
+  },
+  "f43bc093": {
+    "key": "EM0703",
+    "text": ""
   },
   "f45a0b6d": {
     "key": "EM1301",

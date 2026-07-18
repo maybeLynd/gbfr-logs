@@ -19,9 +19,17 @@ async fn handle_client(
     mut stream: FramedWrite<SendPipeStream<pipe_mode::Bytes>, LengthDelimitedCodec>,
     mut rx: event::Rx,
 ) -> Result<()> {
-    while let Ok(msg) = rx.recv().await {
-        let bytes = protocol::bincode::serialize(&msg)?;
-        stream.send(bytes.into()).await?;
+    loop {
+        match rx.recv().await {
+            Ok(msg) => {
+                let bytes = protocol::bincode::serialize(&msg)?;
+                stream.send(bytes.into()).await?;
+            }
+            Err(broadcast::error::RecvError::Lagged(skipped)) => {
+                warn!("Named-pipe client lagged by {skipped} events; resuming");
+            }
+            Err(broadcast::error::RecvError::Closed) => break,
+        }
     }
 
     Ok(())
@@ -34,7 +42,7 @@ struct Server {
 
 impl Server {
     fn new() -> Self {
-        let (tx, _) = broadcast::channel::<Message>(1024);
+        let (tx, _) = broadcast::channel::<Message>(65_536);
         Server { tx }
     }
 

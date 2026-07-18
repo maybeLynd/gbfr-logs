@@ -1,4 +1,8 @@
 {
+  "00277247": {
+    "key": "GEEN_327_01",
+    "text": "Divergence II"
+  },
   "004557b8": {
     "key": "GEEN_158_13",
     "text": "Sauvagerie IV+"
@@ -11,6 +15,10 @@
     "key": "GEEN_146_24",
     "text": "Faveur guerrière+"
   },
+  "006e474e": {
+    "key": "GEEN_322_24",
+    "text": "Terre astrale V+"
+  },
   "0114dd91": {
     "key": "GEEN_151_02",
     "text": "Dégâts supplémentaires III"
@@ -18,6 +26,10 @@
   "01643ef4": {
     "key": "GEEN_119_04",
     "text": "Éclosion de roses"
+  },
+  "01bb436b": {
+    "key": "GEEN_176_04",
+    "text": "Munition du loup de foudre"
   },
   "01d1a6ce": {
     "key": "GEEN_119_91",
@@ -35,6 +47,10 @@
     "key": "GEEN_154_14",
     "text": "Berserk V+"
   },
+  "02c1d304": {
+    "key": "GEEN_063_24",
+    "text": "Esquive améliorée+"
+  },
   "02c67f5e": {
     "key": "GEEN_008_24",
     "text": "Ogi V+"
@@ -47,9 +63,25 @@
     "key": "GEEN_106_04",
     "text": "Sérénité V"
   },
+  "041d7b20": {
+    "key": "GEEN_096_24",
+    "text": "Nerfs d'acier V+"
+  },
+  "04ac2281": {
+    "key": "GEEN_072_24",
+    "text": "Exaltation V+"
+  },
+  "04bd9f6b": {
+    "key": "GEEN_325_24",
+    "text": "Rebelle des cieux V+"
+  },
   "04d028e3": {
     "key": "GEEN_013_03",
     "text": "Dégâts critiques IV"
+  },
+  "0523a202": {
+    "key": "GEEN_178_91",
+    "text": "Sceau maudit noir+"
   },
   "0537ef0b": {
     "key": "GEEN_004_00",
@@ -58,6 +90,10 @@
   "05aca892": {
     "key": "GEEN_118_92",
     "text": "Vision du vétéran+"
+  },
+  "05fe0351": {
+    "key": "GEEN_234_24",
+    "text": "Spartiate+"
   },
   "06260d96": {
     "key": "GEEN_005_13",
@@ -79,9 +115,25 @@
     "key": "GEEN_114_93",
     "text": "Vaillance intrépide+"
   },
+  "0723f7ec": {
+    "key": "GEEN_178_92",
+    "text": "Bond noir+"
+  },
   "07703a8a": {
     "key": "GEEN_072_02",
     "text": "Exaltation III"
+  },
+  "07a3abd9": {
+    "key": "GEEN_322_22",
+    "text": "Terre astrale III+"
+  },
+  "0890cd68": {
+    "key": "GEEN_078_24",
+    "text": "Provocation V+"
+  },
+  "0898bb55": {
+    "key": "GEEN_327_22",
+    "text": "Divergence III+"
   },
   "08da7279": {
     "key": "GEEN_000_14",
@@ -199,6 +251,14 @@
     "key": "GEEN_111_02",
     "text": "Charge rapide III"
   },
+  "113035d8": {
+    "key": "GEEN_235_24",
+    "text": "Super esquive parfaite ultime+"
+  },
+  "1147543e": {
+    "key": "GEEN_324_22",
+    "text": "Neige astrale III+"
+  },
   "1150513c": {
     "key": "GEEN_110_03",
     "text": "Témérité IV"
@@ -214,6 +274,10 @@
   "120c5d98": {
     "key": "GEEN_147_03",
     "text": "Voie de maîtrise IV"
+  },
+  "12789216": {
+    "key": "GEEN_321_02",
+    "text": "Éclat astral III"
   },
   "1291f7ca": {
     "key": "GEEN_031_22",
@@ -259,6 +323,10 @@
     "key": "GEEN_129_91",
     "text": "Stratégie fondatrice+"
   },
+  "15f618b1": {
+    "key": "GEEN_323_22",
+    "text": "Flamme astrale III+"
+  },
   "16216fdd": {
     "key": "GEEN_072_03",
     "text": "Exaltation IV"
@@ -299,6 +367,10 @@
     "key": "GEEN_221_94",
     "text": "Limite de dégâts V+"
   },
+  "186407ed": {
+    "key": "GEEN_320_22",
+    "text": "Affûtage astral III+"
+  },
   "190c656d": {
     "key": "GEEN_151_13",
     "text": "Dégâts supplémentaires IV+"
@@ -306,6 +378,10 @@
   "197818b7": {
     "key": "GEEN_055_03",
     "text": "Résistance Paralysie IV"
+  },
+  "19c4348e": {
+    "key": "GEEN_324_01",
+    "text": "Neige astrale II"
   },
   "19cb4eb9": {
     "key": "GEEN_057_24",
@@ -319,9 +395,21 @@
     "key": "GEEN_104_04",
     "text": "Concentration spirituelle V"
   },
+  "1a359b67": {
+    "key": "GEEN_176_92",
+    "text": "Vision du loup de foudre+"
+  },
   "1a57aef1": {
     "key": "GEEN_127_90",
     "text": "Éveil du papillon+"
+  },
+  "1a5f39d2": {
+    "key": "GEEN_325_24",
+    "text": "Rebelle des cieux V+"
+  },
+  "1a743e14": {
+    "key": "GEEN_322_03",
+    "text": "Terre astrale IV"
   },
   "1a94123d": {
     "key": "GEEN_006_13",
@@ -347,9 +435,17 @@
     "key": "GEEN_030_22",
     "text": "Effet spécial Overdrive III+"
   },
+  "1c166abc": {
+    "key": "GEEN_079_24",
+    "text": "Assimilation rapide V+"
+  },
   "1c4d37e4": {
     "key": "GEEN_140_00",
     "text": "Résonance carapacée"
+  },
+  "1c500ab2": {
+    "key": "GEEN_323_22",
+    "text": "Flamme astrale III+"
   },
   "1ca872e7": {
     "key": "GEEN_008_14",
@@ -375,6 +471,10 @@
     "key": "GEEN_064_03",
     "text": "Contre-esquive IV"
   },
+  "1e2ebc39": {
+    "key": "GEEN_151_24",
+    "text": "Dégâts supplémentaires V+"
+  },
   "1e56fe99": {
     "key": "GEEN_004_01",
     "text": "Étourdissement II"
@@ -382,6 +482,14 @@
   "1e69c3d0": {
     "key": "GEEN_066_24",
     "text": "Régénération V+"
+  },
+  "1e7796e1": {
+    "key": "GEEN_321_24",
+    "text": "Éclat astral V+"
+  },
+  "1f012233": {
+    "key": "GEEN_104_24",
+    "text": "Concentration spirituelle V+"
   },
   "1fc0c1a5": {
     "key": "GEEN_085_94",
@@ -394,6 +502,10 @@
   "2037a9ed": {
     "key": "GEEN_014_23",
     "text": "Attaque point faible IV+"
+  },
+  "20492635": {
+    "key": "GEEN_321_24",
+    "text": "Éclat astral V+"
   },
   "207559b9": {
     "key": "GEEN_028_14",
@@ -423,6 +535,14 @@
     "key": "GEEN_087_01",
     "text": "Inflexible II"
   },
+  "22dc8701": {
+    "key": "GEEN_323_03",
+    "text": "Flamme astrale IV"
+  },
+  "231ebaa2": {
+    "key": "GEEN_321_23",
+    "text": "Éclat astral IV+"
+  },
   "232147ad": {
     "key": "GEEN_152_23",
     "text": "Minimalisme IV+"
@@ -431,6 +551,10 @@
     "key": "GEEN_136_00",
     "text": "Résistance Séquestration I"
   },
+  "23953fd4": {
+    "key": "GEEN_176_90",
+    "text": "Éveil du loup de foudre+"
+  },
   "23c84e82": {
     "key": "GEEN_073_24",
     "text": "Réserve de potions V+"
@@ -438,6 +562,10 @@
   "23e7990d": {
     "key": "GEEN_168_04",
     "text": "Dégâts améliorés V"
+  },
+  "247a41f3": {
+    "key": "GEEN_174_54",
+    "text": "Ronde Reine des lames"
   },
   "248c0116": {
     "key": "GEEN_054_00",
@@ -451,6 +579,10 @@
     "key": "GEEN_166_02",
     "text": "Égide suprême III"
   },
+  "2679a4f0": {
+    "key": "GEEN_106_24",
+    "text": "Sérénité V+"
+  },
   "268cedc5": {
     "key": "GEEN_070_03",
     "text": "Cascade IV"
@@ -458,6 +590,10 @@
   "26ddcd39": {
     "key": "GEEN_044_24",
     "text": "Stoïcisme+"
+  },
+  "2767b7e2": {
+    "key": "GEEN_325_22",
+    "text": "Rebelle des cieux III+"
   },
   "27c62352": {
     "key": "GEEN_051_02",
@@ -471,21 +607,45 @@
     "key": "GEEN_130_04",
     "text": "Fondation alternative"
   },
+  "282dbff0": {
+    "key": "GEEN_173_91",
+    "text": "Passion du loup alpha+"
+  },
   "28a30205": {
     "key": "GEEN_017_12",
     "text": "Combo final III+"
+  },
+  "28b71e53": {
+    "key": "GEEN_051_24",
+    "text": "Résistance Ensablement V+"
   },
   "295219f9": {
     "key": "GEEN_106_24",
     "text": "Sérénité V+"
   },
+  "297d03f7": {
+    "key": "GEEN_144_24",
+    "text": "Bastion V+"
+  },
   "29be4772": {
     "key": "GEEN_051_00",
     "text": "Résistance Ensablement I"
   },
+  "2a2304e2": {
+    "key": "GEEN_325_24",
+    "text": "Rebelle des cieux V+"
+  },
   "2a85a4c2": {
     "key": "GEEN_083_24",
     "text": "Assaut habile V+"
+  },
+  "2ac47940": {
+    "key": "GEEN_233_24",
+    "text": "Écho de Berserker+"
+  },
+  "2b2401ef": {
+    "key": "GEEN_321_23",
+    "text": "Éclat astral IV+"
   },
   "2b247ee4": {
     "key": "GEEN_067_00",
@@ -531,9 +691,17 @@
     "key": "GEEN_154_04",
     "text": "Berserk V"
   },
+  "2d70c37d": {
+    "key": "GEEN_177_93",
+    "text": "Impétuosité de réincarnation+"
+  },
   "2d7f2e70": {
     "key": "GEEN_000_24",
     "text": "Puissance d'attaque V+"
+  },
+  "2d85102a": {
+    "key": "GEEN_146_24",
+    "text": "Faveur guerrière+"
   },
   "2e3351e3": {
     "key": "GEEN_147_24",
@@ -575,6 +743,14 @@
     "key": "GEEN_124_54",
     "text": "Ingéniosité du dracocide"
   },
+  "329c4e1c": {
+    "key": "GEEN_067_24",
+    "text": "Absorption V+"
+  },
+  "33006fc3": {
+    "key": "GEEN_326_04",
+    "text": "Paix astrale V"
+  },
   "332e9b30": {
     "key": "GEEN_233_24",
     "text": "Écho de Berserker+"
@@ -586,6 +762,14 @@
   "335b55d0": {
     "key": "GEEN_061_22",
     "text": "Contre-garde III+"
+  },
+  "335da2a5": {
+    "key": "GEEN_045_24",
+    "text": "Pugnacité V+"
+  },
+  "33ac7f74": {
+    "key": "GEEN_077_24",
+    "text": "Furtivité V+"
   },
   "33c89f1c": {
     "key": "GEEN_153_04",
@@ -635,6 +819,10 @@
     "key": "GEEN_031_13",
     "text": "Effet spécial Break IV+"
   },
+  "35ae024e": {
+    "key": "GEEN_324_22",
+    "text": "Neige astrale III+"
+  },
   "35bd0f81": {
     "key": "GEEN_005_22",
     "text": "Animosité III+"
@@ -643,6 +831,10 @@
     "key": "GEEN_012_12",
     "text": "Lancer III+"
   },
+  "36360691": {
+    "key": "GEEN_322_23",
+    "text": "Terre astrale IV+"
+  },
   "3644ef2c": {
     "key": "GEEN_106_02",
     "text": "Sérénité III"
@@ -650,6 +842,10 @@
   "364c8e19": {
     "key": "GEEN_064_22",
     "text": "Contre-esquive III+"
+  },
+  "36e1c7fc": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
   },
   "36f4b48a": {
     "key": "GEEN_013_22",
@@ -715,6 +911,10 @@
     "key": "GEEN_018_04",
     "text": "Tir concentré V"
   },
+  "3ba37635": {
+    "key": "GEEN_067_24",
+    "text": "Absorption V+"
+  },
   "3bca3fd5": {
     "key": "GEEN_137_03",
     "text": "Résistance Sombreflamme IV"
@@ -723,9 +923,17 @@
     "key": "GEEN_117_04",
     "text": "Aspiration du mage"
   },
+  "3c0f5461": {
+    "key": "GEEN_167_24",
+    "text": "Potion automatique+"
+  },
   "3c4e2fcf": {
     "key": "GEEN_003_12",
     "text": "Taux critique III+"
+  },
+  "3d0bf8cb": {
+    "key": "GEEN_146_24",
+    "text": "Faveur guerrière+"
   },
   "3d5e4678": {
     "key": "GEEN_171_04",
@@ -743,9 +951,17 @@
     "key": "GEEN_047_03",
     "text": "Résistance Brûlure IV"
   },
+  "3dd38511": {
+    "key": "GEEN_324_00",
+    "text": "Neige astrale I"
+  },
   "3ea4134b": {
     "key": "GEEN_172_91",
     "text": "Grâce de l'ange suprême+"
+  },
+  "3ed16fb2": {
+    "key": "GEEN_073_24",
+    "text": "Réserve de potions V+"
   },
   "3edd4c1f": {
     "key": "GEEN_066_02",
@@ -763,6 +979,10 @@
     "key": "GEEN_139_00",
     "text": "Résistance Diminution DÉF I"
   },
+  "40214c38": {
+    "key": "GEEN_320_24",
+    "text": "Affûtage astral V+"
+  },
   "40738cdd": {
     "key": "GEEN_120_64",
     "text": "Impétuosité spectrale"
@@ -770,6 +990,22 @@
   "408cc3b5": {
     "key": "GEEN_110_14",
     "text": "Témérité V+"
+  },
+  "4119f09b": {
+    "key": "GEEN_178_64",
+    "text": "Impétuosité noire"
+  },
+  "41ac1082": {
+    "key": "GEEN_173_93",
+    "text": "Impétuosité du loup alpha+"
+  },
+  "425056c4": {
+    "key": "GEEN_047_24",
+    "text": "Résistance Brûlure V+"
+  },
+  "426ad20e": {
+    "key": "GEEN_300_11",
+    "text": "Crabe éternel+"
   },
   "42bb0c1c": {
     "key": "GEEN_151_04",
@@ -795,6 +1031,10 @@
     "key": "GEEN_018_22",
     "text": "Tir concentré III+"
   },
+  "43cdd1fc": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
+  },
   "43dde5dd": {
     "key": "GEEN_171_74",
     "text": "Extrémité des deux rois+"
@@ -818,6 +1058,10 @@
   "45140ae4": {
     "key": "GEEN_158_22",
     "text": "Sauvagerie III+"
+  },
+  "4597a8a8": {
+    "key": "GEEN_173_64",
+    "text": "Impétuosité du loup alpha"
   },
   "459dd2c2": {
     "key": "GEEN_003_14",
@@ -863,6 +1107,14 @@
     "key": "2DB5D969",
     "text": "Dégâts améliorés V"
   },
+  "490f7304": {
+    "key": "GEEN_073_24",
+    "text": "Réserve de potions V+"
+  },
+  "49434696": {
+    "key": "GEEN_301_00",
+    "text": "Crabe de jais redoutable"
+  },
   "49651c89": {
     "key": "GEEN_126_92",
     "text": "Art de l'épéiste+"
@@ -874,6 +1126,14 @@
   "49745934": {
     "key": "GEEN_150_24",
     "text": "Intouchable+"
+  },
+  "49ebebeb": {
+    "key": "GEEN_150_24",
+    "text": "Intouchable+"
+  },
+  "4a25d812": {
+    "key": "GEEN_326_23",
+    "text": "Paix astrale IV+"
   },
   "4a336d1e": {
     "key": "GEEN_104_02",
@@ -891,9 +1151,17 @@
     "key": "GEEN_156_24",
     "text": "Puissance curative+"
   },
+  "4ae72c9e": {
+    "key": "GEEN_234_24",
+    "text": "Spartiate+"
+  },
   "4b754d3a": {
     "key": "GEEN_083_00",
     "text": "Assaut habile I"
+  },
+  "4b86cc01": {
+    "key": "GEEN_321_00",
+    "text": "Éclat astral I"
   },
   "4b98f53a": {
     "key": "GEEN_085_02",
@@ -926,6 +1194,10 @@
   "4cdce25b": {
     "key": "GEEN_123_93",
     "text": "Impétuosité du seigneur+"
+  },
+  "4d52c35c": {
+    "key": "GEEN_327_23",
+    "text": "Divergence IV+"
   },
   "4d7c8632": {
     "key": "GEEN_123_64",
@@ -967,13 +1239,25 @@
     "key": "GEEN_027_12",
     "text": "Tyrannie III+"
   },
+  "501973ce": {
+    "key": "GEEN_325_04",
+    "text": "Rebelle des cieux V"
+  },
   "5048c546": {
     "key": "GEEN_139_24",
     "text": "Résistance Diminution DÉF V+"
   },
+  "50996321": {
+    "key": "GEEN_320_23",
+    "text": "Affûtage astral IV+"
+  },
   "50b05700": {
     "key": "GEEN_077_04",
     "text": "Furtivité V"
+  },
+  "5119e3f4": {
+    "key": "GEEN_325_23",
+    "text": "Rebelle des cieux IV+"
   },
   "5144fe4d": {
     "key": "GEEN_031_14",
@@ -982,6 +1266,10 @@
   "515e693c": {
     "key": "GEEN_119_93",
     "text": "Impétuosité des roses+"
+  },
+  "51e98a7c": {
+    "key": "GEEN_175_93",
+    "text": "Impétuosité ultramarine+"
   },
   "522004ab": {
     "key": "GEEN_115_91",
@@ -999,6 +1287,10 @@
     "key": "GEEN_114_90",
     "text": "Bravoure suprême+"
   },
+  "52abe046": {
+    "key": "GEEN_322_24",
+    "text": "Terre astrale V+"
+  },
   "52bd3102": {
     "key": "GEEN_110_23",
     "text": "Témérité IV+"
@@ -1011,6 +1303,14 @@
     "key": "GEEN_005_12",
     "text": "Animosité III+"
   },
+  "53b1458d": {
+    "key": "GEEN_323_23",
+    "text": "Flamme astrale IV+"
+  },
+  "53bd323f": {
+    "key": "GEEN_325_00",
+    "text": "Rebelle des cieux I"
+  },
   "54cefd1c": {
     "key": "GEEN_005_00",
     "text": "Animosité I"
@@ -1022,6 +1322,10 @@
   "54d8ea04": {
     "key": "GEEN_020_24",
     "text": "Limite de dégâts V+"
+  },
+  "5536ee62": {
+    "key": "GEEN_323_04",
+    "text": "Flamme astrale V"
   },
   "5608ef7e": {
     "key": "GEEN_152_02",
@@ -1038,6 +1342,10 @@
   "56a668b1": {
     "key": "GEEN_134_02",
     "text": "Goutte de parachèvement"
+  },
+  "56d196c5": {
+    "key": "GEEN_320_04",
+    "text": "Affûtage astral V"
   },
   "57b6d9a5": {
     "key": "GEEN_058_03",
@@ -1063,17 +1371,33 @@
     "key": "GEEN_001_02",
     "text": "Santé III"
   },
+  "590715d9": {
+    "key": "GEEN_324_02",
+    "text": "Neige astrale III"
+  },
   "590c19c8": {
     "key": "GEEN_132_64",
     "text": "Impétuosité ténébreuse"
+  },
+  "59de6187": {
+    "key": "GEEN_106_24",
+    "text": "Sérénité V+"
   },
   "59e5335b": {
     "key": "GEEN_009_24",
     "text": "Attaque coordonnée V+"
   },
+  "5a360ea8": {
+    "key": "GEEN_177_90",
+    "text": "Éveil de réincarnation+"
+  },
   "5b939637": {
     "key": "GEEN_139_03",
     "text": "Résistance Diminution DÉF IV"
+  },
+  "5bf84fd1": {
+    "key": "GEEN_325_24",
+    "text": "Rebelle des cieux V+"
   },
   "5c19bbb0": {
     "key": "GEEN_046_04",
@@ -1082,6 +1406,10 @@
   "5c569745": {
     "key": "GEEN_145_13",
     "text": "Asura IV+"
+  },
+  "5cb2445f": {
+    "key": "GEEN_177_54",
+    "text": "Élan de réincarnation"
   },
   "5d592fdd": {
     "key": "GEEN_172_93",
@@ -1098,6 +1426,10 @@
   "5eb282c6": {
     "key": "GEEN_068_04",
     "text": "Auto-réanimation V"
+  },
+  "5f097193": {
+    "key": "GEEN_320_03",
+    "text": "Affûtage astral IV"
   },
   "5f117445": {
     "key": "GEEN_013_13",
@@ -1131,6 +1463,10 @@
     "key": "GEEN_057_01",
     "text": "Rés. Compétences scellées II"
   },
+  "612b6458": {
+    "key": "GEEN_045_24",
+    "text": "Pugnacité V+"
+  },
   "6130d327": {
     "key": "GEEN_085_01",
     "text": "Égide II"
@@ -1142,6 +1478,14 @@
   "6151f5f6": {
     "key": "GEEN_158_23",
     "text": "Sauvagerie IV+"
+  },
+  "61a1a299": {
+    "key": "GEEN_176_64",
+    "text": "Impétuosité du loup de foudre"
+  },
+  "61c49c10": {
+    "key": "GEEN_326_24",
+    "text": "Paix astrale V+"
   },
   "621a2a97": {
     "key": "GEEN_115_64",
@@ -1158,6 +1502,10 @@
   "630de5dd": {
     "key": "GEEN_013_14",
     "text": "Dégâts critiques V+"
+  },
+  "64301e91": {
+    "key": "GEEN_177_91",
+    "text": "Grâce de réincarnation+"
   },
   "645acee5": {
     "key": "GEEN_126_54",
@@ -1179,9 +1527,21 @@
     "key": "GEEN_222_94",
     "text": "Réserve de potions V+"
   },
+  "65b7e5c8": {
+    "key": "GEEN_323_24",
+    "text": "Flamme astrale V+"
+  },
+  "65f0420a": {
+    "key": "GEEN_302_00",
+    "text": "Concorde aux yeux de jais"
+  },
   "6674c639": {
     "key": "GEEN_131_64",
     "text": "Impétuosité pourpre"
+  },
+  "66cb28ba": {
+    "key": "GEEN_301_10",
+    "text": "Crabe de jais redoutable+"
   },
   "66f1b128": {
     "key": "GEEN_129_93",
@@ -1202,6 +1562,10 @@
   "687b928e": {
     "key": "GEEN_073_00",
     "text": "Réserve de potions I"
+  },
+  "688ab21c": {
+    "key": "GEEN_004_14",
+    "text": "Étourdissement V+"
   },
   "68b1e888": {
     "key": "GEEN_006_04",
@@ -1247,6 +1611,10 @@
     "key": "GEEN_156_04",
     "text": "Puissance curative"
   },
+  "6b920da2": {
+    "key": "GEEN_174_64",
+    "text": "Impétuosité Reine des lames"
+  },
   "6ba991cd": {
     "key": "GEEN_079_00",
     "text": "Assimilation rapide I"
@@ -1259,6 +1627,10 @@
     "key": "GEEN_144_14",
     "text": "Bastion V+"
   },
+  "6cba6b0d": {
+    "key": "GEEN_070_24",
+    "text": "Cascade V+"
+  },
   "6cca1ff7": {
     "key": "GEEN_128_92",
     "text": "Esprit de rage éternelle+"
@@ -1267,9 +1639,17 @@
     "key": "GEEN_116_54",
     "text": "Ténacité du timonier"
   },
+  "6db307d5": {
+    "key": "GEEN_157_24",
+    "text": "Coup du sort+"
+  },
   "6ec9d6bb": {
     "key": "GEEN_028_23",
     "text": "Charge chanceuse IV+"
+  },
+  "6efcd286": {
+    "key": "GEEN_146_24",
+    "text": "Faveur guerrière+"
   },
   "6f1d0870": {
     "key": "GEEN_166_24",
@@ -1286,6 +1666,18 @@
   "6fd12e61": {
     "key": "GEEN_070_24",
     "text": "Cascade V+"
+  },
+  "6ff3308a": {
+    "key": "GEEN_146_24",
+    "text": "Faveur guerrière+"
+  },
+  "70051799": {
+    "key": "GEEN_147_24",
+    "text": "Voie de maîtrise V+"
+  },
+  "7009517b": {
+    "key": "GEEN_326_24",
+    "text": "Paix astrale V+"
   },
   "70336d00": {
     "key": "GEEN_069_00",
@@ -1339,6 +1731,10 @@
     "key": "GEEN_057_03",
     "text": "Rés. Compétences scellées IV"
   },
+  "72c5a23d": {
+    "key": "GEEN_320_02",
+    "text": "Affûtage astral III"
+  },
   "72cba710": {
     "key": "GEEN_051_04",
     "text": "Résistance Ensablement V"
@@ -1346,6 +1742,10 @@
   "72d83138": {
     "key": "GEEN_152_22",
     "text": "Minimalisme III+"
+  },
+  "7300a967": {
+    "key": "GEEN_321_04",
+    "text": "Éclat astral V"
   },
   "735769a7": {
     "key": "GEEN_069_01",
@@ -1355,9 +1755,21 @@
     "key": "GEEN_168_03",
     "text": "Dégâts améliorés IV"
   },
+  "73db3bd3": {
+    "key": "GEEN_321_22",
+    "text": "Éclat astral III+"
+  },
+  "73e4c05e": {
+    "key": "GEEN_166_24",
+    "text": "Égide suprême V+"
+  },
   "73e5554f": {
     "key": "GEEN_036_00",
     "text": "Garnison I"
+  },
+  "74061b0c": {
+    "key": "GEEN_323_24",
+    "text": "Flamme astrale V+"
   },
   "7428df74": {
     "key": "GEEN_154_12",
@@ -1366,6 +1778,14 @@
   "7461bd6d": {
     "key": "GEEN_147_01",
     "text": "Voie de maîtrise II"
+  },
+  "748dd213": {
+    "key": "GEEN_063_24",
+    "text": "Esquive améliorée+"
+  },
+  "74eedc99": {
+    "key": "GEEN_320_01",
+    "text": "Affûtage astral II"
   },
   "751228a2": {
     "key": "GEEN_006_02",
@@ -1402,6 +1822,10 @@
   "76710852": {
     "key": "GEEN_078_01",
     "text": "Provocation II"
+  },
+  "76786869": {
+    "key": "GEEN_302_10",
+    "text": "Concorde aux yeux de jais+"
   },
   "76c7eb69": {
     "key": "GEEN_060_01",
@@ -1447,6 +1871,10 @@
     "key": "GEEN_014_00",
     "text": "Attaque point faible I"
   },
+  "79495b88": {
+    "key": "GEEN_073_24",
+    "text": "Réserve de potions V+"
+  },
   "79d7536f": {
     "key": "GEEN_065_02",
     "text": "Soins améliorés III"
@@ -1454,6 +1882,10 @@
   "79f4fd3e": {
     "key": "GEEN_027_00",
     "text": "Tyrannie I"
+  },
+  "7a06c7fb": {
+    "key": "GEEN_177_04",
+    "text": "Grâce de réincarnation"
   },
   "7a74e84c": {
     "key": "GEEN_144_13",
@@ -1463,13 +1895,25 @@
     "key": "GEEN_024_04",
     "text": "Combo renforcé V"
   },
+  "7ac9dc94": {
+    "key": "GEEN_327_03",
+    "text": "Divergence IV"
+  },
   "7aebef91": {
     "key": "GEEN_012_00",
     "text": "Lancer I"
   },
+  "7b4aab30": {
+    "key": "GEEN_327_24",
+    "text": "Divergence V+"
+  },
   "7b8c3e06": {
     "key": "GEEN_158_03",
     "text": "Sauvagerie IV"
+  },
+  "7bf56b6f": {
+    "key": "GEEN_322_24",
+    "text": "Terre astrale V+"
   },
   "7c7ec053": {
     "key": "GEEN_118_64",
@@ -1479,6 +1923,10 @@
     "key": "GEEN_125_92",
     "text": "Noblesse du paladin+"
   },
+  "7ce4d81c": {
+    "key": "GEEN_322_24",
+    "text": "Terre astrale V+"
+  },
   "7d318ff7": {
     "key": "GEEN_128_91",
     "text": "Bravoure de rage éternelle+"
@@ -1486,6 +1934,10 @@
   "7d5c5a42": {
     "key": "GEEN_138_00",
     "text": "Résistance Diminution ATT I"
+  },
+  "7d720227": {
+    "key": "GEEN_326_23",
+    "text": "Paix astrale IV+"
   },
   "7d8ff2ee": {
     "key": "GEEN_094_02",
@@ -1515,6 +1967,10 @@
     "key": "GEEN_013_12",
     "text": "Dégâts critiques III+"
   },
+  "7f4f38ef": {
+    "key": "GEEN_326_03",
+    "text": "Paix astrale IV"
+  },
   "7f5dda19": {
     "key": "GEEN_004_23",
     "text": "Étourdissement IV+"
@@ -1539,9 +1995,17 @@
     "key": "GEEN_145_00",
     "text": "Asura I"
   },
+  "80c94a24": {
+    "key": "GEEN_109_24",
+    "text": "Courroux V+"
+  },
   "80cccd83": {
     "key": "GEEN_129_54",
     "text": "Vérité fondatrice"
+  },
+  "80cfc2f1": {
+    "key": "GEEN_327_24",
+    "text": "Divergence V+"
   },
   "80dc0fb8": {
     "key": "GEEN_087_04",
@@ -1554,6 +2018,10 @@
   "81742849": {
     "key": "GEEN_144_03",
     "text": "Bastion IV"
+  },
+  "81b3962d": {
+    "key": "GEEN_326_22",
+    "text": "Paix astrale III+"
   },
   "81cb6c6b": {
     "key": "GEEN_106_03",
@@ -1595,9 +2063,21 @@
     "key": "GEEN_168_01",
     "text": "Dégâts améliorés II"
   },
+  "837b3d64": {
+    "key": "GEEN_066_24",
+    "text": "Régénération V+"
+  },
+  "83b5463b": {
+    "key": "GEEN_326_00",
+    "text": "Paix astrale I"
+  },
   "83e5006e": {
     "key": "GEEN_154_24",
     "text": "Berserk V+"
+  },
+  "840c419a": {
+    "key": "GEEN_322_00",
+    "text": "Terre astrale I"
   },
   "842abbeb": {
     "key": "GEEN_012_03",
@@ -1619,6 +2099,10 @@
     "key": "GEEN_121_91",
     "text": "Serment du Dragon blanc+"
   },
+  "85e85d91": {
+    "key": "GEEN_325_01",
+    "text": "Rebelle des cieux II"
+  },
   "867effed": {
     "key": "GEEN_000_22",
     "text": "Puissance d'attaque III+"
@@ -1627,6 +2111,10 @@
     "key": "GEEN_171_54",
     "text": "Essor de la chasse funeste"
   },
+  "87658a6f": {
+    "key": "GEEN_322_04",
+    "text": "Terre astrale V"
+  },
   "883380d4": {
     "key": "GEEN_072_04",
     "text": "Exaltation V"
@@ -1634,6 +2122,14 @@
   "8856f755": {
     "key": "GEEN_111_01",
     "text": "Charge rapide II"
+  },
+  "89538be0": {
+    "key": "GEEN_326_24",
+    "text": "Paix astrale V+"
+  },
+  "895abbf6": {
+    "key": "GEEN_173_90",
+    "text": "Éveil du loup alpha+"
   },
   "89ca4db0": {
     "key": "GEEN_001_13",
@@ -1667,6 +2163,14 @@
     "key": "GEEN_061_02",
     "text": "Contre-garde III"
   },
+  "8b8085c0": {
+    "key": "GEEN_320_24",
+    "text": "Affûtage astral V+"
+  },
+  "8b9c3d0f": {
+    "key": "GEEN_322_23",
+    "text": "Terre astrale IV+"
+  },
   "8bf28309": {
     "key": "GEEN_168_23",
     "text": "Dégâts améliorés IV+"
@@ -1675,6 +2179,10 @@
     "key": "GEEN_012_14",
     "text": "Lancer V+"
   },
+  "8ce18579": {
+    "key": "GEEN_324_04",
+    "text": "Neige astrale V"
+  },
   "8d639e0c": {
     "key": "GEEN_080_01",
     "text": "Gain de rupis II"
@@ -1682,6 +2190,10 @@
   "8dbf201a": {
     "key": "GEEN_001_12",
     "text": "Santé III+"
+  },
+  "8e20b20c": {
+    "key": "GEEN_159_24",
+    "text": "Repli stratégique+"
   },
   "8e3f1ec7": {
     "key": "GEEN_153_01",
@@ -1703,13 +2215,33 @@
     "key": "GEEN_018_03",
     "text": "Tir concentré IV"
   },
+  "8ff568f7": {
+    "key": "GEEN_322_02",
+    "text": "Terre astrale III"
+  },
+  "90176d85": {
+    "key": "GEEN_321_03",
+    "text": "Éclat astral IV"
+  },
   "905c6d7f": {
     "key": "GEEN_024_00",
     "text": "Combo renforcé I"
   },
+  "90822db1": {
+    "key": "GEEN_151_24",
+    "text": "Dégâts supplémentaires V+"
+  },
+  "908d5612": {
+    "key": "GEEN_327_22",
+    "text": "Divergence III+"
+  },
   "909a3aeb": {
     "key": "GEEN_027_01",
     "text": "Tyrannie II"
+  },
+  "90e42e35": {
+    "key": "GEEN_321_22",
+    "text": "Éclat astral III+"
   },
   "90fbb4bf": {
     "key": "GEEN_068_01",
@@ -1722,6 +2254,10 @@
   "9172d000": {
     "key": "GEEN_001_22",
     "text": "Santé III+"
+  },
+  "9184f37b": {
+    "key": "GEEN_174_04",
+    "text": "Sérénade Reine des lames"
   },
   "91956b39": {
     "key": "GEEN_111_24",
@@ -1755,6 +2291,10 @@
     "key": "GEEN_078_00",
     "text": "Provocation I"
   },
+  "9300fadb": {
+    "key": "GEEN_326_24",
+    "text": "Paix astrale V+"
+  },
   "936dfe00": {
     "key": "GEEN_114_54",
     "text": "Esprit intrépide"
@@ -1783,6 +2323,10 @@
     "key": "GEEN_145_02",
     "text": "Asura III"
   },
+  "94dc820e": {
+    "key": "GEEN_178_54",
+    "text": "Bond noir"
+  },
   "94f7053c": {
     "key": "GEEN_014_12",
     "text": "Attaque point faible III+"
@@ -1807,9 +2351,17 @@
     "key": "GEEN_067_24",
     "text": "Absorption V+"
   },
+  "95cc3cb8": {
+    "key": "GEEN_175_90",
+    "text": "Éveil de l'ultramarine+"
+  },
   "961b274c": {
     "key": "GEEN_003_23",
     "text": "Taux critique IV+"
+  },
+  "96390ecf": {
+    "key": "GEEN_323_02",
+    "text": "Flamme astrale III"
   },
   "96434c8d": {
     "key": "GEEN_046_01",
@@ -1818,6 +2370,10 @@
   "9673abb9": {
     "key": "GEEN_073_03",
     "text": "Réserve de potions IV"
+  },
+  "96d6fe5e": {
+    "key": "GEEN_174_92",
+    "text": "Ronde Reine des lames+"
   },
   "978255ef": {
     "key": "GEEN_060_00",
@@ -1843,6 +2399,10 @@
     "key": "GEEN_083_01",
     "text": "Assaut habile II"
   },
+  "98a07ee2": {
+    "key": "GEEN_045_24",
+    "text": "Pugnacité V+"
+  },
   "98a6d249": {
     "key": "GEEN_116_90",
     "text": "Éveil du timonier+"
@@ -1859,6 +2419,10 @@
     "key": "GEEN_000_23",
     "text": "Puissance d'attaque IV+"
   },
+  "98e33f8e": {
+    "key": "GEEN_080_24",
+    "text": "Gain de rupis V+"
+  },
   "98e88fdf": {
     "key": "GEEN_057_02",
     "text": "Rés. Compétences scellées III"
@@ -1866,6 +2430,18 @@
   "98e9e6ef": {
     "key": "GEEN_130_93",
     "text": "Vaillance alternative+"
+  },
+  "99194505": {
+    "key": "GEEN_176_54",
+    "text": "Vision du loup de foudre"
+  },
+  "9978c657": {
+    "key": "GEEN_178_04",
+    "text": "Sceau maudit noir"
+  },
+  "99926ea8": {
+    "key": "GEEN_321_24",
+    "text": "Éclat astral V+"
   },
   "99a4b2a7": {
     "key": "GEEN_080_00",
@@ -1875,6 +2451,14 @@
     "key": "GEEN_137_01",
     "text": "Résistance Sombreflamme II"
   },
+  "99e8b892": {
+    "key": "GEEN_233_24",
+    "text": "Écho de Berserker+"
+  },
+  "9a250027": {
+    "key": "GEEN_321_24",
+    "text": "Éclat astral V+"
+  },
   "9a341899": {
     "key": "GEEN_147_00",
     "text": "Voie de maîtrise I"
@@ -1883,9 +2467,17 @@
     "key": "GEEN_154_00",
     "text": "Berserk I"
   },
+  "9a60fbf0": {
+    "key": "GEEN_156_24",
+    "text": "Puissance curative+"
+  },
   "9a753e01": {
     "key": "GEEN_028_04",
     "text": "Charge chanceuse V"
+  },
+  "9abd2da5": {
+    "key": "GEEN_178_93",
+    "text": "Impétuosité noire+"
   },
   "9ada3e00": {
     "key": "GEEN_115_90",
@@ -1903,9 +2495,17 @@
     "key": "GEEN_119_90",
     "text": "Éveil de la rose+"
   },
+  "9bd2b40e": {
+    "key": "GEEN_326_22",
+    "text": "Paix astrale III+"
+  },
   "9c2399da": {
     "key": "GEEN_085_24",
     "text": "Égide V+"
+  },
+  "9c309b7a": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
   },
   "9cb98cc1": {
     "key": "GEEN_036_02",
@@ -1947,6 +2547,14 @@
     "key": "GEEN_213_94",
     "text": "Garde améliorée V+"
   },
+  "9eb767bb": {
+    "key": "GEEN_068_24",
+    "text": "Auto-réanimation V+"
+  },
+  "9ec6c56d": {
+    "key": "GEEN_175_91",
+    "text": "Éclair d’épée ultramarine+"
+  },
   "9f08f697": {
     "key": "GEEN_116_91",
     "text": "Navigation du timonier+"
@@ -1979,6 +2587,10 @@
     "key": "GEEN_144_12",
     "text": "Bastion III+"
   },
+  "a14ba9ce": {
+    "key": "GEEN_326_01",
+    "text": "Paix astrale II"
+  },
   "a1c947c2": {
     "key": "GEEN_020_23",
     "text": "Limite de dégâts IV+"
@@ -1987,6 +2599,10 @@
     "key": "GEEN_058_00",
     "text": "Rés. Arts célestes scellés I"
   },
+  "a21005e9": {
+    "key": "GEEN_003_14",
+    "text": "Taux critique V+"
+  },
   "a224a830": {
     "key": "GEEN_036_04",
     "text": "Garnison V"
@@ -1994,6 +2610,10 @@
   "a248e5d1": {
     "key": "GEEN_096_03",
     "text": "Nerfs d'acier IV"
+  },
+  "a266e055": {
+    "key": "GEEN_327_23",
+    "text": "Divergence IV+"
   },
   "a278238e": {
     "key": "GEEN_064_24",
@@ -2059,9 +2679,17 @@
     "key": "GEEN_000_02",
     "text": "Puissance d'attaque III"
   },
+  "a6aac25f": {
+    "key": "GEEN_325_23",
+    "text": "Rebelle des cieux IV+"
+  },
   "a6ee588a": {
     "key": "GEEN_001_00",
     "text": "Santé I"
+  },
+  "a70c5270": {
+    "key": "GEEN_324_23",
+    "text": "Neige astrale IV+"
   },
   "a70daf5a": {
     "key": "GEEN_110_00",
@@ -2083,6 +2711,10 @@
     "key": "GEEN_159_14",
     "text": "Repli stratégique+"
   },
+  "a8533ce3": {
+    "key": "GEEN_327_04",
+    "text": "Divergence V"
+  },
   "a879208f": {
     "key": "GEEN_127_92",
     "text": "Vaillance du papillon+"
@@ -2090,6 +2722,10 @@
   "a89c98c9": {
     "key": "GEEN_024_14",
     "text": "Combo renforcé V+"
+  },
+  "a8a0cbff": {
+    "key": "GEEN_178_90",
+    "text": "Éveil noir+"
   },
   "a8c67937": {
     "key": "GEEN_111_12",
@@ -2106,6 +2742,10 @@
   "a931e9fa": {
     "key": "GEEN_006_22",
     "text": "Endurance III+"
+  },
+  "a99085f7": {
+    "key": "GEEN_323_01",
+    "text": "Flamme astrale II"
   },
   "a9d804d4": {
     "key": "GEEN_130_64",
@@ -2131,13 +2771,29 @@
     "key": "GEEN_172_54",
     "text": "Halo de l'ange suprême"
   },
+  "ab70208c": {
+    "key": "GEEN_069_24",
+    "text": "Recharge rapide V+"
+  },
   "ab835493": {
     "key": "GEEN_124_90",
     "text": "Éveil du dracocide+"
   },
+  "abaefe36": {
+    "key": "GEEN_324_23",
+    "text": "Neige astrale IV+"
+  },
   "abc07972": {
     "key": "GEEN_027_22",
     "text": "Tyrannie III+"
+  },
+  "abc0b11b": {
+    "key": "GEEN_027_14",
+    "text": "Tyrannie V+"
+  },
+  "abf24655": {
+    "key": "GEEN_322_01",
+    "text": "Terre astrale II"
   },
   "abfa79f2": {
     "key": "GEEN_133_02",
@@ -2207,6 +2863,10 @@
     "key": "GEEN_104_23",
     "text": "Concentration spirituelle IV+"
   },
+  "b09e9d63": {
+    "key": "GEEN_070_24",
+    "text": "Cascade V+"
+  },
   "b0ad15dd": {
     "key": "GEEN_005_23",
     "text": "Animosité IV+"
@@ -2215,17 +2875,33 @@
     "key": "GEEN_020_14",
     "text": "Limite de dégâts V+"
   },
+  "b0ce994b": {
+    "key": "GEEN_320_23",
+    "text": "Affûtage astral IV+"
+  },
   "b109c429": {
     "key": "GEEN_046_00",
     "text": "Résistance Poison I"
+  },
+  "b12e3029": {
+    "key": "GEEN_144_24",
+    "text": "Bastion V+"
   },
   "b143dae6": {
     "key": "GEEN_127_91",
     "text": "Grâce du papillon+"
   },
+  "b1683add": {
+    "key": "GEEN_173_54",
+    "text": "Grande toupie du loup alpha"
+  },
   "b17c7207": {
     "key": "GEEN_083_13",
     "text": "Assaut habile IV+"
+  },
+  "b1b79be4": {
+    "key": "GEEN_320_24",
+    "text": "Affûtage astral V+"
   },
   "b1c1200b": {
     "key": "GEEN_119_64",
@@ -2247,6 +2923,18 @@
     "key": "GEEN_125_54",
     "text": "Noblesse du paladin"
   },
+  "b2420cbe": {
+    "key": "GEEN_326_02",
+    "text": "Paix astrale III"
+  },
+  "b242510c": {
+    "key": "GEEN_325_22",
+    "text": "Rebelle des cieux III+"
+  },
+  "b289a9ad": {
+    "key": "GEEN_303_00",
+    "text": "Force du sumo"
+  },
   "b2b08f0d": {
     "key": "GEEN_077_02",
     "text": "Furtivité III"
@@ -2263,6 +2951,10 @@
     "key": "GEEN_132_93",
     "text": "Impétuosité ténébreuse+"
   },
+  "b3c0c93d": {
+    "key": "GEEN_321_01",
+    "text": "Éclat astral II"
+  },
   "b441275d": {
     "key": "GEEN_120_90",
     "text": "Éveil spectral+"
@@ -2270,6 +2962,14 @@
   "b4adddc5": {
     "key": "GEEN_012_24",
     "text": "Lancer V+"
+  },
+  "b4ece7bc": {
+    "key": "GEEN_175_64",
+    "text": "Impétuosité ultramarine"
+  },
+  "b506b258": {
+    "key": "GEEN_094_24",
+    "text": "Focalisation V+"
   },
   "b5170056": {
     "key": "GEEN_168_24",
@@ -2347,6 +3047,14 @@
     "key": "GEEN_130_91",
     "text": "Fondation alternative+"
   },
+  "ba16f729": {
+    "key": "GEEN_065_24",
+    "text": "Soins améliorés V+"
+  },
+  "ba28c81c": {
+    "key": "GEEN_177_92",
+    "text": "Élan de réincarnation+"
+  },
   "ba77b7f2": {
     "key": "GEEN_045_04",
     "text": "Pugnacité V"
@@ -2354,6 +3062,14 @@
   "ba8a0229": {
     "key": "GEEN_152_13",
     "text": "Minimalisme IV+"
+  },
+  "bb49c8f6": {
+    "key": "GEEN_045_24",
+    "text": "Pugnacité V+"
+  },
+  "bb6dee38": {
+    "key": "GEEN_027_14",
+    "text": "Tyrannie V+"
   },
   "bb86ef75": {
     "key": "GEEN_018_23",
@@ -2391,6 +3107,10 @@
     "key": "GEEN_006_03",
     "text": "Endurance IV"
   },
+  "bd8ba705": {
+    "key": "GEEN_327_02",
+    "text": "Divergence III"
+  },
   "bdcc9a89": {
     "key": "GEEN_115_54",
     "text": "Honneur du gardien"
@@ -2402,6 +3122,10 @@
   "be3c851c": {
     "key": "GEEN_000_04",
     "text": "Puissance d'attaque V"
+  },
+  "be4c13a6": {
+    "key": "GEEN_173_04",
+    "text": "Passion du loup alpha"
   },
   "be6b6288": {
     "key": "GEEN_153_24",
@@ -2467,6 +3191,10 @@
     "key": "GEEN_064_23",
     "text": "Contre-esquive IV+"
   },
+  "c2c979fc": {
+    "key": "GEEN_321_24",
+    "text": "Éclat astral V+"
+  },
   "c349ad51": {
     "key": "GEEN_061_01",
     "text": "Contre-garde II"
@@ -2479,9 +3207,21 @@
     "key": "GEEN_001_01",
     "text": "Santé II"
   },
+  "c3a4c1ec": {
+    "key": "GEEN_005_14",
+    "text": "Animosité V+"
+  },
+  "c42e609c": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
+  },
   "c452ab03": {
     "key": "GEEN_012_04",
     "text": "Lancer V"
+  },
+  "c4c213bd": {
+    "key": "GEEN_322_22",
+    "text": "Terre astrale III+"
   },
   "c4dd863a": {
     "key": "GEEN_170_74",
@@ -2535,6 +3275,10 @@
     "key": "GEEN_017_04",
     "text": "Combo final V"
   },
+  "c856d9a9": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
+  },
   "c8935975": {
     "key": "GEEN_031_02",
     "text": "Effet spécial Break III"
@@ -2567,6 +3311,14 @@
     "key": "GEEN_008_02",
     "text": "Ogi III"
   },
+  "cc5ff698": {
+    "key": "GEEN_020_14",
+    "text": "Limite de dégâts V+"
+  },
+  "cc7dde55": {
+    "key": "GEEN_323_00",
+    "text": "Flamme astrale I"
+  },
   "ccd29b2b": {
     "key": "GEEN_086_04",
     "text": "Résistance Ralentissement V"
@@ -2578,6 +3330,10 @@
   "cd4b83c7": {
     "key": "GEEN_136_04",
     "text": "Résistance Séquestration V"
+  },
+  "cd6bb486": {
+    "key": "GEEN_320_00",
+    "text": "Affûtage astral I"
   },
   "cdfeb37e": {
     "key": "GEEN_153_13",
@@ -2594,6 +3350,10 @@
   "ce8aa073": {
     "key": "GEEN_212_94",
     "text": "Dégâts supplémentaires V+"
+  },
+  "ce8c3c96": {
+    "key": "GEEN_146_24",
+    "text": "Faveur guerrière+"
   },
   "cee9dd46": {
     "key": "GEEN_153_02",
@@ -2631,6 +3391,14 @@
     "key": "GEEN_055_00",
     "text": "Résistance Paralysie I"
   },
+  "d28011a6": {
+    "key": "GEEN_324_03",
+    "text": "Neige astrale IV"
+  },
+  "d29cd8e0": {
+    "key": "GEEN_322_24",
+    "text": "Terre astrale V+"
+  },
   "d3071d85": {
     "key": "GEEN_137_24",
     "text": "Résistance Sombreflamme V+"
@@ -2642,6 +3410,10 @@
   "d32dc086": {
     "key": "GEEN_028_13",
     "text": "Charge chanceuse IV+"
+  },
+  "d340651c": {
+    "key": "GEEN_068_24",
+    "text": "Auto-réanimation V+"
   },
   "d3538cfd": {
     "key": "GEEN_104_01",
@@ -2666,6 +3438,10 @@
   "d3a40c27": {
     "key": "GEEN_009_12",
     "text": "Attaque coordonnée III+"
+  },
+  "d4117ff3": {
+    "key": "GEEN_175_92",
+    "text": "Adversité ultramarine+"
   },
   "d42a2d77": {
     "key": "GEEN_109_00",
@@ -2695,6 +3471,10 @@
     "key": "GEEN_001_23",
     "text": "Santé IV+"
   },
+  "d594d945": {
+    "key": "GEEN_175_04",
+    "text": "Éclair d’épée ultramarine"
+  },
   "d5a23569": {
     "key": "GEEN_086_01",
     "text": "Résistance Ralentissement II"
@@ -2702,6 +3482,10 @@
   "d5ca277f": {
     "key": "GEEN_009_23",
     "text": "Attaque coordonnée IV+"
+  },
+  "d5cf6765": {
+    "key": "GEEN_326_24",
+    "text": "Paix astrale V+"
   },
   "d626ac9f": {
     "key": "GEEN_051_01",
@@ -2731,6 +3515,18 @@
     "key": "GEEN_052_01",
     "text": "Résistance Gel II"
   },
+  "d7d2f16e": {
+    "key": "GEEN_323_24",
+    "text": "Flamme astrale V+"
+  },
+  "d8a464f1": {
+    "key": "GEEN_174_90",
+    "text": "Éveil Reine des lames+"
+  },
+  "d8c61507": {
+    "key": "GEEN_176_93",
+    "text": "Impétuosité du loup de foudre+"
+  },
   "d8d6b380": {
     "key": "GEEN_045_01",
     "text": "Pugnacité II"
@@ -2747,6 +3543,10 @@
     "key": "GEEN_146_04",
     "text": "Faveur guerrière"
   },
+  "db05a865": {
+    "key": "GEEN_177_64",
+    "text": "Impétuosité de réincarnation"
+  },
   "dbe503c7": {
     "key": "GEEN_171_92",
     "text": "Essor de la chasse funeste+"
@@ -2759,6 +3559,10 @@
     "key": "GEEN_030_14",
     "text": "Effet spécial Overdrive V+"
   },
+  "dce00ddb": {
+    "key": "GEEN_325_02",
+    "text": "Rebelle des cieux III"
+  },
   "dd12001e": {
     "key": "GEEN_096_02",
     "text": "Nerfs d'acier III"
@@ -2770,6 +3574,10 @@
   "dd5eff28": {
     "key": "GEEN_094_03",
     "text": "Focalisation IV"
+  },
+  "de19a583": {
+    "key": "GEEN_320_24",
+    "text": "Affûtage astral V+"
   },
   "ded4e384": {
     "key": "GEEN_144_04",
@@ -2795,6 +3603,10 @@
     "key": "GEEN_065_03",
     "text": "Soins améliorés IV"
   },
+  "e0294510": {
+    "key": "GEEN_151_24",
+    "text": "Dégâts supplémentaires V+"
+  },
   "e073ea65": {
     "key": "GEEN_120_91",
     "text": "Liens fantasmatiques+"
@@ -2811,9 +3623,17 @@
     "key": "GEEN_083_03",
     "text": "Assaut habile IV"
   },
+  "e14e1598": {
+    "key": "GEEN_324_24",
+    "text": "Neige astrale V+"
+  },
   "e16e4dd4": {
     "key": "GEEN_004_04",
     "text": "Étourdissement V"
+  },
+  "e18cc78f": {
+    "key": "GEEN_327_00",
+    "text": "Divergence I"
   },
   "e19b1965": {
     "key": "GEEN_121_90",
@@ -2847,9 +3667,21 @@
     "key": "GEEN_013_04",
     "text": "Dégâts critiques V"
   },
+  "e365b951": {
+    "key": "GEEN_066_24",
+    "text": "Régénération V+"
+  },
+  "e3cd2935": {
+    "key": "GEEN_175_54",
+    "text": "Adversité ultramarine"
+  },
   "e405aca0": {
     "key": "GEEN_107_02",
     "text": "Résilience III"
+  },
+  "e4815918": {
+    "key": "GEEN_325_03",
+    "text": "Rebelle des cieux IV"
   },
   "e496d882": {
     "key": "GEEN_120_93",
@@ -2883,6 +3715,10 @@
     "key": "GEEN_121_64",
     "text": "Impétuosité du Dragon blanc"
   },
+  "e59bbe0a": {
+    "key": "GEEN_327_24",
+    "text": "Divergence V+"
+  },
   "e5b58127": {
     "key": "GEEN_080_02",
     "text": "Gain de rupis III"
@@ -2895,6 +3731,10 @@
     "key": "GEEN_018_13",
     "text": "Tir concentré IV+"
   },
+  "e5e2ad4b": {
+    "key": "GEEN_063_24",
+    "text": "Esquive améliorée+"
+  },
   "e7062c19": {
     "key": "GEEN_116_04",
     "text": "Navigation du timonier"
@@ -2902,6 +3742,10 @@
   "e71b1fe4": {
     "key": "GEEN_085_04",
     "text": "Égide V"
+  },
+  "e71b5cd5": {
+    "key": "GEEN_085_24",
+    "text": "Égide V+"
   },
   "e7624711": {
     "key": "GEEN_126_91",
@@ -2914,6 +3758,10 @@
   "e8454459": {
     "key": "GEEN_006_24",
     "text": "Endurance V+"
+  },
+  "e87b1975": {
+    "key": "GEEN_070_24",
+    "text": "Cascade V+"
   },
   "e89224a1": {
     "key": "GEEN_063_24",
@@ -2943,6 +3791,10 @@
     "key": "GEEN_130_92",
     "text": "Ignition alternative+"
   },
+  "eae396e1": {
+    "key": "GEEN_323_23",
+    "text": "Flamme astrale IV+"
+  },
   "eb105b98": {
     "key": "GEEN_144_22",
     "text": "Bastion III+"
@@ -2963,6 +3815,10 @@
     "key": "GEEN_070_02",
     "text": "Cascade III"
   },
+  "eb766d87": {
+    "key": "GEEN_174_93",
+    "text": "Impétuosité Reine des lames+"
+  },
   "ebc1fe90": {
     "key": "GEEN_144_00",
     "text": "Bastion I"
@@ -2971,13 +3827,33 @@
     "key": "GEEN_096_00",
     "text": "Nerfs d'acier I"
   },
+  "ec9ffe77": {
+    "key": "GEEN_174_91",
+    "text": "Sérénade Reine des lames+"
+  },
   "ecd324c7": {
     "key": "GEEN_094_04",
     "text": "Focalisation V"
   },
+  "ed715e85": {
+    "key": "GEEN_001_14",
+    "text": "Santé V+"
+  },
   "eda2116a": {
     "key": "GEEN_096_24",
     "text": "Nerfs d'acier V+"
+  },
+  "edd3770b": {
+    "key": "GEEN_072_24",
+    "text": "Exaltation V+"
+  },
+  "eded0b97": {
+    "key": "GEEN_006_14",
+    "text": "Endurance V+"
+  },
+  "edef9eb0": {
+    "key": "GEEN_063_24",
+    "text": "Esquive améliorée+"
   },
   "ee25bd8f": {
     "key": "GEEN_083_02",
@@ -3035,6 +3911,10 @@
     "key": "GEEN_145_24",
     "text": "Asura V+"
   },
+  "f1d8f754": {
+    "key": "GEEN_327_24",
+    "text": "Divergence V+"
+  },
   "f1d9e8dd": {
     "key": "GEEN_003_03",
     "text": "Taux critique IV"
@@ -3042,6 +3922,10 @@
   "f212db64": {
     "key": "GEEN_029_23",
     "text": "Effet spécial Malus IV+"
+  },
+  "f21404b1": {
+    "key": "GEEN_173_92",
+    "text": "Grande toupie du loup alpha+"
   },
   "f22290a6": {
     "key": "GEEN_005_14",
@@ -3066,6 +3950,10 @@
   "f3336835": {
     "key": "GEEN_159_04",
     "text": "Repli stratégique"
+  },
+  "f39b8fe1": {
+    "key": "GEEN_068_24",
+    "text": "Auto-réanimation V+"
   },
   "f3c8c676": {
     "key": "GEEN_055_02",
@@ -3143,6 +4031,14 @@
     "key": "GEEN_029_14",
     "text": "Effet spécial Malus V+"
   },
+  "f94e0066": {
+    "key": "GEEN_320_22",
+    "text": "Affûtage astral III+"
+  },
+  "f964a4ca": {
+    "key": "GEEN_176_91",
+    "text": "Munition du loup de foudre+"
+  },
   "f9870ad0": {
     "key": "GEEN_020_12",
     "text": "Limite de dégâts III+"
@@ -3175,6 +4071,10 @@
     "key": "GEEN_055_04",
     "text": "Résistance Paralysie V"
   },
+  "fbb1778f": {
+    "key": "GEEN_324_24",
+    "text": "Neige astrale V+"
+  },
   "fbb938e9": {
     "key": "GEEN_061_13",
     "text": "Contre-garde IV+"
@@ -3186,6 +4086,10 @@
   "fbf24912": {
     "key": "GEEN_061_00",
     "text": "Contre-garde I"
+  },
+  "fc19bf26": {
+    "key": "GEEN_324_24",
+    "text": "Neige astrale V+"
   },
   "fc1a2561": {
     "key": "GEEN_154_03",
@@ -3210,6 +4114,10 @@
   "ff580af6": {
     "key": "GEEN_118_04",
     "text": "Intuition du vétéran"
+  },
+  "ff5f3079": {
+    "key": "GEEN_320_24",
+    "text": "Affûtage astral V+"
   },
   "ff8a608b": {
     "key": "GEEN_111_03",

@@ -24,11 +24,14 @@ export const useSkillBreakdown = (player: ComputedPlayerState) => {
   let skillsToShow: Array<ComputedSkillGroup | ComputedSkillState> = computedSkills;
 
   if (useCondensedSkills && typeof player.characterType == "string") {
-    const skills: Array<ComputedSkillGroup | ComputedSkillGroup> = [];
+    const skills: Array<ComputedSkillGroup | ComputedSkillState> = [];
 
     for (const skill of computedSkills) {
-      const skillGroupIndex = typeof skill.childCharacterType !== "string" ? -1 : skill.childCharacterType;
-      const skillGroupMapping = SkillGroupMapping[skillGroupIndex] || {};
+      const childCharacterType =
+        typeof skill.childCharacterType === "string" && SkillGroupMapping[skill.childCharacterType]
+          ? skill.childCharacterType
+          : player.characterType;
+      const skillGroupMapping = SkillGroupMapping[childCharacterType] || {};
 
       if (typeof skill.actionType == "object" && Object.hasOwn(skill.actionType, "Normal")) {
         const actionType = skill.actionType as { Normal: number };
@@ -55,10 +58,24 @@ export const useSkillBreakdown = (player: ComputedPlayerState) => {
               skills[skillGroupIndex] = {
                 ...skillGroup,
                 hits: skillGroup.hits + skill.hits,
+                cappedHits: skillGroup.cappedHits + skill.cappedHits,
+                capKnownHits: skillGroup.capKnownHits + skill.capKnownHits,
                 percentage: skillGroup.percentage + skill.percentage,
                 totalDamage: skillGroup.totalDamage + skill.totalDamage,
-                minDamage: Math.min(skillGroup?.minDamage || 0, skill.minDamage || 0),
-                maxDamage: Math.max(skillGroup?.maxDamage ?? Number.MIN_VALUE, skill.maxDamage || 0),
+                minDamage:
+                  skillGroup.minDamage === null
+                    ? skill.minDamage
+                    : skill.minDamage === null
+                      ? skillGroup.minDamage
+                      : Math.min(skillGroup.minDamage, skill.minDamage),
+                maxDamage:
+                  skillGroup.maxDamage === null
+                    ? skill.maxDamage
+                    : skill.maxDamage === null
+                      ? skillGroup.maxDamage
+                      : Math.max(skillGroup.maxDamage, skill.maxDamage),
+                totalStunValue: skillGroup.totalStunValue + skill.totalStunValue,
+                maxStunValue: Math.max(skillGroup.maxStunValue, skill.maxStunValue),
                 skills: [...(skillGroup.skills || []), skill],
               };
             } else {
@@ -66,6 +83,8 @@ export const useSkillBreakdown = (player: ComputedPlayerState) => {
                 actionType: groupActionType,
                 childCharacterType: skill.childCharacterType,
                 hits: skill.hits,
+                cappedHits: skill.cappedHits,
+                capKnownHits: skill.capKnownHits,
                 totalDamage: skill.totalDamage,
                 minDamage: skill.minDamage,
                 maxDamage: skill.maxDamage,

@@ -20,6 +20,33 @@ import { useEffect, useRef } from "react";
 
 export const EMPTY_ID = 2289754288;
 
+const GAME_2_CHARACTER_TYPES = new Set(["Pl2400", "Pl2500", "Pl2600", "Pl2700", "Pl2800", "Pl2900"]);
+
+export const getSkillTranslationKeys = (characterType: CharacterType, skillID: number) => {
+  if (typeof characterType !== "string") return [];
+
+  const keys = [`skills.${characterType}.${skillID}`];
+
+  if (GAME_2_CHARACTER_TYPES.has(characterType) && skillID >= 1000 && skillID < 1900) {
+    const abilitySlotID = Math.floor(skillID / 100) * 100;
+    if (abilitySlotID !== skillID) keys.push(`skills.${characterType}.${abilitySlotID}`);
+  }
+
+  return keys;
+};
+
+export const getDamageOverTimeTranslationKeys = (
+  characterType: CharacterType,
+  childCharacterType: CharacterType,
+  dotID: number
+) => {
+  const characterKeys = [...new Set([childCharacterType, characterType])]
+    .filter((type): type is string => typeof type === "string")
+    .flatMap((type) => [`skills.${type}.damage-over-time-${dotID}`, `skills.${type}.damage-over-time`]);
+
+  return [...characterKeys, `skills.default.damage-over-time-${dotID}`, "skills.default.damage-over-time"];
+};
+
 export const formatInPartyOrder = (party: Record<string, PlayerState>): ComputedPlayerState[] => {
   const players = Object.keys(party).map((key) => {
     return party[key];
@@ -55,19 +82,21 @@ export const getSkillName = (characterType: CharacterType, skill: SkillState) =>
     case typeof skill.actionType == "object" && Object.hasOwn(skill.actionType, "SupplementaryDamage"):
       return t(["skills.default.supplementary-damage"]);
     case typeof skill.actionType == "object" && Object.hasOwn(skill.actionType, "DamageOverTime"):
-      return t([
-        `skills.${skill.childCharacterType}.damage-over-time`,
-        `skills.${characterType}.damage-over-time`,
-        "skills.default.damage-over-time",
-      ]);
+      return t(
+        getDamageOverTimeTranslationKeys(
+          characterType,
+          skill.childCharacterType,
+          (skill.actionType as { DamageOverTime: number }).DamageOverTime
+        )
+      );
     case typeof skill.actionType == "object" && Object.hasOwn(skill.actionType, "Normal"): {
       const actionType = skill.actionType as { Normal: number };
       const skillID = actionType["Normal"];
 
       return t(
         [
-          `skills.${skill.childCharacterType}.${skillID}`,
-          `skills.${characterType}.${skillID}`,
+          ...getSkillTranslationKeys(skill.childCharacterType, skillID),
+          ...getSkillTranslationKeys(characterType, skillID),
           `skills.default.${skillID}`,
           `skills.default.unknown-skill`,
         ],
@@ -174,6 +203,8 @@ export const sortPlayers = (players: ComputedPlayerState[], sortType: SortType, 
       return sortDirection === "asc" ? a?.totalStunValue - b?.totalStunValue : b?.totalStunValue - a?.totalStunValue;
     } else if (sortType === MeterColumns.StunPerSecond) {
       return sortDirection === "asc" ? a?.stunPerSecond - b?.stunPerSecond : b?.stunPerSecond - a?.stunPerSecond;
+    } else if (sortType === MeterColumns.Deaths) {
+      return sortDirection === "asc" ? a.deaths - b.deaths : b.deaths - a.deaths;
     }
 
     return 0;
@@ -356,6 +387,12 @@ export const translateQuestId = (id: number | null): string => {
   if (id === null) return "";
   const hash = id.toString(16);
   return t([`quests:${hash}.text`, "quest.unknown"], { id: hash });
+};
+
+export const translateLocationId = (id: number | null): string => {
+  if (id === null) return "";
+  const hash = id.toString(16).padStart(8, "0");
+  return t([`locations:${hash}.text`, "ui.unknown"], { id: hash });
 };
 
 /// Translates the trait ID to a human-readable string.

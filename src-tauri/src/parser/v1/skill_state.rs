@@ -25,6 +25,9 @@ pub struct SkillState {
     pub max_stun_value: f64,
     /// Total stun value done by this skill
     pub total_stun_value: f64,
+    pub capped_hits: u32,
+    #[serde(default)]
+    pub cap_known_hits: u32,
 }
 
 impl SkillState {
@@ -38,10 +41,18 @@ impl SkillState {
             total_damage: 0,
             max_stun_value: 0.0,
             total_stun_value: 0.0,
+            capped_hits: 0,
+            cap_known_hits: 0,
         }
     }
 
     pub fn update_from_damage_event(&mut self, damage_instance: &AdjustedDamageInstance) {
+        if damage_instance.cap_known {
+            self.cap_known_hits += 1;
+        }
+        if damage_instance.is_capped {
+            self.capped_hits += 1;
+        }
         self.hits += 1;
         self.total_damage += damage_instance.event.damage as u64;
         self.max_stun_value = self.max_stun_value.max(damage_instance.stun_damage);

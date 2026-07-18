@@ -1,0 +1,402 @@
+{
+  "00000100": {
+    "key": "LOCATION_03",
+    "text": "Colinas, Ainsteddo"
+  },
+  "00000101": {
+    "key": "LOCATION_04",
+    "text": "Fortaleza dos Goblins"
+  },
+  "00000102": {
+    "key": "LOCATION_05",
+    "text": "Minas de Tempeal"
+  },
+  "00000103": {
+    "key": "LOCATION_06",
+    "text": "Altar da Glória"
+  },
+  "00000104": {
+    "key": "LOCATION_06",
+    "text": "Altar da Glória"
+  },
+  "00000150": {
+    "key": "LOCATION_32",
+    "text": "Vale Celesvorme"
+  },
+  "00000200": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000201": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000202": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000203": {
+    "key": "LOCATION_31",
+    "text": "Couraçado da Ávia"
+  },
+  "00000300": {
+    "key": "LOCATION_07",
+    "text": "Leautagne, Monte Neigelith"
+  },
+  "00000310": {
+    "key": "TITLE_DATA_TREDAME",
+    "text": "Santuário de Tredame"
+  },
+  "00000400": {
+    "key": "LOCATION_13",
+    "text": "Arqueocinturão de Dahli"
+  },
+  "00000401": {
+    "key": "LOCATION_13",
+    "text": "Arqueocinturão de Dahli"
+  },
+  "00000402": {
+    "key": "LOCATION_13",
+    "text": "Arqueocinturão de Dahli"
+  },
+  "00000500": {
+    "key": "LOCATION_15",
+    "text": "Ilhas Phondam"
+  },
+  "00000501": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000502": {
+    "key": "LOCATION_15",
+    "text": "Ilhas Phondam"
+  },
+  "00000600": {
+    "key": "LOCATION_33",
+    "text": "Castelo de Seedhollow"
+  },
+  "00000601": {
+    "key": "LOCATION_33",
+    "text": "Castelo de Seedhollow"
+  },
+  "00000700": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "00000701": {
+    "key": "LOCATION_20",
+    "text": "O Céu Esquecido"
+  },
+  "00000702": {
+    "key": "LOCATION_20",
+    "text": "O Céu Esquecido"
+  },
+  "00000703": {
+    "key": "LOCATION_30",
+    "text": "Convés Principal, Aeronave do Zathba"
+  },
+  "00000704": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "00000710": {
+    "key": "LOCATION_20",
+    "text": "O Céu Esquecido"
+  },
+  "00000720": {
+    "key": "LOCATION_20",
+    "text": "O Céu Esquecido"
+  },
+  "00000800": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000801": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000802": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000803": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000900": {
+    "key": "LOCATION_01",
+    "text": "Arvoredo Raio de Sol"
+  },
+  "00000901": {
+    "key": "LOCATION_01",
+    "text": "Arvoredo Raio de Sol"
+  },
+  "00000c00": {
+    "key": "LOCATION_02",
+    "text": "Folca, Cidade Fronteiriça"
+  },
+  "00000d00": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Seedhollow"
+  },
+  "00000d01": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Seedhollow"
+  },
+  "00000d02": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Seedhollow"
+  },
+  "00000d03": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "Seedhollow"
+  },
+  "00000d04": {
+    "key": "TITLE_DATA_BACK_ALLEY",
+    "text": "Beco em Seedhollow"
+  },
+  "00000e10": {
+    "key": "LOCATION_29",
+    "text": "Convés Principal, Aeronave do Rolan"
+  },
+  "00000e20": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e30": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e40": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e41": {
+    "key": "LOCATION_30",
+    "text": "Convés Principal, Aeronave do Zathba"
+  },
+  "00000e50": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e60": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e70": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e80": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e90": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000e91": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000ea0": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "00000f21": {
+    "key": "LOCATION_02",
+    "text": "Folca, Cidade Fronteiriça"
+  },
+  "00000ff0": {
+    "key": "QUEST_STAGE_NAME_8ST",
+    "text": "Céu Esquecido"
+  },
+  "03fa7660": {
+    "key": "LOCATION_14",
+    "text": "Altar Puropétreo"
+  },
+  "0601daa7": {
+    "key": "LOCATION_61",
+    "text": "Desfiladeiro do Poente"
+  },
+  "063a1422": {
+    "key": "LOCATION_07",
+    "text": "Leautagne, Monte Neigelith"
+  },
+  "06ece960": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "08027625": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "0b53c82e": {
+    "key": "LOCATION_09",
+    "text": "Mosteiro Decrépito"
+  },
+  "0d289b23": {
+    "key": "LOCATION_57",
+    "text": "Campo Recluso"
+  },
+  "0e72aa76": {
+    "key": "LOCATION_05",
+    "text": "Minas de Tempeal"
+  },
+  "1d973d2c": {
+    "key": "LOCATION_NOTHING",
+    "text": "??"
+  },
+  "2a5a11a3": {
+    "key": "LOCATION_31",
+    "text": "Couraçado da Ávia"
+  },
+  "3de45f66": {
+    "key": "LOCATION_15",
+    "text": "Ilhas Phondam"
+  },
+  "44c8a56f": {
+    "key": "LOCATION_03",
+    "text": "Colinas, Ainsteddo"
+  },
+  "45ee1562": {
+    "key": "LOCATION_52",
+    "text": "Abismo de Sephira"
+  },
+  "46b84d67": {
+    "key": "LOCATION_33",
+    "text": "Castelo de Seedhollow"
+  },
+  "491e6d79": {
+    "key": "LOCATION_50",
+    "text": "Dahli sob Meteoros"
+  },
+  "518ed3b5": {
+    "key": "LOCATION_11",
+    "text": "Altar Agrigélido"
+  },
+  "536ca1d9": {
+    "key": "LOCATION_54",
+    "text": "Providência do Céu"
+  },
+  "5b8cf8e8": {
+    "key": "LOCATION_20",
+    "text": "O Céu Esquecido"
+  },
+  "5df0ab63": {
+    "key": "LOCATION_60",
+    "text": "Floresta Neblina Vermelha"
+  },
+  "5eb95d74": {
+    "key": "LOCATION_70",
+    "text": "Saguão da Morte"
+  },
+  "6625afc9": {
+    "key": "LOCATION_64",
+    "text": "Púlpito Silenciado"
+  },
+  "68819c2d": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "781ff7a8": {
+    "key": "LOCATION_62",
+    "text": "Charneca ao Pôr do Sol"
+  },
+  "7c62b886": {
+    "key": "LOCATION_55",
+    "text": "Meridiano Zero"
+  },
+  "962e0f1d": {
+    "key": "LOCATION_68",
+    "text": "Pátio do Sino Escarlate"
+  },
+  "9948eb8e": {
+    "key": "LOCATION_06",
+    "text": "Altar da Glória"
+  },
+  "9d9008a2": {
+    "key": "LOCATION_04",
+    "text": "Fortaleza dos Goblins"
+  },
+  "a50ed659": {
+    "key": "LOCATION_69",
+    "text": "Mirante Lúgubre"
+  },
+  "abd287ff": {
+    "key": "LOCATION_00",
+    "text": "Convés da Grandcypher"
+  },
+  "bce014bc": {
+    "key": "LOCATION_18",
+    "text": "Altar Vagalúrido"
+  },
+  "c15e30c4": {
+    "key": "LOCATION_NOTHING",
+    "text": "??"
+  },
+  "c5328b59": {
+    "key": "LOCATION_66",
+    "text": "Paraíso Nevado Abandonado"
+  },
+  "cc675873": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "d1b646f9": {
+    "key": "LOCATION_33",
+    "text": "Castelo de Seedhollow"
+  },
+  "d616a08d": {
+    "key": "LOCATION_15",
+    "text": "Ilhas Phondam"
+  },
+  "d6c6d96c": {
+    "key": "LOCATION_08",
+    "text": "Ravina Nevada"
+  },
+  "d7f4e3c0": {
+    "key": "LOCATION_53",
+    "text": "Sala do Trono"
+  },
+  "d8ed3036": {
+    "key": "LOCATION_32",
+    "text": "Vale Celesvorme"
+  },
+  "dc94ad26": {
+    "key": "LOCATION_01",
+    "text": "Arvoredo Raio de Sol"
+  },
+  "e3146bff": {
+    "key": "LOCATION_58",
+    "text": "Epicentro da Distorção"
+  },
+  "e46d8d29": {
+    "key": "LOCATION_65",
+    "text": "Serenidade Encoberta"
+  },
+  "e4d8397e": {
+    "key": "LOCATION_56",
+    "text": "Palácio Distante"
+  },
+  "e4fb7873": {
+    "key": "LOCATION_67",
+    "text": "Arena de Luta Rochosa"
+  },
+  "e52a8a36": {
+    "key": "LOCATION_13",
+    "text": "Arqueocinturão de Dahli"
+  },
+  "e54cc44d": {
+    "key": "LOCATION_51",
+    "text": "Assembleia Celestial"
+  },
+  "e951128a": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "Torre de Vayoi"
+  },
+  "f9765b44": {
+    "key": "LOCATION_63",
+    "text": "Último Bastião do Titã"
+  }
+}

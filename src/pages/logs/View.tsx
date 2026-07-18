@@ -23,6 +23,7 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 
+import { MasterTraitsPanel } from "@/components/MasterTraits";
 import { Table as MeterTable } from "@/components/Table";
 import { EncounterStateResponse, useEncounterStore } from "@/stores/useEncounterStore";
 import { useMeterSettingsStore } from "@/stores/useMeterSettingsStore";
@@ -333,7 +334,7 @@ export const ViewPage = () => {
     };
   });
 
-  const sbaLabels = labels.slice().filter((label) => label.partySlotIndex !== -1);
+  const sbaLabels = labels.slice();
 
   labels.push({
     name: "party",
@@ -456,6 +457,9 @@ export const ViewPage = () => {
             <Tabs.Tab value="sba">{t("ui.logs.sba-chart")}</Tabs.Tab>
             <Tabs.Tab value="equipment" disabled={playerData.length === 0}>
               {t("ui.logs.equipment")}
+            </Tabs.Tab>
+            <Tabs.Tab value="master-traits" disabled={playerData.length === 0}>
+              {t("ui.logs.master-traits", "Master Traits")}
             </Tabs.Tab>
           </Tabs.List>
           <Tabs.Panel value="overview">
@@ -594,28 +598,39 @@ export const ViewPage = () => {
                   </Table.Tr>
                   <Table.Tr>
                     {playerData.map((player) => {
+                      if (!player.playerStats) {
+                        return (
+                          <Table.Td key={player.actorIndex}>
+                            <Text size="xs" fw={700}>
+                              {t("ui.player-stats")}
+                            </Text>
+                            <Placeholder empty />
+                          </Table.Td>
+                        );
+                      }
+
                       return (
                         <Table.Td key={player.actorIndex}>
                           <Text size="xs" fw={700}>
                             {t("ui.player-stats")}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.level")}: {player.playerStats?.level || 1}
+                            {t("ui.stats.level")}: {player.playerStats.level}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.total-hp")}: {player.playerStats?.totalHp || 1}
+                            {t("ui.stats.total-hp")}: {player.playerStats.totalHp}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.total-attack")}: {player.playerStats?.totalAttack || 1}
+                            {t("ui.stats.total-attack")}: {player.playerStats.totalAttack}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.critical-rate")}: {(player.playerStats?.criticalRate || 0).toFixed(0)}%
+                            {t("ui.stats.critical-rate")}: {player.playerStats.criticalRate.toFixed(0)}%
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.stun-power")}: {((player.playerStats?.stunPower || 0) * 10).toFixed(0)}
+                            {t("ui.stats.stun-power")}: {(player.playerStats.stunPower * 10).toFixed(0)}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t("ui.stats.total-power")}: {player.playerStats?.totalPower || 1}
+                            {t("ui.stats.total-power")}: {player.playerStats.totalPower}
                           </Text>
                         </Table.Td>
                       );
@@ -647,28 +662,45 @@ export const ViewPage = () => {
                   </Table.Tr>
                   <Table.Tr>
                     {playerData.map((player) => {
+                      if (!player.weaponInfo) {
+                        return (
+                          <Table.Td key={player.actorIndex}>
+                            <Text size="xs" fw={700}>
+                              {t("ui.weapon")}
+                            </Text>
+                            <Placeholder empty />
+                          </Table.Td>
+                        );
+                      }
+
                       return (
                         <Table.Td key={player.actorIndex}>
                           <Text size="xs" fw={700}>
                             {t("ui.weapon")}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {createWeaponStars(player.weaponInfo?.starLevel || 0)}
+                            {createWeaponStars(player.weaponInfo.starLevel)}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            {t([`weapons:${toHashString(player.weaponInfo?.weaponId)}.text`, "unknown"])} +
-                            {player.weaponInfo?.plusMarks}
+                            {t([`weapons:${toHashString(player.weaponInfo.weaponId)}.text`, "unknown"])} +
+                            {player.weaponInfo.plusMarks}
                           </Text>
                           <Text size="xs" fs="italic" fw={300}>
-                            Awakening {player.weaponInfo?.awakeningLevel || 0}/10
+                            Awakening {player.weaponInfo.awakeningLevel}/10
                           </Text>
-                          <Text size="xs" fs="italic" fw={300}>
-                            Lvl {player.weaponInfo?.weaponLevel || 0} / ATK {player.weaponInfo?.weaponAttack || 0} / HP{" "}
-                            {player.weaponInfo?.weaponHp || 0}
-                          </Text>
-                          <Text size="xs" fw={700}>
-                            {translateItemId(player.weaponInfo?.wrightstoneId || EMPTY_ID)}
-                          </Text>
+                          {(player.weaponInfo.weaponLevel > 0 ||
+                            player.weaponInfo.weaponAttack > 0 ||
+                            player.weaponInfo.weaponHp > 0) && (
+                            <Text size="xs" fs="italic" fw={300}>
+                              Lvl {player.weaponInfo.weaponLevel} / ATK {player.weaponInfo.weaponAttack} / HP{" "}
+                              {player.weaponInfo.weaponHp}
+                            </Text>
+                          )}
+                          {player.weaponInfo.wrightstoneId !== EMPTY_ID && (
+                            <Text size="xs" fw={700}>
+                              {translateItemId(player.weaponInfo.wrightstoneId)}
+                            </Text>
+                          )}
                           <Placeholder empty={!player.weaponInfo?.trait1Id || player.weaponInfo?.trait1Level == 0}>
                             <Text size="xs" fs="italic" fw={300}>
                               - {translateTraitId(player.weaponInfo?.trait1Id || EMPTY_ID)} (Lvl.{" "}
@@ -722,6 +754,9 @@ export const ViewPage = () => {
                 </Table.Tbody>
               </Table>
             </Group>
+          </Tabs.Panel>
+          <Tabs.Panel value="master-traits">
+            <MasterTraitsPanel players={playerData} showDisplayNames={show_display_names && !streamer_mode} />
           </Tabs.Panel>
         </Tabs>
       </Box>

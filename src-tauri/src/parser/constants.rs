@@ -51,6 +51,12 @@ pub enum CharacterType {
     Pl2200,
     /// Tweyen
     Pl2300,
+    Pl2400,
+    Pl2500,
+    Pl2600,
+    Pl2700,
+    Pl2800,
+    Pl2900,
     /// Ferry Ghost
     Pl0700Ghost,
     /// Ferry Ghost (Satellite) / Umlauf
@@ -86,10 +92,31 @@ impl CharacterType {
             0x9C89A455 => CharacterType::Pl2100,
             0x59DB0CD9 => CharacterType::Pl2200,
             0xDA5A8E25 => CharacterType::Pl2300,
+            0x4C714F77 => CharacterType::Pl2400,
+            0xE330418F => CharacterType::Pl2500,
+            0xE3D1BE26 => CharacterType::Pl2600,
+            0x91418145 => CharacterType::Pl2700,
+            0x48ADDA36 => CharacterType::Pl2800,
+            0x0A58FB4D => CharacterType::Pl2900,
             0x2AF678E8 => CharacterType::Pl0700Ghost,
             0x8364C8BC => CharacterType::Pl0700GhostSatellite,
             _ => CharacterType::Unknown(hash),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::CharacterType;
+
+    #[test]
+    fn recognizes_game_2_characters() {
+        assert_eq!(CharacterType::from_hash(0x4C714F77), CharacterType::Pl2400);
+        assert_eq!(CharacterType::from_hash(0xE330418F), CharacterType::Pl2500);
+        assert_eq!(CharacterType::from_hash(0xE3D1BE26), CharacterType::Pl2600);
+        assert_eq!(CharacterType::from_hash(0x91418145), CharacterType::Pl2700);
+        assert_eq!(CharacterType::from_hash(0x48ADDA36), CharacterType::Pl2800);
+        assert_eq!(CharacterType::from_hash(0x0A58FB4D), CharacterType::Pl2900);
     }
 }
 
@@ -113,4 +140,3 @@ pub enum FerrySkillId {
     Pendel = 1400u32,
     Strafe = 1500u32,
 }
-

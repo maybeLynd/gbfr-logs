@@ -1,0 +1,402 @@
+{
+  "00000100": {
+    "key": "LOCATION_03",
+    "text": "에인스테드 군도 구릉"
+  },
+  "00000101": {
+    "key": "LOCATION_04",
+    "text": "제가드 요새"
+  },
+  "00000102": {
+    "key": "LOCATION_05",
+    "text": "광산 마을 템펠"
+  },
+  "00000103": {
+    "key": "LOCATION_06",
+    "text": "영풍의 제단"
+  },
+  "00000104": {
+    "key": "LOCATION_06",
+    "text": "영풍의 제단"
+  },
+  "00000150": {
+    "key": "LOCATION_32",
+    "text": "비룡의 계곡"
+  },
+  "00000200": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000201": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000202": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000203": {
+    "key": "LOCATION_31",
+    "text": "아비아 전함 갑판"
+  },
+  "00000300": {
+    "key": "LOCATION_07",
+    "text": "롱타뉴섬 영봉 네쥴리스"
+  },
+  "00000310": {
+    "key": "TITLE_DATA_TREDAME",
+    "text": "트르담 궁"
+  },
+  "00000400": {
+    "key": "LOCATION_13",
+    "text": "달리 유적지"
+  },
+  "00000401": {
+    "key": "LOCATION_13",
+    "text": "달리 유적지"
+  },
+  "00000402": {
+    "key": "LOCATION_13",
+    "text": "달리 유적지"
+  },
+  "00000500": {
+    "key": "LOCATION_15",
+    "text": "폐쇄섬 폰담"
+  },
+  "00000501": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000502": {
+    "key": "LOCATION_15",
+    "text": "폐쇄섬 폰담"
+  },
+  "00000600": {
+    "key": "LOCATION_33",
+    "text": "시드홀름성"
+  },
+  "00000601": {
+    "key": "LOCATION_33",
+    "text": "시드홀름성"
+  },
+  "00000700": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "00000701": {
+    "key": "LOCATION_20",
+    "text": "잊혀진 하늘"
+  },
+  "00000702": {
+    "key": "LOCATION_20",
+    "text": "잊혀진 하늘"
+  },
+  "00000703": {
+    "key": "LOCATION_30",
+    "text": "자스바의 배 갑판"
+  },
+  "00000704": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "00000710": {
+    "key": "LOCATION_20",
+    "text": "잊혀진 하늘"
+  },
+  "00000720": {
+    "key": "LOCATION_20",
+    "text": "잊혀진 하늘"
+  },
+  "00000800": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000801": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000802": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000803": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000900": {
+    "key": "LOCATION_01",
+    "text": "잎새 햇살의 숲"
+  },
+  "00000901": {
+    "key": "LOCATION_01",
+    "text": "잎새 햇살의 숲"
+  },
+  "00000c00": {
+    "key": "LOCATION_02",
+    "text": "변방 마을 폴카"
+  },
+  "00000d00": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "화도 시드홀름"
+  },
+  "00000d01": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "화도 시드홀름"
+  },
+  "00000d02": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "화도 시드홀름"
+  },
+  "00000d03": {
+    "key": "QUEST_STAGE_NAME_2ST_TOWN",
+    "text": "화도 시드홀름"
+  },
+  "00000d04": {
+    "key": "TITLE_DATA_BACK_ALLEY",
+    "text": "화도 시드홀름 뒷골목"
+  },
+  "00000e10": {
+    "key": "LOCATION_29",
+    "text": "롤란의 배 갑판"
+  },
+  "00000e20": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e30": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e40": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e41": {
+    "key": "LOCATION_30",
+    "text": "자스바의 배 갑판"
+  },
+  "00000e50": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e60": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e70": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e80": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e90": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000e91": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000ea0": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "00000f21": {
+    "key": "LOCATION_02",
+    "text": "변방 마을 폴카"
+  },
+  "00000ff0": {
+    "key": "QUEST_STAGE_NAME_8ST",
+    "text": "잊혀진 하늘"
+  },
+  "03fa7660": {
+    "key": "LOCATION_14",
+    "text": "참암의 제단"
+  },
+  "0601daa7": {
+    "key": "LOCATION_61",
+    "text": "어스름의 협곡"
+  },
+  "063a1422": {
+    "key": "LOCATION_07",
+    "text": "롱타뉴섬 영봉 네쥴리스"
+  },
+  "06ece960": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "08027625": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "0b53c82e": {
+    "key": "LOCATION_09",
+    "text": "낡은 사원"
+  },
+  "0d289b23": {
+    "key": "LOCATION_57",
+    "text": "경지의 고전장"
+  },
+  "0e72aa76": {
+    "key": "LOCATION_05",
+    "text": "광산 마을 템펠"
+  },
+  "1d973d2c": {
+    "key": "LOCATION_NOTHING",
+    "text": "???"
+  },
+  "2a5a11a3": {
+    "key": "LOCATION_31",
+    "text": "아비아 전함 갑판"
+  },
+  "3de45f66": {
+    "key": "LOCATION_15",
+    "text": "폐쇄섬 폰담"
+  },
+  "44c8a56f": {
+    "key": "LOCATION_03",
+    "text": "에인스테드 군도 구릉"
+  },
+  "45ee1562": {
+    "key": "LOCATION_52",
+    "text": "세피라 딥"
+  },
+  "46b84d67": {
+    "key": "LOCATION_33",
+    "text": "시드홀름성"
+  },
+  "491e6d79": {
+    "key": "LOCATION_50",
+    "text": "별이 총총한 달리 유적"
+  },
+  "518ed3b5": {
+    "key": "LOCATION_11",
+    "text": "절영의 제단"
+  },
+  "536ca1d9": {
+    "key": "LOCATION_54",
+    "text": "극리의 하늘"
+  },
+  "5b8cf8e8": {
+    "key": "LOCATION_20",
+    "text": "잊혀진 하늘"
+  },
+  "5df0ab63": {
+    "key": "LOCATION_60",
+    "text": "붉은 안개의 숲"
+  },
+  "5eb95d74": {
+    "key": "LOCATION_70",
+    "text": "부음의 명경"
+  },
+  "6625afc9": {
+    "key": "LOCATION_64",
+    "text": "정적의 제장"
+  },
+  "68819c2d": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "781ff7a8": {
+    "key": "LOCATION_62",
+    "text": "주홍빛 언덕"
+  },
+  "7c62b886": {
+    "key": "LOCATION_55",
+    "text": "0의 자오환"
+  },
+  "962e0f1d": {
+    "key": "LOCATION_68",
+    "text": "붉은 종의 무혈랑"
+  },
+  "9948eb8e": {
+    "key": "LOCATION_06",
+    "text": "영풍의 제단"
+  },
+  "9d9008a2": {
+    "key": "LOCATION_04",
+    "text": "제가드 요새"
+  },
+  "a50ed659": {
+    "key": "LOCATION_69",
+    "text": "명곡루"
+  },
+  "abd287ff": {
+    "key": "LOCATION_00",
+    "text": "기공정 그랑 사이퍼 갑판"
+  },
+  "bce014bc": {
+    "key": "LOCATION_18",
+    "text": "농암의 제단"
+  },
+  "c15e30c4": {
+    "key": "LOCATION_NOTHING",
+    "text": "???"
+  },
+  "c5328b59": {
+    "key": "LOCATION_66",
+    "text": "설해의 폐도"
+  },
+  "cc675873": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "d1b646f9": {
+    "key": "LOCATION_33",
+    "text": "시드홀름성"
+  },
+  "d616a08d": {
+    "key": "LOCATION_15",
+    "text": "폐쇄섬 폰담"
+  },
+  "d6c6d96c": {
+    "key": "LOCATION_08",
+    "text": "서릿발 골짜기"
+  },
+  "d7f4e3c0": {
+    "key": "LOCATION_53",
+    "text": "왕의 알현실"
+  },
+  "d8ed3036": {
+    "key": "LOCATION_32",
+    "text": "비룡의 계곡"
+  },
+  "dc94ad26": {
+    "key": "LOCATION_01",
+    "text": "잎새 햇살의 숲"
+  },
+  "e3146bff": {
+    "key": "LOCATION_58",
+    "text": "왜곡의 진원지"
+  },
+  "e46d8d29": {
+    "key": "LOCATION_65",
+    "text": "지난날의 이상향"
+  },
+  "e4d8397e": {
+    "key": "LOCATION_56",
+    "text": "요락각"
+  },
+  "e4fb7873": {
+    "key": "LOCATION_67",
+    "text": "수암의 투환"
+  },
+  "e52a8a36": {
+    "key": "LOCATION_13",
+    "text": "달리 유적지"
+  },
+  "e54cc44d": {
+    "key": "LOCATION_51",
+    "text": "도래의 좌"
+  },
+  "e951128a": {
+    "key": "QUEST_STAGE_NAME_7ST",
+    "text": "바요이 탑"
+  },
+  "f9765b44": {
+    "key": "LOCATION_63",
+    "text": "황폐한 요귀의 성"
+  }
+}

@@ -348,6 +348,9 @@
     },
     "aerial-attack": {
       "skills": [300, 301, 302]
+    },
+    "dragonform-special": {
+      "skills": [1500]
     }
   },
   "Pl2100": {
@@ -414,6 +417,90 @@
     },
     "two-crown-strife": {
       "skills": [1700, 1701]
+    }
+  },
+  "Pl2400": {
+    "normal-attack": {
+      "skills": [100, 101, 102, 103, 104]
+    },
+    "combo-finisher": {
+      "skills": [110, 115, 120]
+    },
+    "unique-attack": {
+      "skills": [140, 142]
+    },
+    "charged-attack": {
+      "skills": [220, 230, 232, 233]
+    }
+  },
+  "Pl2500": {
+    "normal-attack": {
+      "skills": [100, 101, 102]
+    },
+    "combo-finisher": {
+      "skills": [200, 210, 220, 230]
+    },
+    "blade-dance": {
+      "skills": [9999]
+    }
+  },
+  "Pl2600": {
+    "normal-attack": {
+      "skills": [100, 101, 102, 103]
+    },
+    "combo-finisher": {
+      "skills": [110, 111, 120, 121]
+    },
+    "unique-attack": {
+      "skills": [130, 131, 140]
+    },
+    "embrasque-follow-up": {
+      "skills": [900, 901, 902, 903, 910, 911, 940, 950, 980]
+    },
+    "special-action": {
+      "skills": [2000, 5000, 6000]
+    }
+  },
+  "Pl2700": {
+    "normal-attack": {
+      "skills": [110, 115, 121]
+    },
+    "charged-attack": {
+      "skills": [125]
+    },
+    "finisher": {
+      "skills": [130]
+    }
+  },
+  "Pl2800": {
+    "normal-attack": {
+      "skills": [100, 101, 102]
+    },
+    "combo-action": {
+      "skills": [111, 116, 120, 121, 130, 131, 140, 141, 150, 151, 170, 200, 201]
+    },
+    "arcana-follow-up": {
+      "skills": [900, 901, 902, 920, 930, 931, 941, 950, 951, 970]
+    },
+    "special-action": {
+      "skills": [2000, 3000, 5000, 5010]
+    }
+  },
+  "Pl2900": {
+    "normal-attack": {
+      "skills": [100, 101, 102, 103]
+    },
+    "attack-variant": {
+      "skills": [110, 111, 112, 113]
+    },
+    "follow-up": {
+      "skills": [150, 151, 152, 153]
+    },
+    "unique-attack": {
+      "skills": [220, 250, 260]
+    },
+    "special-action": {
+      "skills": [950, 7000]
     }
   }
 }

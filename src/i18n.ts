@@ -6,8 +6,16 @@ import { initReactI18next } from "react-i18next";
 import { readTextFile } from "@tauri-apps/api/fs";
 import { resolveResource } from "@tauri-apps/api/path";
 
+const RESOURCE_LANGUAGE_ALIASES: Record<string, string> = {
+  "ko-KR": "ko",
+  "fr-FR": "fr",
+  "es-ES": "es",
+  "it-IT": "it",
+};
+
 const loadLanguageFromPath = async (language: string, namespace: string) => {
-  const resourcePath = await resolveResource(`lang/${language}/${namespace}.json`);
+  const resourceLanguage = RESOURCE_LANGUAGE_ALIASES[language] ?? language;
+  const resourcePath = await resolveResource(`lang/${resourceLanguage}/${namespace}.json`);
   return JSON.parse(await readTextFile(resourcePath));
 };
 
@@ -35,7 +43,7 @@ i18n
     })
   )
   .init({
-    ns: ["ui", "characters", "items", "overmasteries", "sigils", "traits", "weapons", "quests", "enemies"],
+    ns: ["ui", "characters", "items", "overmasteries", "sigils", "traits", "weapons", "quests", "enemies", "locations"],
     defaultNS: "ui",
     fallbackLng: {
       default: ["en"],

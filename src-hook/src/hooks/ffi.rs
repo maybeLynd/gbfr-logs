@@ -3,16 +3,41 @@ use std::ffi::CString;
 #[derive(Debug)]
 #[repr(C)]
 pub struct DamageInstance {
-    padding_00: [u8; 0xD0],   // 0x00 - 0xD0
-    pub damage: i32,          // 0xD0
-    pub attack_rate: f32,     // 0xD4
-    pub flags: u64,           // 0xD8
-    padding_e0: [u8; 0x08],   // 0xE0
-    pub stun_value: f32,      // 0xE8
-    padding_ec: [u8; 0x68],   // 0xEC - 0x154
-    pub action_id: u32,       // 0x154
-    padding_158: [u8; 0x10C], // 0x158 - 0x264
-    pub damage_cap: i32,      // 0x264
+    padding_00: [u8; 0xD4], // 0x000 - 0x0D4
+    pub damage: i32,        // 0x0D4
+    padding_d8: [u8; 0x10], // 0x0D8 - 0x0E8
+    pub flags: u64,         // 0x0E8
+    padding_f0: [u8; 0x04],
+    pub stun_value: f32,
+    padding_f8: [u8; 0x74],
+    pub action_id: u32,       // 0x16C
+    padding_170: [u8; 0x14C], // 0x170 - 0x2BC
+    pub damage_cap: i32,      // 0x2BC
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{DamageInstance, PlayerStats, WeaponInfo};
+
+    #[test]
+    fn damage_instance_matches_game_2_layout() {
+        assert_eq!(std::mem::offset_of!(DamageInstance, damage), 0xD4);
+        assert_eq!(std::mem::offset_of!(DamageInstance, flags), 0xE8);
+        assert_eq!(std::mem::offset_of!(DamageInstance, stun_value), 0xF4);
+        assert_eq!(std::mem::offset_of!(DamageInstance, action_id), 0x16C);
+        assert_eq!(std::mem::offset_of!(DamageInstance, damage_cap), 0x2BC);
+    }
+
+    #[test]
+    fn player_equipment_structs_match_game_2_layout() {
+        assert_eq!(std::mem::size_of::<PlayerStats>(), 0x1C);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_id), 0x04);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, wrightstone_id), 0x38);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_level), 0x58);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_hp), 0x5C);
+        assert_eq!(std::mem::offset_of!(WeaponInfo, weapon_attack), 0x60);
+        assert_eq!(std::mem::size_of::<WeaponInfo>(), 0x64);
+    }
 }
 
 #[derive(Debug)]
@@ -105,6 +130,7 @@ pub struct WeaponInfo {
     /// Wrightstone used on the weapon
     pub wrightstone_id: u32,
     unk_3c: u32,
+    padding_40: [u32; 6],
     /// Current weapon level
     pub weapon_level: u32,
     /// Weapon's HP Stats (before plus marks)

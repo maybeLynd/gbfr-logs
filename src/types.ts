@@ -52,6 +52,8 @@ export type SkillState = {
   totalStunValue: number;
   /** Maximum recorded stun value of the skill */
   maxStunValue: number;
+  cappedHits: number;
+  capKnownHits: number;
 };
 
 export type ComputedSkillState = SkillState & {
@@ -80,6 +82,8 @@ export type ComputedSkillGroup = {
   totalStunValue: number;
   /** Maximum recorded stun value of the skill */
   maxStunValue: number;
+  cappedHits: number;
+  capKnownHits: number;
 };
 
 export type PlayerState = {
@@ -101,6 +105,9 @@ export type PlayerState = {
   lastDamageTime: number;
   /** Stats for individual skills logged */
   skillBreakdown: SkillState[];
+  cappedHits: number;
+  capKnownHits: number;
+  deaths: number;
 };
 
 export type ComputedPlayerState = PlayerState & {
@@ -206,6 +213,7 @@ export type PlayerData = {
   weaponInfo: WeaponInfo | null;
   overmasteryInfo: OvermasteryInfo | null;
   playerStats: PlayerStats | null;
+  masterTraits: number[];
 };
 
 export type PartyUpdateEvent = {
@@ -217,10 +225,12 @@ export enum MeterColumns {
   Name = "name",
   DPS = "dps",
   TotalDamage = "damage",
+  DamageCap = "damage-cap",
   DamagePercentage = "damage-percentage",
   SBA = "sba",
   TotalStunValue = "total-stun-value",
   StunPerSecond = "stun-per-second",
+  Deaths = "deaths",
 }
 
 export type SortType = MeterColumns;

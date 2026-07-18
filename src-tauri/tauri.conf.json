@@ -1,13 +1,13 @@
 {
   "build": {
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "npm run build:hook && npm run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist"
   },
   "package": {
     "productName": "GBFR Logs",
-    "version": "1.8.0"
+    "version": "2.0.2"
   },
   "tauri": {
     "allowlist": {
@@ -77,8 +77,7 @@
     "bundle": {
       "active": true,
       "targets": [
-        "msi",
-        "updater"
+        "msi"
       ],
       "identifier": "com.false",
       "longDescription": "GBFR Logs - DPS Meter for Granblue Fantasy: Relink",
@@ -106,7 +105,7 @@
       "iconAsTemplate": true
     },
     "updater": {
-      "active": true,
+      "active": false,
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERDQjZEMTgxOEY4OTIwNDcKUldSSElJbVBnZEcyM1BSUklxWWRsWStXYnVsWU1mODY3YzZCWCtTZzJrUGJsZHpNY1h1S3hhc2cK",
       "endpoints": [

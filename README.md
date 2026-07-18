@@ -19,11 +19,13 @@ Overlay DPS parser/meter for Granblue Fantasy: Relink, based initially on the re
 
 ### DPS Overlay
 
-![Meter](./docs/screenshots/meter.png)
+<img width="715" height="71" alt="meter" src="https://github.com/user-attachments/assets/89e2514c-9b46-4f68-a764-7ad7d4d9819b" />
+
 
 ### Skill Tracking (with skill grouping)
 
-![Meter](./docs/screenshots/skill-tracking.png)
+<img width="711" height="262" alt="skill-tracking" src="https://github.com/user-attachments/assets/b200e8e9-850d-448b-9c2e-0fd054c9509d" />
+
 
 ### Historical Logs (with filtering)
 
@@ -39,7 +41,11 @@ Overlay DPS parser/meter for Granblue Fantasy: Relink, based initially on the re
 
 ### Equipment Tracking
 
-![Equipment Loadouts](./docs/screenshots/equipment-tracking.png)
+<img width="593" height="698" alt="equipment-tracking" src="https://github.com/user-attachments/assets/7808f62d-efb4-42a3-8d30-a322f40a9462" />
+
+
+### Master Traits
+<img width="710" height="539" alt="master-traits" src="https://github.com/user-attachments/assets/c01f08e6-c8ef-433e-890b-20cd8685e590" />
 
 ### Multi-language Support
 

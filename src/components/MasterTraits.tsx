@@ -17,6 +17,12 @@ const CATEGORY_COLORS: Record<MasterTraitCategory, string> = {
   SB_LIMIT: "orange",
 };
 
+const RANK_REQUIREMENTS: Record<number, number> = {
+  1: 3,
+  2: 6,
+  3: 6,
+};
+
 const playerLabel = (player: PlayerData, showDisplayNames: boolean, translate: (key: string) => string) => {
   const character =
     typeof player.characterType === "string" ? translate(`characters:${player.characterType}`) : "Unknown";
@@ -47,13 +53,14 @@ const MasterTraitBuild = ({ player }: { player: PlayerData }) => {
       <SimpleGrid cols={{ base: 1, md: 3 }}>
         {MasterTraits.categories.map((category) => {
           const nodes = activeNodesForCategory(player, character, category);
-          const points = nodes.reduce((total, node) => total + node.points, 0);
           const style = character.styles[category];
-          const pips = [10, 20, 30].map((threshold) => points >= threshold);
+          const pips = [1, 2, 3].map(
+            (rank) => nodes.filter((node) => node.rank === rank).length >= RANK_REQUIREMENTS[rank]
+          );
           return (
             <Paper key={category} withBorder p="md">
               <Text size="xs" c="dimmed">
-                {CATEGORY_LABELS[category]} · {points} points
+                {CATEGORY_LABELS[category]}
               </Text>
               <Text fw={700}>{style?.name || CATEGORY_LABELS[category]}</Text>
               <Text size="xl" c={CATEGORY_COLORS[category]} aria-label={`${pips.filter(Boolean).length} active ranks`}>
@@ -68,7 +75,6 @@ const MasterTraitBuild = ({ player }: { player: PlayerData }) => {
         {MasterTraits.categories.map((category) => {
           const style = character.styles[category];
           const activeNodes = activeNodesForCategory(player, character, category);
-          const points = activeNodes.reduce((total, node) => total + node.points, 0);
           const allNodes = Object.values(character.nodes).filter((node) => node.category === category);
 
           return (
@@ -85,9 +91,11 @@ const MasterTraitBuild = ({ player }: { player: PlayerData }) => {
                     const nodes = allNodes
                       .filter((node) => node.rank === rank)
                       .sort((left, right) => left.nodeIndex - right.nodeIndex);
+                    const selectedCount = nodes.filter((node) => selected.has(node.id)).length;
                     const perk = style?.perks.find((candidate) => candidate.rank === rank);
                     if (!perk && nodes.length === 0) return null;
-                    const perkActive = perk ? points >= perk.pointsRequired : false;
+                    const required = RANK_REQUIREMENTS[rank];
+                    const perkActive = perk ? selectedCount >= required : false;
 
                     return (
                       <Box key={rank}>
@@ -97,7 +105,8 @@ const MasterTraitBuild = ({ player }: { player: PlayerData }) => {
                         {perk && (
                           <Paper withBorder p="sm" mb="xs" bg={perkActive ? "var(--mantine-color-dark-6)" : undefined}>
                             <Text size="xs" fw={700} c={perkActive ? CATEGORY_COLORS[category] : "dimmed"}>
-                              {perkActive ? "◆ Active" : "◇ Locked"} · {perk.pointsRequired} points
+                              {perkActive ? "◆ Active" : "◇ Locked"} · {selectedCount}/{nodes.length} selected ·{" "}
+                              {required} required
                             </Text>
                             <Text size="xs" c={perkActive ? undefined : "dimmed"} style={{ whiteSpace: "pre-line" }}>
                               {perk.description}
@@ -110,8 +119,7 @@ const MasterTraitBuild = ({ player }: { player: PlayerData }) => {
                             return (
                               <Paper key={node.id} withBorder p="sm" opacity={isActive ? 1 : 0.45}>
                                 <Text size="xs" fw={700} c={isActive ? CATEGORY_COLORS[category] : "dimmed"}>
-                                  {isActive ? "◆ Selected" : "◇ Not selected"} · +{node.points} point
-                                  {node.points === 1 ? "" : "s"}
+                                  {isActive ? "◆ Selected" : "◇ Not selected"}
                                 </Text>
                                 <Text size="xs" style={{ whiteSpace: "pre-line" }}>
                                   {node.description}

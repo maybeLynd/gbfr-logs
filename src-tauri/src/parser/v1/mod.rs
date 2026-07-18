@@ -117,6 +117,24 @@ fn resolve_id_transformation_parent(
     resolved
 }
 
+fn damage_cap_enabled_for_actor(players: &[Option<PlayerData>; 4], actor_index: u32) -> bool {
+    players.iter().enumerate().any(|(party_index, player)| {
+        player.as_ref().is_some_and(|player| {
+            player.actor_index == actor_index && (party_index == 0 || !player.is_online)
+        })
+    })
+}
+
+fn restrict_damage_cap_to_local_and_ai(
+    mut event: DamageEvent,
+    players: &[Option<PlayerData>; 4],
+) -> DamageEvent {
+    if !damage_cap_enabled_for_actor(players, event.source.parent_index) {
+        event.damage_cap = None;
+    }
+    event
+}
+
 pub struct AdjustedDamageInstance<'a> {
     pub event: &'a DamageEvent,
     pub player_data: Option<&'a PlayerData>,
@@ -290,6 +308,35 @@ struct Sigil {
     pub acquisition_count: u32,
     /// 0 is new sigil and shows a (!), 1 is nothing, 2 is notification was checked and removes the (!)
     pub notification_enum: u32,
+}
+
+fn sigil_from_protocol(sigil: protocol::Sigil) -> Sigil {
+    let mapped = master_traits::sigil_trait_ids(sigil.sigil_id);
+    let first_trait_id = mapped.map_or(sigil.first_trait_id, |traits| traits.0);
+    let second_trait_id = mapped.map_or(sigil.second_trait_id, |traits| traits.1);
+    let trait_level = |id, level| {
+        if id == 0 || id == 0x887A_E0B0 {
+            0
+        } else if (1..=15).contains(&level) {
+            level
+        } else if (1..=15).contains(&sigil.sigil_level) {
+            sigil.sigil_level
+        } else {
+            0
+        }
+    };
+
+    Sigil {
+        first_trait_id,
+        first_trait_level: trait_level(first_trait_id, sigil.first_trait_level),
+        second_trait_id,
+        second_trait_level: trait_level(second_trait_id, sigil.second_trait_level),
+        sigil_id: sigil.sigil_id,
+        equipped_character: sigil.equipped_character,
+        sigil_level: sigil.sigil_level,
+        acquisition_count: sigil.acquisition_count,
+        notification_enum: sigil.notification_enum,
+    }
 }
 
 /// Data for a player in the encounter
@@ -600,6 +647,12 @@ impl Parser {
     fn learn_crit_multipliers(&self) -> Vec<f64> {
         let damage_and_caps = self.encounter.event_log().filter_map(|(_, event)| {
             if let Message::DamageEvent(event) = event {
+                let event = resolve_id_transformation_parent(
+                    event,
+                    &self.encounter.player_data,
+                    &self.id_transformation_parents,
+                );
+                let event = restrict_damage_cap_to_local_and_ai(event, &self.encounter.player_data);
                 event.damage_cap.map(|cap| (event.damage, cap))
             } else {
                 None
@@ -624,10 +677,13 @@ impl Parser {
 
             match event {
                 Message::DamageEvent(event) => {
-                    let event = resolve_id_transformation_parent(
-                        event,
+                    let event = restrict_damage_cap_to_local_and_ai(
+                        resolve_id_transformation_parent(
+                            event,
+                            &self.encounter.player_data,
+                            &self.id_transformation_parents,
+                        ),
                         &self.encounter.player_data,
-                        &self.id_transformation_parents,
                     );
                     let player_data = self
                         .encounter
@@ -713,10 +769,13 @@ impl Parser {
 
             match event {
                 Message::DamageEvent(event) => {
-                    let event = resolve_id_transformation_parent(
-                        event,
+                    let event = restrict_damage_cap_to_local_and_ai(
+                        resolve_id_transformation_parent(
+                            event,
+                            &self.encounter.player_data,
+                            &self.id_transformation_parents,
+                        ),
                         &self.encounter.player_data,
-                        &self.id_transformation_parents,
                     );
                     // If the target list is empty, then we're not filtering by target.
                     // Otherwise, we only process damage events that match the target list.
@@ -977,10 +1036,13 @@ impl Parser {
             },
         );
 
-        let event = resolve_id_transformation_parent(
-            &event,
+        let event = restrict_damage_cap_to_local_and_ai(
+            resolve_id_transformation_parent(
+                &event,
+                &self.encounter.player_data,
+                &self.id_transformation_parents,
+            ),
             &self.encounter.player_data,
-            &self.id_transformation_parents,
         );
 
         self.encounter
@@ -1078,17 +1140,7 @@ impl Parser {
         let sigils: Vec<Sigil> = event
             .sigils
             .into_iter()
-            .map(|sigil| Sigil {
-                first_trait_id: sigil.first_trait_id,
-                first_trait_level: sigil.first_trait_level,
-                second_trait_id: sigil.second_trait_id,
-                second_trait_level: sigil.second_trait_level,
-                sigil_id: sigil.sigil_id,
-                equipped_character: sigil.equipped_character,
-                sigil_level: sigil.sigil_level,
-                acquisition_count: sigil.acquisition_count,
-                notification_enum: sigil.notification_enum,
-            })
+            .map(sigil_from_protocol)
             .collect::<Vec<_>>();
 
         let player_data = PlayerData {
@@ -1190,17 +1242,7 @@ impl Parser {
             .sigils
             .into_iter()
             .take(12)
-            .map(|sigil| Sigil {
-                first_trait_id: sigil.first_trait_id,
-                first_trait_level: sigil.first_trait_level,
-                second_trait_id: sigil.second_trait_id,
-                second_trait_level: sigil.second_trait_level,
-                sigil_id: sigil.sigil_id,
-                equipped_character: sigil.equipped_character,
-                sigil_level: sigil.sigil_level,
-                acquisition_count: sigil.acquisition_count,
-                notification_enum: sigil.notification_enum,
-            })
+            .map(sigil_from_protocol)
             .collect();
 
         let mut player_data = self
@@ -1557,6 +1599,21 @@ mod tests {
         }
     }
 
+    fn party_player(actor_index: u32, is_online: bool) -> PlayerData {
+        PlayerData {
+            actor_index,
+            display_name: format!("Player {actor_index}"),
+            character_name: "Maglielle".to_string(),
+            character_type: CharacterType::Pl2400,
+            sigils: Vec::new(),
+            is_online,
+            weapon_info: None,
+            overmastery_info: None,
+            player_stats: None,
+            master_traits: Vec::new(),
+        }
+    }
+
     fn id_transformation_damage(actor_index: u32, damage: i32) -> DamageEvent {
         let mut event = game_2_damage_event(actor_index, damage, None);
         event.source.actor_type = ID_TRANSFORMATION_ACTOR_TYPE;
@@ -1789,13 +1846,30 @@ mod tests {
     }
 
     #[test]
-    fn capped_hits_are_tracked_for_each_party_actor() {
+    fn live_damage_cap_is_limited_to_local_and_ai_actors() {
         let mut parser = Parser::default();
+        parser.encounter.player_data[0] = Some(party_player(10, true));
+        parser.encounter.player_data[1] = Some(party_player(11, true));
+        parser.encounter.player_data[2] = Some(party_player(12, false));
         parser.on_damage_event(game_2_damage_event(10, 99_999, Some(99_999)));
-        parser.on_damage_event(game_2_damage_event(11, 100, Some(99_999)));
+        parser.on_damage_event(game_2_damage_event(11, 99_999, Some(99_999)));
+        parser.on_damage_event(game_2_damage_event(12, 99_999, Some(99_999)));
+        parser.on_damage_event(game_2_damage_event(13, 99_999, Some(99_999)));
 
         assert_eq!(parser.derived_state.party[&10].capped_hits, 1);
         assert_eq!(parser.derived_state.party[&11].capped_hits, 0);
+        assert_eq!(parser.derived_state.party[&11].cap_known_hits, 0);
+        assert_eq!(parser.derived_state.party[&12].capped_hits, 1);
+        assert_eq!(parser.derived_state.party[&13].cap_known_hits, 0);
+        let remote_event = parser
+            .encounter
+            .event_log()
+            .find_map(|(_, message)| match message {
+                Message::DamageEvent(event) if event.source.parent_index == 11 => Some(event),
+                _ => None,
+            })
+            .unwrap();
+        assert_eq!(remote_event.damage_cap, None);
     }
 
     #[test]
@@ -1918,8 +1992,37 @@ mod tests {
     }
 
     #[test]
+    fn recovers_expansion_unique_sigil_traits_from_sigil_ids() {
+        for (sigil_id, first_trait_id, second_trait_id) in [
+            (1_325_520_586, 1_858_052_470, 4_057_324_496),
+            (596_983_764, 2_104_875_268, 3_191_080_121),
+            (1_513_492_136, 1_194_869_320, 813_117_847),
+            (2_395_713_699, 3_898_603_744, 2_238_888_111),
+            (3_457_603_211, 1_415_783_215, 1_159_561_548),
+            (3_634_652_401, 2_069_563_421, 2_597_196_811),
+        ] {
+            let recovered = sigil_from_protocol(protocol::Sigil {
+                first_trait_id: 0,
+                first_trait_level: 0,
+                second_trait_id: 0,
+                second_trait_level: 0,
+                sigil_id,
+                equipped_character: 0,
+                sigil_level: 15,
+                acquisition_count: 1,
+                notification_enum: 1,
+            });
+            assert_eq!(recovered.first_trait_id, first_trait_id);
+            assert_eq!(recovered.first_trait_level, 15);
+            assert_eq!(recovered.second_trait_id, second_trait_id);
+            assert_eq!(recovered.second_trait_level, 15);
+        }
+    }
+
+    #[test]
     fn capped_hits_are_aggregated_on_reparse() {
         let mut parser = Parser::default();
+        parser.encounter.player_data[0] = Some(party_player(1, true));
         parser.encounter.raw_event_log.push((
             1_000,
             Message::DamageEvent(game_2_damage_event(1, 99_999, Some(99_999))),
@@ -1940,8 +2043,29 @@ mod tests {
     }
 
     #[test]
+    fn saved_remote_caps_are_ignored_during_reparse() {
+        let mut parser = Parser::default();
+        parser.encounter.player_data[0] = Some(party_player(1, true));
+        parser.encounter.player_data[1] = Some(party_player(2, true));
+        parser.encounter.player_data[2] = Some(party_player(3, false));
+        for actor_index in 1..=3 {
+            parser.encounter.raw_event_log.push((
+                actor_index as i64 * 1_000,
+                Message::DamageEvent(game_2_damage_event(actor_index, 99_999, Some(99_999))),
+            ));
+        }
+
+        parser.reparse();
+
+        assert_eq!(parser.derived_state.party[&1].cap_known_hits, 1);
+        assert_eq!(parser.derived_state.party[&2].cap_known_hits, 0);
+        assert_eq!(parser.derived_state.party[&3].cap_known_hits, 1);
+    }
+
+    #[test]
     fn unavailable_remote_cap_is_not_reported_as_zero_percent() {
         let mut parser = Parser::default();
+        parser.encounter.player_data[1] = Some(party_player(12, true));
         parser.on_damage_event(game_2_damage_event(
             12,
             cap_detection::UNAVAILABLE_DAMAGE_CAP - 1,

@@ -183,9 +183,9 @@ impl OnProcessDamageHook {
         let target_type_id: u32 = actor_type_id(target_specified_instance_ptr as *const usize);
         let target_idx = actor_idx(target_specified_instance_ptr as *const usize);
 
-        let damage_cap = (damage_instance.damage_cap > 0
-            && damage_instance.damage_cap < UNAVAILABLE_DAMAGE_CAP)
-            .then_some(damage_instance.damage_cap);
+        let damage_cap = super::player::damage_cap_enabled_for_actor(identity_actor)
+            .then(|| damage_instance.damage_cap)
+            .filter(|damage_cap| *damage_cap > 0 && *damage_cap < UNAVAILABLE_DAMAGE_CAP);
         let stun_value = stun_value_for_event(&action_type, damage_instance.stun_value);
 
         let event = Message::DamageEvent(DamageEvent {

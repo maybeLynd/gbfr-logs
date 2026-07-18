@@ -143,6 +143,10 @@ fn sigil_traits() -> &'static HashMap<u32, (u32, u32)> {
     })
 }
 
+pub(super) fn sigil_trait_ids(sigil_id: u32) -> Option<(u32, u32)> {
+    sigil_traits().get(&sigil_id).copied()
+}
+
 fn weapon_experience() -> &'static [u32] {
     WEAPON_EXPERIENCE.get_or_init(|| {
         serde_json::from_str::<WeaponDataAsset>(include_str!("../../../assets/weapon-data.json"))

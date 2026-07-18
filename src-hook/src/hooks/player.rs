@@ -263,6 +263,20 @@ fn should_cache_identity(identity: &StoredPlayerIdentity) -> bool {
     identity.party_index == 0 || identity.is_online
 }
 
+fn damage_cap_enabled(party_index: Option<u8>, is_ai_controlled: Option<bool>) -> bool {
+    party_index
+        .zip(is_ai_controlled)
+        .is_some_and(|(party_index, is_ai_controlled)| party_index == 0 || is_ai_controlled)
+}
+
+pub fn damage_cap_enabled_for_actor(actor: *const usize) -> bool {
+    if actor.is_null() {
+        return false;
+    }
+
+    damage_cap_enabled(read_actor_party_index(actor), is_ai_controlled_actor(actor))
+}
+
 pub fn identity_event_for_actor(
     actor: *const usize,
     character_type: u32,
@@ -675,13 +689,7 @@ unsafe fn read_sigils(snapshot: *const u8) -> Option<Vec<Sigil>> {
 }
 
 fn valid_sigil_values(values: &[u32; 9]) -> bool {
-    values[0] != 0
-        && values[0] != INVALID_PLAYER_KEY
-        && (1..=15).contains(&values[1])
-        && (values[2] == 0 || values[2] == INVALID_PLAYER_KEY || (1..=15).contains(&values[3]))
-        && (1..=15).contains(&values[6])
-        && values[7] <= 1_000_000
-        && values[8] <= 2
+    (1..=15).contains(&values[6]) && values[7] <= 1_000_000 && values[8] <= 2
 }
 
 unsafe fn read_vbuffer(buffer: *const u8) -> Option<CString> {
@@ -712,10 +720,11 @@ mod tests {
     use std::ffi::CString;
 
     use super::{
-        read_vbuffer, resolve_identity, selected_master_trait_nodes, should_cache_identity,
-        IdentityStore, StoredPlayerIdentity, ACTOR_AI_CONTROLLED_OFFSET, ACTOR_OVERMASTERY_OFFSET,
-        ACTOR_PARTY_INDEX_OFFSET, ACTOR_PLAYER_KEY_OFFSET, ACTOR_PLAYER_STATS_OFFSET,
-        ACTOR_WEAPON_INFO_OFFSET, INVALID_PLAYER_KEY,
+        damage_cap_enabled, read_vbuffer, resolve_identity, selected_master_trait_nodes,
+        should_cache_identity, valid_sigil_values, IdentityStore, StoredPlayerIdentity,
+        ACTOR_AI_CONTROLLED_OFFSET, ACTOR_OVERMASTERY_OFFSET, ACTOR_PARTY_INDEX_OFFSET,
+        ACTOR_PLAYER_KEY_OFFSET, ACTOR_PLAYER_STATS_OFFSET, ACTOR_WEAPON_INFO_OFFSET,
+        INVALID_PLAYER_KEY,
     };
 
     fn identity(
@@ -783,6 +792,16 @@ mod tests {
             1,
             true
         )));
+    }
+
+    #[test]
+    fn damage_cap_is_limited_to_local_and_ai_actors() {
+        assert!(damage_cap_enabled(Some(0), Some(false)));
+        assert!(damage_cap_enabled(Some(0), Some(true)));
+        assert!(damage_cap_enabled(Some(1), Some(true)));
+        assert!(!damage_cap_enabled(Some(1), Some(false)));
+        assert!(!damage_cap_enabled(None, Some(true)));
+        assert!(!damage_cap_enabled(Some(0), None));
     }
 
     #[test]
@@ -930,5 +949,31 @@ mod tests {
             selected_master_trait_nodes(&data, &effects),
             vec![0x1000, 0x3000]
         );
+    }
+
+    #[test]
+    fn accepts_remote_sigils_with_missing_trait_metadata() {
+        assert!(valid_sigil_values(&[
+            0,
+            0,
+            INVALID_PLAYER_KEY,
+            0,
+            1_513_492_136,
+            0,
+            15,
+            42,
+            2,
+        ]));
+        assert!(!valid_sigil_values(&[
+            0,
+            0,
+            0,
+            0,
+            1_513_492_136,
+            0,
+            0,
+            42,
+            2,
+        ]));
     }
 }

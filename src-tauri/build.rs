@@ -28,7 +28,17 @@ fn main() {
     }
     let sigil_traits = fs::read_to_string("assets/sigil-traits.json")
         .expect("Could not read bundled game 2.0 sigil trait resource");
-    for sigil_id in ["3760801040", "1862062726", "1225749252", "3634652401"] {
+    for sigil_id in [
+        "1325520586",
+        "596983764",
+        "1513492136",
+        "2395713699",
+        "3457603211",
+        "3634652401",
+        "3760801040",
+        "1862062726",
+        "1225749252",
+    ] {
         assert!(
             sigil_traits.contains(&format!("\"sigilId\":{sigil_id}")),
             "Bundled sigil traits are missing game 2.0 sigil {sigil_id}"
